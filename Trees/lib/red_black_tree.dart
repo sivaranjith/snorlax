@@ -4,8 +4,10 @@ class RedBlackTreeNode extends BinarySearchTreeNode {
   var color;
 }
 
-class RedBlackTree {
+class RedBlackTree extends BinarySearchTree{
   RedBlackTreeNode root;
+  final static String RED = "red";
+  final static String BLACK = "black";
 
   void leftRotate(RedBlackTreeNode x) {
     RedBlackTreeNode y = x.right;
@@ -37,5 +39,18 @@ class RedBlackTree {
     }
     y.right = x;
     x.parent = y;
+  }
+
+  @Override
+  void insert(BinarySearchTreeNode toInsert) {
+    super(toInsert);
+    toInsert.left = null;
+    toInsert.right = null;
+    (RedBlackTreeNode)toInsert.color = RED;
+    insertFixup(toInsert);
+  }
+
+  void insertFixUp(RedBlackTreeNode toInsert) {
+    //TODO
   }
 }
