@@ -1,7 +1,7 @@
+import 'binary_search_tree.dart';
 //NOTE: initial skeleton. Not verified and not even sure if this is correct
-class RedBlackTreeNode {
-  var data;
-  RedBlackTreeNode left, right, parent;
+class RedBlackTreeNode extends BinarySearchTreeNode {
+  var color;
 }
 
 class RedBlackTree {
