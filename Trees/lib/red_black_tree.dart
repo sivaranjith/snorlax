@@ -2,12 +2,21 @@ import 'binary_search_tree.dart';
 //NOTE: initial skeleton. Not verified and not even sure if this is correct
 class RedBlackTreeNode extends BinarySearchTreeNode {
   var color;
+
+  RedBlackTreeNode(var color, var key, RedBlackTreeNode left,
+     RedBlackTreeNode right, RedBlackTreeNode parent) : super(key, left, right, parent) {
+    this.color = color;
+  }
 }
 
 class RedBlackTree extends BinarySearchTree{
   RedBlackTreeNode root;
-  final static String RED = "red";
-  final static String BLACK = "black";
+  static final String RED = "red";
+  static final String BLACK = "black";
+
+  RedBlackTree(RedBlackTreeNode root) : super(root){
+    this.root = root;
+  }
 
   void leftRotate(RedBlackTreeNode x) {
     RedBlackTreeNode y = x.right;
@@ -41,16 +50,15 @@ class RedBlackTree extends BinarySearchTree{
     x.parent = y;
   }
 
-  @Override
-  void insert(BinarySearchTreeNode toInsert) {
-    super(toInsert);
+  void insert(RedBlackTreeNode toInsert) {
+    super.insert(toInsert);
     toInsert.left = null;
     toInsert.right = null;
-    (RedBlackTreeNode)toInsert.color = RED;
-    insertFixup(toInsert);
+    toInsert.color = RED;
+    insertFixUp(toInsert);
   }
 
   void insertFixUp(RedBlackTreeNode toInsert) {
-    //TODO
+    //TODOps
   }
 }
