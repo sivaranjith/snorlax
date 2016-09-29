@@ -1,17 +1,6 @@
-class BinarySearchTreeNode {
-  var key;
-  BinarySearchTreeNode left, right, parent;
+import 'abstract_binary_search_tree.dart';
 
-  BinarySearchTreeNode(var key, BinarySearchTreeNode left,
-    BinarySearchTreeNode right, BinarySearchTreeNode parent) {
-    this.key = key;
-    this.left = left;
-    this.right = right;
-    this.parent = parent;
-  }
-}
-
-class BinarySearchTree {
+class BinarySearchTree extends AbstractBinarySearchTree{
   BinarySearchTreeNode root;
 
   BinarySearchTree(BinarySearchTreeNode root) {

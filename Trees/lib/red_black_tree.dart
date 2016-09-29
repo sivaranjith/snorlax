@@ -1,4 +1,5 @@
-import 'binary_search_tree.dart';
+import 'abstract_binary_search_tree.dart';
+
 //NOTE: initial skeleton. Not verified and not even sure if this is correct
 class RedBlackTreeNode extends BinarySearchTreeNode {
   var color;
@@ -9,12 +10,12 @@ class RedBlackTreeNode extends BinarySearchTreeNode {
   }
 }
 
-class RedBlackTree extends BinarySearchTree{
+class RedBlackTree extends AbstractBinarySearchTree{
   RedBlackTreeNode root;
   static final String RED = "red";
   static final String BLACK = "black";
 
-  RedBlackTree(RedBlackTreeNode root) : super(root){
+  RedBlackTree(RedBlackTreeNode root) {
     this.root = root;
   }
 
@@ -51,7 +52,6 @@ class RedBlackTree extends BinarySearchTree{
   }
 
   void insert(RedBlackTreeNode toInsert) {
-    super.insert(toInsert);
     toInsert.left = null;
     toInsert.right = null;
     toInsert.color = RED;
