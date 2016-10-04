@@ -1,10 +1,10 @@
 #include<stdio.h>
-#include"binaryTree.h"
+#include"binarySearchTree.h"
 
 int main()
 {
-	int priVal,secVal,choice;
-	struct biNode *root = NULL;
+	int priVal,choice;
+	struct biSearchNode *root = NULL;
 	while(1)
 	{
 		printf("\n1.Insert a number\n2.Search for a number\n3.Delete a number\n4.Print\n5.Exit:");
@@ -13,13 +13,11 @@ int main()
 		{
 			case 1: printf("\nEnter the number: ");
 				scanf(" %d",&priVal);
-				printf("\nEnter the search value: ");
-				scanf(" %d",&secVal);
-				insertToBinaryTree(&root,priVal,secVal);
+				insertToBinarySearchTree(&root,priVal);
 				break;
 			case 2: printf("\nEnter the number: ");
 				scanf(" %d",&priVal);
-				if(searchInBinaryTree(root,priVal) == NULL)
+				if(searchInBinarySearchTree(root,priVal) == NULL)
 				{
 					printf("\nMiss\n");
 				}
@@ -30,9 +28,9 @@ int main()
 				break;
 			case 3: printf("\nEnter the number: ");
 				scanf(" %d",&priVal);
-				deleteFromBinaryTree(&root,priVal);
+				deleteFromBinarySearchTree(&root,priVal);
 				break;
-			case 4: printBinaryTree(root);
+			case 4: printBinarySearchTree(root);
 				break;
 			case 5: printf("Good bye..\n\n");
 				return;
