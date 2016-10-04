@@ -40,7 +40,7 @@ void insertToBinaryTree(struct biNode **root,int priVal,int secVal)
 }
 struct biNode* searchInBinaryTree(struct biNode *root,int secVal)
 {
-	struct biNode *itr = root,*temp;
+	struct biNode *itr = root,*temp = NULL;
 	if(itr == NULL)
 	{
 		return NULL;
@@ -52,20 +52,12 @@ struct biNode* searchInBinaryTree(struct biNode *root,int secVal)
 	if(itr->left != NULL)
 	{
 		temp = searchInBinaryTree(itr->left,secVal);
-		if(temp != NULL)
-		{
-			return temp;
-		}
 	}
-	if(itr->right != NULL)
+	if(temp == NULL && itr->right != NULL)
 	{
 		temp = searchInBinaryTree(itr->right,secVal);
-		if(temp != NULL)
-		{
-			return temp;
-		}
 	}
-	return NULL;
+	return temp;
 }
 void printBinaryTree(struct biNode *root)
 {
@@ -83,30 +75,39 @@ void printBinaryTree(struct biNode *root)
 		printBinaryTree(root->right);
 	}
 }
+
 void deleteFromBinaryTree(struct biNode **root,int priVal)
 {
 	struct biNode *temp = searchInBinaryTree(*root,priVal);
+	struct biNode **tempRef;
 	if(temp == NULL)
 	{
 		return;
 	}
-	if(temp->left == NULL && temp->right == NULL)
+
+	tempRef = &temp;
+
+	if(temp->left == NULL)
 	{
-		if(temp->parent == NULL)
+		*tempRef = (*tempRef)->right;
+	}
+	else if(temp->right == NULL)
+	{
+		*tempRef = (*tempRef)->left;	
+	}
+	else
+	{
+		//replacing the node with it's in-order predecessor
+		struct biNode *tempPred = temp->left;
+		while(tempPred->right != NULL)
 		{
-			*root = NULL;
+			tempPred = tempPred->right;
 		}
-		free(temp);
+		temp->val = tempPred->val;
+		deleteFromBinaryTree(root,temp->val);
+		return;
 	}
-	else if(temp->right != NULL)
-	{
-		/*struct biNode *tempItr = temp;
-		while(tempItr != NULL)
-		{
-			tempItr->parent->right = tempItr->right;
-			tempItr->right->parent = tempItr->parent;
-		}*/
-	}
+	free(temp);
 }
 int main()
 {
@@ -137,7 +138,7 @@ int main()
 				break;
 			case 3: printf("\nEnter the number: ");
 				scanf(" %d",&priVal);
-//				deleteFromBinaryTree(priVal);
+				deleteFromBinaryTree(&root,priVal);
 				break;
 			case 4: printBinaryTree(root);
 				break;
