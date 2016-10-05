@@ -125,7 +125,7 @@ struct biSearchNode* deleteFromBinarySearchTree(struct biSearchNode **root,int p
 		else
 		{
 			//replacing with the predecessor
-			temp = *root->left;
+			temp = (*root)->left;
 			while(temp->right != NULL)
 			{
 				temp = temp->right;
