@@ -90,6 +90,7 @@ void printBinarySearchTree(struct biSearchNode *root)
 
 struct biSearchNode* deleteFromBinarySearchTree(struct biSearchNode **root,int priVal)
 {
+	struct biSearchNode *freePt;
 	if(*root == NULL)
 	{
 		return NULL;
@@ -112,7 +113,7 @@ struct biSearchNode* deleteFromBinarySearchTree(struct biSearchNode **root,int p
 		else if((*root)->left == NULL)
 		{
 			temp = (*root)->right;
-			temp->parent = (*root)->parent;
+			temp->parent = (*root)->parent;			
 		}
 		else if((*root)->right == NULL)
 		{
@@ -143,7 +144,12 @@ struct biSearchNode* deleteFromBinarySearchTree(struct biSearchNode **root,int p
 			free(temp);
 			return (*root);
 		}
-		free(*root);
+		freePt = *root;
+		if(temp->parent == NULL)
+		{
+			*root = temp;
+		}
+		free(freePt);
 		return temp;
 	}
 	return *root;
