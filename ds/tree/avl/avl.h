@@ -219,7 +219,7 @@ void printAVLTree(struct avlNode *root)
 
 struct avlNode* deleteFromBSTTree(struct avlNode **root,int priVal)
 {
-	struct avlNode *freePt;
+	struct avlNode *freePt = NULL;
 	if(*root == NULL)
 	{
 		return NULL;
@@ -269,17 +269,20 @@ struct avlNode* deleteFromBSTTree(struct avlNode **root,int priVal)
 				temp->parent->left = temp->left;
 			}
 			if(temp->left != NULL)
-                        {
-                                temp->left->parent = temp->parent;
-                        }
+            {
+                temp->left->parent = temp->parent;
+            }
 			freePt = temp;
 			temp = *root;
 		}
-		if(temp->parent == NULL)
+		if(freePt != NULL)
 		{
-			*root = temp;
+			if(temp->parent == NULL)
+			{
+				*root = temp;
+			}
+			free(freePt);
 		}
-		free(freePt);
 		return temp;
 	}
 	return *root;
