@@ -114,16 +114,18 @@ struct biSearchNode* deleteFromBinarySearchTree(struct biSearchNode **root,int p
 		{
 			temp = (*root)->right;
 			temp->parent = (*root)->parent;			
+			freePt = *root;
 		}
 		else if((*root)->right == NULL)
 		{
 			temp = (*root)->left;
 			temp->parent = (*root)->parent;
+			freePt = *root;
 		}
 		else
 		{
 			//replacing with the predecessor
-			temp = (*root)->left;
+			temp = *root->left;
 			while(temp->right != NULL)
 			{
 				temp = temp->right;
@@ -141,10 +143,9 @@ struct biSearchNode* deleteFromBinarySearchTree(struct biSearchNode **root,int p
                         {
                                 temp->left->parent = temp->parent;
                         }
-			free(temp);
-			return (*root);
+			freePt = temp;
+			temp = *root;
 		}
-		freePt = *root;
 		if(temp->parent == NULL)
 		{
 			*root = temp;
