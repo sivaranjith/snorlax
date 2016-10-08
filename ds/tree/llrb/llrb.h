@@ -316,6 +316,7 @@ struct llrbNode* deleteFromBSTTree(struct llrbNode **root,int priVal)
 		{
 			temp = (*root)->left;
 			temp->parent = (*root)->parent;
+			temp->isRed = false;
 			freePt = *root;
 		}
 		else
