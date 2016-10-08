@@ -1,5 +1,8 @@
 package algorithms;
 
+import structures.Graph;
+import structures.Queue;
+
 public class BFS {
     private Queue q;
     private HashMap<int, boolean> visited = new HashMap<int, boolean>();
