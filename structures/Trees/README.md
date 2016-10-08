@@ -1,1 +1,1 @@
-Implementation of a few types of trees referred from Corment et. al.
+Implementation of a few types of trees referred from Cormen et. al.
