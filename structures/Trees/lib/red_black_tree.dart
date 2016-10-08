@@ -18,16 +18,16 @@ class RedBlackTreeNode extends BinarySearchTreeNode {
     return nil;
   }
 
-  public bool isNil() {
+  bool isNil() {
     return this.color == RedBlackTreeNode.BLACK && this.key == null &&
                             this.left == null && this.right == null;
   }
 
-  public bool isRed() {
+  bool isRed() {
     return this.color == RED;
   }
 
-  public bool isBlack() {
+  bool isBlack() {
     return this.color == BLACK;
   }
 }

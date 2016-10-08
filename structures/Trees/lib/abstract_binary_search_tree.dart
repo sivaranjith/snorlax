@@ -10,7 +10,7 @@ class BinarySearchTreeNode {
     this.parent = parent;
   }
 
-  public bool isNil() {
+  bool isNil() {
     return this.left == null && this.right == null && this.key == null;
   }
 }
@@ -81,34 +81,34 @@ abstract class AbstractBinarySearchTree {
     inOrderWalk();
   }
 
-  var search(var key) {
-    if (this.root.isNil() || this.key == key) {
+  search(var key) {
+    if (this.root.isNil() || this.root.key == key) {
       return this.root;
     }
-    if (k < this.key) {
+    if (key < this.root.key) {
       return this.root.left.search(key);
     } else {
       return this.root.right.search(key);
     }
   }
 
-  var min() {
+  min() {
     if (!this.root.left.isNil()) {
       return this.root.left.min();
     }
     return this.root;
   }
 
-  var max() {
+  max() {
     if (!this.root.right.isNil()) {
       return this.root.right.max();
     }
     return this.root;
   }
 
-  static var successor(BinarySearchTreeNode x) {
+  static successor(BinarySearchTreeNode x) {
     if (!x.right.isNil()) {
-      return x.right.min();s
+      return x.right.min();
     }
     var y = x.parent;
     while (!y.isNil() && x == y.right) {
