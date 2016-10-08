@@ -22,6 +22,14 @@ class RedBlackTreeNode extends BinarySearchTreeNode {
     return node.color == RedBlackTreeNode.BLACK && node.key == null &&
                             node.left == null && node.right == null && node.parent == null;
   }
+
+  static bool isRed(RedBlackTreeNode node) {
+    return node.color == RED;
+  }
+
+  static bool isBlack(RedBlackTreeNode node) {
+    return node.color == BLACK;
+  }
 }
 
 class RedBlackTree extends AbstractBinarySearchTree{
@@ -76,6 +84,37 @@ class RedBlackTree extends AbstractBinarySearchTree{
   }
 
   void insertFixUp(RedBlackTreeNode toInsert) {
-    //TODO
+    while(toInsert.parent == this.root || toInsert.parent.isRed()) {
+      if (toInsert.parent == toInsert.parent.parent.right) {
+        y = toInsert.parent.parent.right; //uncle
+        if (y.isRed()) {
+          toInsert.parent.color = RedBlackTreeNode.BLACK;
+          y.color = RedBlackTreeNode.BLACK;
+          toInsert.parent.parent.color = RedBlackTreeNode.RED;
+          toInsert = toInsert.parent.parent;
+        } else if (toInsert == toInsert.parent.right) {
+          toInsert = toInsert.parent;
+          leftRotate(toInsert);
+          toInsert.parent.color = RedBlackTreeNode.RED;
+          toInsert.parent.parent.color = RedBlackTreeNode.BLACK;
+          rightRotate(toInsert.parent.parent);
+        }
+      } else {
+        y = toInsert.parent.parent.left;
+        if (y.isRed()) {
+          toInsert.parent.color = RedBlackTreeNode.BLACK;
+          y.color = RedBlackTreeNode.BLACK;
+          toInsert.parent.parent.color = RedBlackTreeNode.RED;
+          toInsert = toInsert.parent.parent;
+        } else if (toInsert == toInsert.parent.left) {
+          toInsert = toInsert.parent;
+          rightRotate(toInsert);
+          toInsert.parent.color = RedBlackTreeNode.RED;
+          toInsert.parent.parent.color = RedBlackTreeNode.BLACK;
+          leftRotate(toInsert.parent.parent);
+        }
+      }
+    }
+    root.color = RedBlackTreeNode.BLACK;
   }
 }
