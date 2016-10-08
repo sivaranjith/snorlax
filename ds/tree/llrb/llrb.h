@@ -14,13 +14,11 @@ void rootCorrector(struct llrbNode **root)
 {
 	while((*root)->parent != NULL)
 	{
-		printf("11::%p %p\n",*root,(*root)->parent);
 		*root = (*root)->parent;
 		if(*root == (*root)->parent)
 		{
 			(*root)->parent = NULL;
 		}
-		printf("22::%p %p\n",*root,(*root)->parent);
 	}
 }
 
@@ -177,16 +175,12 @@ void rotateTree(struct llrbNode **root)
 			}
 		}
 	}
-	printf("what %d\n",isChanged);
 	if(isChanged && (*root)->parent != NULL)
 	{
 		rotateTree(&(*root)->parent);
 	}
 	else
 	{
-		int i;
-		printf("%p %p %p\n",*root,(*root)->left,(*root)->right);
-		// scanf(" %d",&i);
 		if((*root)->left != NULL)
 		{
 			rotateTree(&(*root)->left);
