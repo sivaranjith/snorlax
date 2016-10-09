@@ -10,7 +10,7 @@ struct llrbNode
 	boolean isRed;
 };
 
-/*void rootCorrector(struct llrbNode **root)
+void rootCorrector(struct llrbNode **root)
 {
 	while((*root)->parent != NULL)
 	{
@@ -21,7 +21,7 @@ struct llrbNode
 		}
 	}
 }
-*/
+
 void rotateRight(struct llrbNode *temp)
 {
 	struct llrbNode *temp1 = temp->left,*temp2 = temp->left->right;
@@ -175,7 +175,7 @@ void rotateTree(struct llrbNode **root)
 			}
 		}
 	}
-	/*if(isChanged && (*root)->parent != NULL)
+	if(isChanged && (*root)->parent != NULL)
 	{
 		rotateTree(&(*root)->parent);
 	}
@@ -189,7 +189,8 @@ void rotateTree(struct llrbNode **root)
 		{
 			rotateTree(&(*root)->right);
 		}
-	}*/
+	}
+	return;
 }
 
 struct llrbNode* searchInLLRBTree(struct llrbNode *root,int secVal)
@@ -212,36 +213,32 @@ struct llrbNode* searchInLLRBTree(struct llrbNode *root,int secVal)
 	}
 }
 
-struct llrbNode* llrbInserter(struct llrbNode **root,struct llrbNode *insertNode)
+struct llrbNode* llrbInserter(struct llrbNode *root,struct llrbNode *insertNode)
 {
-	if((*root)->val < insertNode->val)
+	if(root->val < insertNode->val)
 	{
-		if((*root)->right == NULL)
+		if(root->right == NULL)
 		{
-			(*root)->right = insertNode;
-			insertNode->parent = (*root);
+			root->right = insertNode;
+			insertNode->parent = root;
 			return insertNode;
 		}
 		else
 		{
-			llrbInserter(&(*root)->right,insertNode);
-			rotateTree(root);
-			return *root;
+			return llrbInserter(root->right,insertNode);
 		}
 	}
-	else if((*root)->val > insertNode->val)
+	else if(root->val > insertNode->val)
 	{
-		if((*root)->left == NULL)
+		if(root->left == NULL)
 		{
-			(*root)->left = insertNode;
-			insertNode->parent = (*root);
+			root->left = insertNode;
+			insertNode->parent = root;
 			return insertNode;
 		}
 		else
 		{
-			llrbInserter(&(*root)->left,insertNode);
-			rotateTree(root);
-			return *root;
+			return llrbInserter(root->left,insertNode);
 		}
 	}
 	return NULL;
@@ -259,15 +256,15 @@ void insertToLLRBTree(struct llrbNode **root,int priVal)
             insertNode->isRed = false;
             return;
     }
-    if(llrbInserter(root,insertNode) == NULL)
+    if(llrbInserter(*root,insertNode) == NULL)
     {
             free(insertNode);
     }
-	/*else
+	else
 	{
 		rotateTree(root);
 		rootCorrector(root);
-	}*/
+	}
 }
 
 void printLLRBTree(struct llrbNode *root)
@@ -297,12 +294,10 @@ struct llrbNode* deleteFromBSTTree(struct llrbNode **root,int priVal)
 	else if((*root)->val < priVal)
 	{
 		(*root)->right = deleteFromBSTTree(&(*root)->right,priVal);
-		rotateTree(root);
 	}
 	else if((*root)->val > priVal)
 	{
 		(*root)->left = deleteFromBSTTree(&(*root)->left,priVal);
-		rotateTree(root);
 	}
 	else
 	{
@@ -364,6 +359,6 @@ struct llrbNode* deleteFromBSTTree(struct llrbNode **root,int priVal)
 struct llrbNode* deleteFromLLRBTree(struct llrbNode **root,int priVal)
 {
 	deleteFromBSTTree(root,priVal);
-	// rotateTree(root);
-	// rootCorrector(root);
+	rotateTree(root);
+	rootCorrector(root);
 }
