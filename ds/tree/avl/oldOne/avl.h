@@ -72,17 +72,19 @@ int height(struct avlNode* temp)
 void rotateTree(struct avlNode **root)
 {
 	struct avlNode *temp = *root;
-	int diff=0;
+	int leftHeight=0,rightHeight=0;
 	if(temp == NULL)
 	{
 		return;
 	}
-	diff = height(temp->right) - height(temp->left);
-	if( diff < -1 )
+	rightHeight = height(temp->right);
+	leftHeight = height(temp->left);
+	if( rightHeight - leftHeight < -1 )
 	{
-		/*int diff = height(temp->left->right) - height(temp->left->left);
+		int diff = height(temp->left->right) - height(temp->left->left);
 		if(diff < -1 || diff > 1)
 		{
+			rotateTree(&temp->left);
 			return;
 		}
 		else if(diff == 1)
@@ -93,14 +95,14 @@ void rotateTree(struct avlNode **root)
 		else
 		{
 			rotateRight(temp);
-		}*/
-		rotateRight(temp);
+		}
 	}
-	else if( diff > 1 )
+	else if( rightHeight - leftHeight > 1 )
 	{
-		/*int diff = height(temp->right->right) - height(temp->right->left);
+		int diff = height(temp->right->right) - height(temp->right->left);
 		if(diff < -1 || diff > 1)
 		{
+			rotateTree(&temp->right);
 			return;
 		}
 		else if(diff == -1)
@@ -111,11 +113,12 @@ void rotateTree(struct avlNode **root)
 		else
 		{
 			rotateLeft(temp);
-		}*/
-		rotateLeft(temp);
+		}
 	}
 	else
 	{
+		rotateTree(&(*root)->left);
+		rotateTree(&(*root)->right);
 		return;
 	}
 
@@ -123,6 +126,7 @@ void rotateTree(struct avlNode **root)
 	{
 		*root = temp->parent;
 	}
+	rotateTree(&temp->parent);
 }
 
 struct avlNode* searchInAVLTree(struct avlNode *root,int secVal)
@@ -145,36 +149,32 @@ struct avlNode* searchInAVLTree(struct avlNode *root,int secVal)
 	}
 }
 
-struct avlNode* avlInserter(struct avlNode **root,struct avlNode *insertNode)
+struct avlNode* avlInserter(struct avlNode *root,struct avlNode *insertNode)
 {
-	if((*root)->val < insertNode->val)
+	if(root->val < insertNode->val)
 	{
-		if((*root)->right == NULL)
+		if(root->right == NULL)
 		{
-			(*root)->right = insertNode;
-			insertNode->parent = (*root);
+			root->right = insertNode;
+			insertNode->parent = root;
 			return insertNode;
 		}
 		else
 		{
-			avlInserter(&(*root)->right,insertNode);
-			rotateTree(root);
-			return (*root);
+			return avlInserter(root->right,insertNode);
 		}
 	}
-	else if((*root)->val > insertNode->val)
+	else if(root->val > insertNode->val)
 	{
-		if((*root)->left == NULL)
+		if(root->left == NULL)
 		{
-			(*root)->left = insertNode;
-			insertNode->parent = (*root);
+			root->left = insertNode;
+			insertNode->parent = root;
 			return insertNode;
 		}
 		else
 		{
-			avlInserter(&(*root)->left,insertNode);
-			rotateTree(root);
-			return (*root);
+			return avlInserter(root->left,insertNode);
 		}
 	}
 	return NULL;
@@ -190,14 +190,14 @@ void insertToAVLTree(struct avlNode **root,int priVal)
                 *root = insertNode;
                 return;
         }
-        if(avlInserter(root,insertNode) == NULL)
+        if(avlInserter(*root,insertNode) == NULL)
         {
                 free(insertNode);
         }
-	/*else
+	else
 	{
 		rotateTree(root);
-	}*/
+	}
 }
 
 void printAVLTree(struct avlNode *root)
@@ -227,12 +227,10 @@ struct avlNode* deleteFromBSTTree(struct avlNode **root,int priVal)
 	else if((*root)->val < priVal)
 	{
 		(*root)->right = deleteFromBSTTree(&(*root)->right,priVal);
-		rotateTree(root);
 	}
 	else if((*root)->val > priVal)
 	{
 		(*root)->left = deleteFromBSTTree(&(*root)->left,priVal);
-		rotateTree(root);
 	}
 	else
 	{
@@ -293,4 +291,5 @@ struct avlNode* deleteFromBSTTree(struct avlNode **root,int priVal)
 struct avlNode* deleteFromAVLTree(struct avlNode **root,int priVal)
 {
 	deleteFromBSTTree(root,priVal);
+	rotateTree(root);
 }
