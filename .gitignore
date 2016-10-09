@@ -27,5 +27,5 @@ doc/api/
 pubspec.lock
 
 .atom
-.class
+*.class
 .idea
