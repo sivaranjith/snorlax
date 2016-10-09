@@ -1,13 +1,17 @@
 package structures;
 
 import java.util.List;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.LinkedList;
 
 public class Graph {
   Graph() {
-    this.edges = new LinkedHashMap<List<Integer>>();
+    this.edges = new LinkedHashMap<Integer, List<Integer>>();
   }
 
-  private Map<List<Integer>> edges;
+  private Map<Integer, List<Integer>> edges;
 
   public void addEdge(int u, int v) {
     if (this.edges.containsKey(u)) {

@@ -3,9 +3,11 @@ package algorithms;
 import structures.Graph;
 import structures.Queue;
 
+import java.util.HashMap;
+
 public class BFS {
     private Queue q;
-    private HashMap<int, boolean> visited = new HashMap<int, boolean>();
+    private HashMap<Integer, Boolean> visited = new HashMap<Integer, Boolean>();
 
     public void bfs(Graph g, int u) {
         q = new Queue();
