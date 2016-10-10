@@ -9,7 +9,7 @@ struct bPlusNode
 	{
 		int* val;
 		int size;
-		struct bPlusNode *parent,**child;
+		struct bPlusDataNode *parent,**child;
 	}*dataRoot;
 	int nodeSize;
 };
@@ -36,76 +36,51 @@ struct bPlusNode* createBPlusNode(int bPlusNodeSize)
 	return temp;
 }
 
-struct bPlusNode* searchInBPlusTree(struct bPlusNode *root,int secVal)
+struct bPlusDataNode* searchData(struct bPlusDataNode *dataRoot,int secVal)
 {
-	/*if(root == NULL)
+	int i;
+	if(dataRoot == NULL)
 	{
 		return NULL;
 	}
-	else if(root->val == secVal)
+	for(i = 0; i < dataRoot->size; ++i)
 	{
-		return root;
+		if(*(dataRoot->val + i) == secVal)
+		{
+			return dataRoot;
+		}
+		else if(*(dataRoot->val +i) > secVal)
+		{
+			return searchData(*(dataRoot->child + i),secVal);
+		}
 	}
-	else if(root->val < secVal)
-	{
-		return searchInBPlusTree(root->right,secVal);
-	}
-	else
-	{
-		return searchInBPlusTree(root->left,secVal);
-	}*/
+	return searchData(*(dataRoot->child + i),secVal);
 }
 
-struct bPlusNode* bPlusInserter(struct bPlusNode **root,struct bPlusNode *insertNode)
+struct bPlusDataNode* searchInBPlusTree(struct bPlusNode *root,int secVal)
 {
-	/*if((*root)->val < insertNode->val)
-	{
-		if((*root)->right == NULL)
-		{
-			(*root)->right = insertNode;
-			insertNode->parent = (*root);
-			return insertNode;
-		}
-		else
-		{
-			BPlusInserter(&(*root)->right,insertNode);
-			rotateTree(root);
-			return *root;
-		}
-	}
-	else if((*root)->val > insertNode->val)
-	{
-		if((*root)->left == NULL)
-		{
-			(*root)->left = insertNode;
-			insertNode->parent = (*root);
-			return insertNode;
-		}
-		else
-		{
-			BPlusInserter(&(*root)->left,insertNode);
-			rotateTree(root);
-			return *root;
-		}
-	}
-	return NULL;*/
+	return searchData(root->dataRoot,secVal);
 }
 
-struct bPlusDataNode* insertToBPlusTree(struct bPlusNode **root,int priVal)
+struct bPlusDataNode* bPlusInserterroot(struct bPlusDataNode *dataRoot,int nodeSize,int priVal)
 {
-    struct bPlusDataNode *dataRoot = (*root)->dataRoot, *childNode = NULL;
-    int nodeSize = (*root)->nodeSize, i = 0, totalSize = dataRoot->size;
+    struct bPlusDataNode *childNode = NULL;
+    int i = 0, totalSize = dataRoot->size;
     for( ; i < totalSize ; ++i )
     {
     	if( *(dataRoot->val + i) > priVal)
     	{
     		break;
     	}
+    	else if( *(dataRoot->val + i) == priVal)
+    	{
+    		return NULL;
+    	}
     }
 
 	if( *(dataRoot->child + i) != NULL )
 	{
-		childNode = insertToBPlusTree((dataRoot->child + i),priVal);
+		childNode = bPlusInserterroot(*(dataRoot->child + i),nodeSize,priVal);
 		if(childNode != NULL)
 		{
 			priVal = *(childNode->val);
@@ -123,8 +98,7 @@ struct bPlusDataNode* insertToBPlusTree(struct bPlusNode **root,int priVal)
 		}
 	}
 	
-
-	if(totalSize <= nodeSize)
+	if(totalSize < nodeSize)
 	{
 		int j=totalSize;
 		for( ; j > i ; --j)
@@ -146,24 +120,24 @@ struct bPlusDataNode* insertToBPlusTree(struct bPlusNode **root,int priVal)
 	else
 	{
 		//break up the node
-		int j,k;
-		struct bPlusDataNode tempData1,tempData2;
+		int j,k,childCounter = 0;
+		struct bPlusDataNode *tempData1,*tempData2;
 
 		//creating two new nodes
 		tempData1 = (struct bPlusDataNode*)malloc(sizeof(struct bPlusDataNode));
-		tempData1->val = (int*)malloc(sizeof(int)*bPlusNodeSize);
+		tempData1->val = (int*)malloc(sizeof(int)*nodeSize);
 		tempData1->size = 0;
 		tempData1->parent = NULL;
-		tempData1->child = (struct bPlusDataNode**)malloc(sizeof(struct bPlusDataNode*)*(bPlusNodeSize+1));
+		tempData1->child = (struct bPlusDataNode**)malloc(sizeof(struct bPlusDataNode*)*(nodeSize+1));
 
 		tempData2 = (struct bPlusDataNode*)malloc(sizeof(struct bPlusDataNode));
-		tempData2->val = (int*)malloc(sizeof(int)*bPlusNodeSize);
+		tempData2->val = (int*)malloc(sizeof(int)*nodeSize);
 		tempData2->size = 0;
 		tempData2->parent = NULL;
-		tempData2->child = (struct bPlusDataNode**)malloc(sizeof(struct bPlusDataNode*)*(bPlusNodeSize+1));
-		for(;i<=bPlusNodeSize;++i)
+		tempData2->child = (struct bPlusDataNode**)malloc(sizeof(struct bPlusDataNode*)*(nodeSize+1));
+		for(k = 0; k <= nodeSize; ++k)
 		{
-			*(tempData1->child + i) = *(tempData2->child + i) = NULL;
+			*(tempData1->child + k) = *(tempData2->child + k) = NULL;
 		}
 		
 
@@ -173,6 +147,14 @@ struct bPlusDataNode* insertToBPlusTree(struct bPlusNode **root,int priVal)
 			if(j != i)
 			{
 				*(tempData1->val + j) = *(dataRoot->val + j);
+				if(j != i+1)
+				{
+					*(tempData1->child + j) = *(dataRoot->child + j);
+					if(*(tempData1->child +j) != NULL)
+					{
+						(*(tempData1->child + j))->parent = tempData1;
+					}
+				}
 			}
 			else
 			{
@@ -182,6 +164,14 @@ struct bPlusDataNode* insertToBPlusTree(struct bPlusNode **root,int priVal)
 					*(dataRoot->child + i) = *(childNode->child);
 					*(dataRoot->child + i + 1) = *(childNode->child + 1);
 					(*(childNode->child))->parent = (*(childNode->child + 1))->parent = dataRoot;
+					
+					*(tempData1->child + j) = *(childNode->child);
+					*(tempData1->child + j + 1) = *(childNode->child + 1);
+
+					if(*(tempData1->child + j) != NULL)
+					{
+						(*(tempData1->child + j))->parent = (*(tempData1->child + j + 1))->parent = tempData1;
+					}
 				}
 			}
 		}
@@ -190,6 +180,14 @@ struct bPlusDataNode* insertToBPlusTree(struct bPlusNode **root,int priVal)
 		if(j != i)
 		{
 			*(dataRoot->val) = *(dataRoot->val + j);
+			if(j != i+1)
+			{
+				*(tempData1->child + j) = *(dataRoot->child + j);
+				if(*(tempData1->child +j) != NULL)
+				{
+					(*(tempData1->child + j))->parent = tempData1;
+				}
+			}
 		}
 		else
 		{
@@ -199,27 +197,58 @@ struct bPlusDataNode* insertToBPlusTree(struct bPlusNode **root,int priVal)
 				*(dataRoot->child + i) = *(childNode->child);
 				*(dataRoot->child + i + 1) = *(childNode->child + 1);
 				(*(childNode->child))->parent = (*(childNode->child + 1))->parent = dataRoot;
+				
+				*(tempData1->child + j) = *(childNode->child);
+				*(tempData2->child + childCounter) = *(childNode->child + 1);
+
+				if(*(tempData1->child + j) != NULL)
+				{
+					(*(tempData1->child + j))->parent = tempData1;
+					(*(tempData2->child + childCounter))->parent = tempData2;
+				}
 			}
+			++childCounter;
 		}
 		dataRoot->size = 1;
 
-		for( ++j,k = 0; j < nodeSize ; ++j,++k)
+		for( ++j,k = 0; j <= nodeSize ; ++j,++k)
 		{
 			if(j != i)
 			{
 				*(tempData2->val + k) = *(dataRoot->val + j);
+				if(j != i+1)
+				{
+					*(tempData2->child + childCounter) = *(dataRoot->child + j);
+					if(*(tempData2->child + childCounter) != NULL)
+					{
+						(*(tempData2->child + childCounter))->parent = tempData2;
+					}
+					++childCounter;
+				}
 			}
 			else
 			{
 				*(tempData2->val + k) = priVal;
+
 				if(childNode != NULL)
 				{
 					*(dataRoot->child + i) = *(childNode->child);
 					*(dataRoot->child + i + 1) = *(childNode->child + 1);
 					(*(childNode->child))->parent = (*(childNode->child + 1))->parent = dataRoot;
+	
+					*(tempData2->child + childCounter) = *(childNode->child);
+					*(tempData2->child + childCounter + 1) = *(childNode->child + 1);
+
+					if(*(tempData2->child + childCounter) != NULL)
+					{
+						(*(tempData2->child + childCounter))->parent = (*(tempData2->child + childCounter + 1))->parent = tempData2;
+					}
+
 				}
+				childCounter+=2;
 			}
 		}
+		tempData2->size = k;
 
 		//keeping up the child parent relationship
 		tempData1->parent = tempData2->parent = dataRoot;
@@ -230,21 +259,39 @@ struct bPlusDataNode* insertToBPlusTree(struct bPlusNode **root,int priVal)
 	return dataRoot;
 }
 
-void printBPlusTree(struct bPlusNode *root)
+struct bPlusDataNode* insertToBPlusTree(struct bPlusNode *root,int priVal)
 {
-	/*if(root == NULL)
+	struct bPlusDataNode *tempDNode = bPlusInserterroot(root->dataRoot,root->nodeSize,priVal);
+	if(tempDNode != NULL)
+	{
+		root->dataRoot = tempDNode;
+		// tempDNode->parent = NULL;
+	}
+	return tempDNode;
+}
+
+void printBPlusTree(struct bPlusDataNode *dataRoot)
+{
+	int i;
+	if(dataRoot == NULL)
 	{
 		return;
 	}
-	printf("\nval: %d , me: %p , left: %p , right: %p , parent: %p , color : %s",root->val,root,root->left,root->right,root->parent,root->isRed ? "RED" : "BLACK");
-	if(root->left != NULL)
+	printf("\nme: %p , parent: %p , val: ",dataRoot,dataRoot->parent);
+	for(i = 0; i < dataRoot->size; ++i)
 	{
-		printBPlusTree(root->left);
+		printf("%d ", *(dataRoot->val +i) );
 	}
-	if(root->right != NULL)
+	printf(", children: ");
+	for(i = 0; i <= dataRoot->size; ++i)
 	{
-		printBPlusTree(root->right);
-	}*/
+		printf("%p ", *(dataRoot->child + i) );
+	}
+
+	for(i = 0; i <= dataRoot->size; ++i)
+	{
+		printBPlusTree( *(dataRoot->child + i) );
+	}
 }
 
 struct bPlusNode* deleteFromBSTTree(struct bPlusNode **root,int priVal)

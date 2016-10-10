@@ -48,7 +48,7 @@ int main()
 		{
 			case 1: printf("\nEnter the number: ");
 				scanf(" %d",&priVal);
-				insertToBPlusTree(&obj,priVal);
+				insertToBPlusTree(obj,priVal);
 				break;
 			case 2: printf("\nEnter the number: ");
 				scanf(" %d",&priVal);
@@ -65,7 +65,7 @@ int main()
 				scanf(" %d",&priVal);
 				deleteFromBPlusTree(&obj,priVal);
 				break;
-			case 4: printBPlusTree(obj);
+			case 4: printBPlusTree(obj->dataRoot);
 				break;
 			case 5: printf("Good bye..\n\n");
 				return;
