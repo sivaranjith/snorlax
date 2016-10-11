@@ -106,7 +106,7 @@ struct bPlusDataNode* bPlusInserterroot(struct bPlusDataNode *dataRoot,int nodeS
 			*(dataRoot->val + j) = *(dataRoot->val + j - 1);
 		}
 		*(dataRoot->val + j) = priVal;
-		dataRoot->size = dataRoot->size + 1;
+		++(dataRoot->size);
 		
 		if(childNode != NULL)
 		{
