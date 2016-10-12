@@ -66,10 +66,17 @@ void rotateLeft(struct llrbNode *temp)
 
 void colorFlip(struct llrbNode *temp)
 {
-	temp->left->isRed = temp->right->isRed = false;
+	if(temp->left != NULL)
+	{
+		temp->left->isRed = !temp->left->isRed;
+	}
+	if(temp->right != NULL)
+	{
+		temp->right->isRed = !temp->right->isRed;
+	}
 	if(temp->parent != NULL)
 	{
-		temp->isRed = true;
+		temp->isRed = !temp->isRed;
 	}
 	else
 	{
@@ -212,84 +219,107 @@ void insertToLLRBTree(struct llrbNode **root,int priVal)
     }
 }
 
-
-struct llrbNode* deleteFromBSTTree(struct llrbNode **root,int priVal)
+struct llrbNode* moveRedLeft(struct llrbNode* temp)
 {
-	struct llrbNode *freePt = NULL;
-	if(*root == NULL)
+	colorFlip(temp);
+	if(temp->right != NULL && temp->right->left != NULL && temp->right->left->isRed)
+	{
+		rotateRight(temp->right);
+		temp = temp->parent;
+		rotateLeft(temp);
+		colorFlip(temp);
+	}
+	return temp;
+}
+
+struct llrbNode* moveRedRight(struct llrbNode *temp)
+{
+	colorFlip(temp);
+	if(temp->left != NULL && temp->left->left != NULL && temp->left->left->isRed)
+	{
+		rotateRight(temp);
+		colorFlip(temp);
+	}
+	return temp;
+}
+
+struct llrbNode* deleteMin(struct llrbNode* temp)
+{
+	if(temp == NULL)
 	{
 		return NULL;
 	}
-	else if((*root)->val < priVal)
+	if(temp->left == NULL)
 	{
-		(*root)->right = deleteFromBSTTree(&(*root)->right,priVal);
-		rotateTree(*root);
+		free(temp);
+		return NULL;
 	}
-	else if((*root)->val > priVal)
+
+	if(!temp->left->isRed && temp->left->left != NULL && !temp->left->left->isRed)
 	{
-		(*root)->left = deleteFromBSTTree(&(*root)->left,priVal);
-		rotateTree(*root);
+		temp = moveRedLeft(temp);
+	}
+
+	temp->left = deleteMin(temp->left);
+
+	rotateTree(temp);
+}
+
+int min(struct llrbNode *temp)
+{
+	while(temp->left != NULL)
+	{
+		temp = temp->left;
+	}
+	return temp->val;
+}
+
+struct llrbNode* deleteFromLLRBTree(struct llrbNode *root,int priVal)
+{
+	if(root == NULL)
+	{
+		return NULL;
+	}
+
+
+	if(root->val > priVal)
+	{
+		//push the red link down to the left
+		if(root->left != NULL && root->left->left != NULL && !root->left->isRed && !root->left->left->isRed)
+		{
+			moveRedLeft(root);
+		}
+		root->left = deleteFromLLRBTree(root->left,priVal);
 	}
 	else
 	{
-		struct llrbNode* temp = NULL;
-		if((*root)->left == NULL && (*root)->right == NULL)
+		//making tree right lean
+		if(root->left != NULL && root->left->isRed)
 		{
-			//do nothing
+			rotateRight(root);
 		}
-		else if((*root)->left == NULL)
+		if(root->val == priVal && root->right == NULL)
 		{
-			temp = (*root)->right;
-			temp->parent = (*root)->parent;			
-			freePt = *root;
+			free(root);
+			return NULL;
 		}
-		else if((*root)->right == NULL)
+
+		//push the red link down to the right
+		if(root->right != NULL && root->right->left != NULL && !root->right->isRed && !root->right->left->isRed)
 		{
-			temp = (*root)->left;
-			temp->parent = (*root)->parent;
-			temp->isRed = false;
-			freePt = *root;
+			moveRedRight(root);
+		}
+
+		if(root->val == priVal)
+		{
+			root->val = min(root->right);
+			root->right = deleteMin(root->right);
 		}
 		else
 		{
-			//replacing with the predecessor
-			temp = (*root)->left;
-			while(temp->right != NULL)
-			{
-				temp = temp->right;
-			}
-			(*root)->val = temp->val;
-			if(temp->parent != *root)
-			{
-				temp->parent->right = temp->left;
-			}
-			else
-			{
-				temp->parent->left = temp->left;
-			}
-			if(temp->left != NULL)
-            {
-                temp->left->parent = temp->parent;
-            }
-			freePt = temp;
-			temp = *root;
+			root->right = deleteFromLLRBTree(root->right,priVal);
 		}
-		if(freePt != NULL)
-		{
-			if(temp->parent == NULL)
-			{
-				*root = temp;
-			}
-			free(freePt);
-		}
-		return temp;
 	}
-	return *root;
-}
 
-struct llrbNode* deleteFromLLRBTree(struct llrbNode **root,int priVal)
-{
-	deleteFromBSTTree(root,priVal);
-	// rotateTree(root);
-	// rootCorrector(root);
+	return rotateTree(root);
 }
