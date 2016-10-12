@@ -4,7 +4,7 @@ import structures.Graph;
 import java.util.Map;
 import java.util.HashMap;
 
-public class DFS {
+public class DepthFirstSearch {
 
     private Map<Integer, Boolean> visited = new HashMap<Integer, Boolean>();
 

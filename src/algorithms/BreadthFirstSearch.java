@@ -5,7 +5,7 @@ import structures.Queue;
 
 import java.util.HashMap;
 
-public class BFS {
+public class BreadthFirstSearch {
     private Queue q;
     private HashMap<Integer, Boolean> visited = new HashMap<Integer, Boolean>();
 
