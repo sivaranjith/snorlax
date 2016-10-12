@@ -10,50 +10,34 @@ struct llrbNode
 	boolean isRed;
 };
 
-/*void rootCorrector(struct llrbNode **root)
-{
-	while((*root)->parent != NULL)
-	{
-		*root = (*root)->parent;
-		if(*root == (*root)->parent)
-		{
-			(*root)->parent = NULL;
-		}
-	}
-}
-*/
 void rotateRight(struct llrbNode *temp)
 {
-	struct llrbNode *temp1 = temp->left,*temp2 = temp->left->right;
-
+	struct llrbNode *temp1 = temp->parent;
+	temp->parent = temp1->parent;
 	if(temp->parent != NULL)
 	{
-		if(temp->parent->left == temp)
+		if(temp->parent->left == temp1)
 		{
-			temp->parent->left = temp1;
+			temp->parent->left = temp;
 		}
 		else
 		{
-			temp->parent->right = temp1;
+			temp->parent->right = temp;
 		}
 	}
-
-	temp1->parent = temp->parent;
-	temp1->right = temp;
-	temp->parent = temp1;
-	temp->left = temp2;
-	if(temp2 != NULL)
+	temp->isRed = temp1->isRed;
+	temp1->left = temp->right;
+	if( temp1->left != NULL)
 	{
-		temp2->parent = temp;
+		temp1->left->parent = temp1;
 	}
-	temp1->isRed = temp->isRed;
-	temp->isRed = true;
-
+	temp->right = temp1;
+	temp1->parent = temp;
+	temp1->isRed = true;
 }
 
-void rotateLeft(struct llrbNode **root)
+void rotateLeft(struct llrbNode *temp)
 {
-	struct llrbNode *temp = *root;
 	struct llrbNode *temp1 = temp->right,*temp2 = temp->right->left;
 
 	if(temp->parent != NULL)
@@ -78,11 +62,6 @@ void rotateLeft(struct llrbNode **root)
 	}
 	temp1->isRed = temp->isRed;
 	temp->isRed = true;
-
-	if(temp == *root)
-	{
-		*root = temp1;
-	}
 }
 
 void colorFlip(struct llrbNode *temp)
@@ -110,86 +89,49 @@ int height(struct llrbNode* temp)
 	return leftHeight < rightHeight ? rightHeight + 1 :  leftHeight + 1;
 }
 
-void rotateTree(struct llrbNode **root)
+struct llrbNode* rotateTree(struct llrbNode *root)
 {
 	boolean isChanged = false;
-	if(*root == NULL)
+
+	if(root == NULL)
 	{
 		return;
 	}
-	if((*root)->right!= NULL && (*root)->right->isRed && (*root)->isRed)
+	if(root->right!= NULL && root->right->isRed && (root->left == NULL || !root->left->isRed))
 	{
 		rotateLeft(root);
+		root = root->parent;
 	}
-	if((*root)->isRed && (*root)->left!= NULL && (*root)->left->isRed )
+
+	if(root->isRed && root->left!= NULL && root->left->isRed )
 	{
-		struct llrbNode *temp = *root, *temp1 = (*root)->parent,*temp2;
-		temp->parent = temp1->parent;
-		temp->isRed = temp1->isRed;
-		temp2 = temp->right;
-		temp1->left = temp2;
-		*root = temp1;
-		if( temp1->left != NULL)
-		{
-			temp1->left->parent = temp1;
-		}
-		temp->right = temp1;
-		temp1->parent = temp;
-		temp1->isRed = true;
-		if(temp->parent == NULL)
-		{
-			*root = temp;
-		}
+		rotateRight(root);
 	}
-	if((*root)->left != NULL && (*root)->right != NULL && (*root)->left->isRed && (*root)->right->isRed)
+
+	if(root->left != NULL && root->right != NULL && root->left->isRed && root->right->isRed)
 	{
-		colorFlip(*root);
+		colorFlip(root);
 		isChanged = true;
 	}
-	if((*root)->right != NULL && (*root)->right->isRed)
+
+	return root;
+}
+
+void printLLRBTree(struct llrbNode *root)
+{
+	if(root == NULL)
 	{
-		struct llrbNode *iTemp = *root,*iTemp1 = (*root)->right;
-		iTemp1->parent = iTemp->parent;
-		iTemp1->isRed = iTemp->isRed;
-		iTemp->right = iTemp1->left;
-		if(iTemp->right != NULL)
-		{
-			iTemp->right->parent = iTemp;
-		}
-		iTemp->isRed = true;
-		iTemp->parent = iTemp1;
-		iTemp1->left = iTemp;
-		if(iTemp1->parent == NULL)
-		{
-			*root = iTemp1;
-		}
-		else
-		{
-			if(iTemp1->parent->left == iTemp)
-			{
-				iTemp1->parent->left = iTemp1;
-			}
-			else
-			{
-				iTemp1->parent->right = iTemp1;
-			}
-		}
+		return;
 	}
-	/*if(isChanged && (*root)->parent != NULL)
+	printf("\nval: %d , me: %p , left: %p , right: %p , parent: %p , color : %s",root->val,root,root->left,root->right,root->parent,root->isRed ? "RED" : "BLACK");
+	if(root->left != NULL)
 	{
-		rotateTree(&(*root)->parent);
+		printLLRBTree(root->left);
 	}
-	else
+	if(root->right != NULL)
 	{
-		if((*root)->left != NULL)
-		{
-			rotateTree(&(*root)->left);
-		}
-		if((*root)->right != NULL)
-		{
-			rotateTree(&(*root)->right);
-		}
-	}*/
+		printLLRBTree(root->right);
+	}
 }
 
 struct llrbNode* searchInLLRBTree(struct llrbNode *root,int secVal)
@@ -212,39 +154,39 @@ struct llrbNode* searchInLLRBTree(struct llrbNode *root,int secVal)
 	}
 }
 
-struct llrbNode* llrbInserter(struct llrbNode **root,struct llrbNode *insertNode)
+struct llrbNode* llrbInserter(struct llrbNode *root,struct llrbNode *insertNode)
 {
-	if((*root)->val < insertNode->val)
+	if(root->val < insertNode->val)
 	{
-		if((*root)->right == NULL)
+		if(root->right == NULL)
 		{
-			(*root)->right = insertNode;
-			insertNode->parent = (*root);
-			return insertNode;
+			root->right = insertNode;
+			insertNode->parent = (root);
 		}
 		else
 		{
-			llrbInserter(&(*root)->right,insertNode);
-			rotateTree(root);
-			return *root;
+			llrbInserter(root->right,insertNode);
 		}
 	}
-	else if((*root)->val > insertNode->val)
+	else if(root->val > insertNode->val)
 	{
-		if((*root)->left == NULL)
+		if(root->left == NULL)
 		{
-			(*root)->left = insertNode;
-			insertNode->parent = (*root);
-			return insertNode;
+			root->left = insertNode;
+			insertNode->parent = (root);
 		}
 		else
 		{
-			llrbInserter(&(*root)->left,insertNode);
-			rotateTree(root);
-			return *root;
+			llrbInserter(root->left,insertNode);
 		}
 	}
-	return NULL;
+	else
+	{
+		//already value present
+		return NULL;
+	}
+
+	return rotateTree(root);
 }
 
 void insertToLLRBTree(struct llrbNode **root,int priVal)
@@ -259,33 +201,17 @@ void insertToLLRBTree(struct llrbNode **root,int priVal)
             insertNode->isRed = false;
             return;
     }
-    if(llrbInserter(root,insertNode) == NULL)
+
+    if(llrbInserter(*root,insertNode) == NULL)
     {
-            free(insertNode);
+        free(insertNode);
     }
-	/*else
-	{
-		rotateTree(root);
-		rootCorrector(root);
-	}*/
+    else if((*root)->parent != NULL)
+    {
+    	*root = (*root)->parent;
+    }
 }
 
-void printLLRBTree(struct llrbNode *root)
-{
-	if(root == NULL)
-	{
-		return;
-	}
-	printf("\nval: %d , me: %p , left: %p , right: %p , parent: %p , color : %s",root->val,root,root->left,root->right,root->parent,root->isRed ? "RED" : "BLACK");
-	if(root->left != NULL)
-	{
-		printLLRBTree(root->left);
-	}
-	if(root->right != NULL)
-	{
-		printLLRBTree(root->right);
-	}
-}
 
 struct llrbNode* deleteFromBSTTree(struct llrbNode **root,int priVal)
 {
@@ -297,12 +223,12 @@ struct llrbNode* deleteFromBSTTree(struct llrbNode **root,int priVal)
 	else if((*root)->val < priVal)
 	{
 		(*root)->right = deleteFromBSTTree(&(*root)->right,priVal);
-		rotateTree(root);
+		rotateTree(*root);
 	}
 	else if((*root)->val > priVal)
 	{
 		(*root)->left = deleteFromBSTTree(&(*root)->left,priVal);
-		rotateTree(root);
+		rotateTree(*root);
 	}
 	else
 	{
