@@ -27,7 +27,7 @@ int main()
 				break;
 			case 3: printf("\nEnter the number: ");
 				scanf(" %d",&priVal);
-				deleteFromLLRBTree(root,priVal);
+				deleteFromLLRBTree(&root,priVal);
 				break;
 			case 4: printLLRBTree(root);
 				break;

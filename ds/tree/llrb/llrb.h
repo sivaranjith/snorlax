@@ -240,6 +240,7 @@ struct llrbNode* moveRedRight(struct llrbNode *temp)
 		rotateRight(temp);
 		colorFlip(temp);
 	}
+	printLLRBTree(temp);
 	return temp;
 }
 
@@ -255,7 +256,7 @@ struct llrbNode* deleteMin(struct llrbNode* temp)
 		return NULL;
 	}
 
-	if(!temp->left->isRed && temp->left->left != NULL && !temp->left->left->isRed)
+	if(!temp->left->isRed && (temp->left->left == NULL || !temp->left->left->isRed))
 	{
 		temp = moveRedLeft(temp);
 	}
@@ -274,7 +275,7 @@ int min(struct llrbNode *temp)
 	return temp->val;
 }
 
-struct llrbNode* deleteFromLLRBTree(struct llrbNode *root,int priVal)
+struct llrbNode* removeNode(struct llrbNode *root,int priVal)
 {
 	if(root == NULL)
 	{
@@ -285,27 +286,43 @@ struct llrbNode* deleteFromLLRBTree(struct llrbNode *root,int priVal)
 	if(root->val > priVal)
 	{
 		//push the red link down to the left
-		if(root->left != NULL && root->left->left != NULL && !root->left->isRed && !root->left->left->isRed)
+		if(root->left != NULL && !root->left->isRed && ( root->left->left == NULL || !root->left->left->isRed))
 		{
 			moveRedLeft(root);
 		}
-		root->left = deleteFromLLRBTree(root->left,priVal);
+		root->left = removeNode(root->left,priVal);
 	}
 	else
 	{
+		boolean isRotated = false;
+
 		//making tree right lean
 		if(root->left != NULL && root->left->isRed)
 		{
-			rotateRight(root);
+			rotateRight(root->left);
+			isRotated = true;
 		}
+
 		if(root->val == priVal && root->right == NULL)
 		{
+			struct llrbNode* returnVal = root->left;
+
+			if(isRotated)
+			{
+				root->parent->right = root->left;
+				returnVal = root->parent;
+			}
+			if(root->left != NULL)
+			{
+				root->left->parent = root->parent;
+			}
+
 			free(root);
-			return NULL;
+			return returnVal;
 		}
 
 		//push the red link down to the right
-		if(root->right != NULL && root->right->left != NULL && !root->right->isRed && !root->right->left->isRed)
+		if(root->right != NULL && !root->right->isRed && ( root->right->left == NULL || !root->right->left->isRed ))
 		{
 			moveRedRight(root);
 		}
@@ -317,9 +334,25 @@ struct llrbNode* deleteFromLLRBTree(struct llrbNode *root,int priVal)
 		}
 		else
 		{
-			root->right = deleteFromLLRBTree(root->right,priVal);
+			root->right = removeNode(root->right,priVal);
 		}
 	}
-
 	return rotateTree(root);
+}
+
+struct llrbNode* deleteFromLLRBTree(struct llrbNode **root,int priVal)
+{
+	struct llrbNode *temp = removeNode(*root,priVal);
+	if(temp != NULL && temp->parent != NULL)
+	{
+		rotateTree(temp->parent);
+		if(temp->parent != NULL)
+		{
+			*root = temp->parent;
+		}
+	}
+	else
+	{
+		*root = temp;
+	}
 }
