@@ -294,83 +294,67 @@ void printBTreeTree(struct bTreeDataNode *dataRoot)
 	}
 }
 
-struct bTreeNode* deleteFromBSTTree(struct bTreeNode **root,int priVal)
+struct bTreeNode* deleteFromBSTTree(struct bTreeNode *root,int priVal)
 {
-	/*struct bTreeNode *freePt = NULL;
-	if(*root == NULL)
+	struct bTreeDataNode *dataRoot = root->dataRoot;
+	int i,j;
+	if(dataRoot == NULL)
 	{
 		return NULL;
 	}
-	else if((*root)->val < priVal)
+	for(i = 0; i < dataRoot->size; ++i)
 	{
-		(*root)->right = deleteFromBSTTree(&(*root)->right,priVal);
-		rotateTree(root);
-	}
-	else if((*root)->val > priVal)
-	{
-		(*root)->left = deleteFromBSTTree(&(*root)->left,priVal);
-		rotateTree(root);
-	}
-	else
-	{
-		struct bTreeNode* temp = NULL;
-		if((*root)->left == NULL && (*root)->right == NULL)
+		if(*(dataRoot->val + i) == priVal)
 		{
-			//do nothing
-		}
-		else if((*root)->left == NULL)
-		{
-			temp = (*root)->right;
-			temp->parent = (*root)->parent;			
-			freePt = *root;
-		}
-		else if((*root)->right == NULL)
-		{
-			temp = (*root)->left;
-			temp->parent = (*root)->parent;
-			temp->isRed = false;
-			freePt = *root;
-		}
-		else
-		{
-			//replacing with the predecessor
-			temp = (*root)->left;
-			while(temp->right != NULL)
+			if(*(dataRoot->child + i) == NULL && *(dataRoot->child + i + 1) == NULL)
 			{
-				temp = temp->right;
-			}
-			(*root)->val = temp->val;
-			if(temp->parent != *root)
-			{
-				temp->parent->right = temp->left;
+				for(j = i; j < dataRoot->size - 1; ++j)
+				{
+					*(dataRoot->val + j) = *(dataRoot + val + j + 1);
+				}
+				*(dataRoot->val + j) = NULL;
+				return NULL;
 			}
 			else
 			{
-				temp->parent->left = temp->left;
+				//an intermediate node has the value so do the neccessary actions
+				struct bTreeDataNode *preChild = *(dataRoot->child + i), *nextChild = *(dataRoot->child + i + 1);
+				int t = (root->nodeSize + 1)/2;
+				if(preChild->size >= t)
+				{
+					*(dataRoot->val + i) = *(preChild->val + preChild->size - 1);
+					--(preChild->size);
+					//to be done:what happens to the next child last child pointer before the movement. This comes in the following else if and else case also
+				}
+				else if(nextChild->size >= t)
+				{
+					*(dataRoot->val + i) = *(nextChild->val);
+					for(j = 0; j < nextChild->size - 1 ; j++)
+					{
+						*(nextChild->val + j) = *(nextChild->val + j + 1);
+						*(nextChild->child + j) = *(nextChild->child + j + 1);
+					}
+					*(nextChild->child + j) = *(nextChild->child + j + 1);
+					--(nextChild->size);
+				}
+				else
+				{
+					//merging two nodes take care of the childrens properly
+				}
 			}
-			if(temp->left != NULL)
-            {
-                temp->left->parent = temp->parent;
-            }
-			freePt = temp;
-			temp = *root;
 		}
-		if(freePt != NULL)
+		else if(*(dataRoot->val + i) > priVal)
 		{
-			if(temp->parent == NULL)
-			{
-				*root = temp;
-			}
-			free(freePt);
+			//actually should check for t-1 values in this node and do the neccessary actions if not
+			return deleteFromBSTTree(*(root->child + i),priVal);
 		}
-		return temp;
 	}
-	return *root;*/
+	return deleteFromBSTTree(*(root->child + i),priVal);
 }
 
 struct bTreeNode* deleteFromBTreeTree(struct bTreeNode **root,int priVal)
 {
-	// deleteFromBSTTree(root,priVal);
+	deleteFromBSTTree(*root,priVal);
 	// rotateTree(root);
 	// rootCorrector(root);
 }
