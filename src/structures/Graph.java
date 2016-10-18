@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.LinkedList;
 
 public class Graph {
+
+  private Map<Integer, List<Integer>> edges;
+
   Graph() {
     this.edges = new LinkedHashMap<Integer, List<Integer>>();
   }
-
-  private Map<Integer, List<Integer>> edges;
 
   public void addEdge(int u, int v) {
     if (this.edges.containsKey(u)) {
@@ -24,7 +25,7 @@ public class Graph {
   }
 
 
-  public List<Integer> adj(int u) {
+  public List adj(int u) {
     return this.edges.get(u);
   }
 }
