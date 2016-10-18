@@ -294,10 +294,224 @@ void printBTreeTree(struct bTreeDataNode *dataRoot)
 	}
 }
 
-struct bTreeNode* deleteFromBSTTree(struct bTreeNode *root,int priVal)
+struct bTreeDataNode* mergeByDeletingvalue(struct bTreeDataNode *dataRootLeft,struct bTreeDataNode *dataRootRight,int nodeSize)
 {
-	struct bTreeDataNode *dataRoot = root->dataRoot;
+	struct bTreeDataNode *tempFromChild = NULL;
+	int leftSize = dataRootLeft->size, rightSize = dataRootRight->size, tempSize = 0,i,j;
+	if( *(dataRootRight->child) != NULL)
+	{
+		tempFromChild = mergeByDeletingvalue( *(dataRootLeft->child + dataRootLeft->size), *(dataRootRight->child), nodeSize);
+		tempSize = tempFromChild->size;
+	}
+
+	if( (tempSize != 1 && leftSize + rightSize > nodeSize) || (tempSize == 1 && leftSize + rightSize + 1 > nodeSize))
+	{
+		if(tempSize == 1)
+		{
+			*(dataRootLeft->child + dataRootLeft->size) = *(tempFromChild->child);
+			*(dataRootRight->child) = *(tempFromChild->child + 1);
+			(*(tempFromChild->child))->parent = dataRootLeft;
+			(*(tempFromChild->child + 1))->parent = dataRootRight;
+
+			*(tempFromChild->child) = dataRootLeft;
+			*(tempFromChild->child + 1) = dataRootRight;
+			dataRootLeft->parent = dataRootRight->parent = tempFromChild;
+			return tempFromChild;
+		}
+		else
+		{
+			struct bTreeDataNode *referenceNode = NULL, *otherNode = NULL, *newNode = (struct bTreeDataNode*)malloc(sizeof(struct bTreeDataNode));
+			int size = 0, otherNodeValue;
+			
+			if(leftSize >= rightSize)
+			{
+				referenceNode = dataRootRight;
+				*(newNode->val) = *(dataRootLeft->val + dataRootLeft->size - 1);
+				--(dataRootLeft->size);
+			}
+			else
+			{
+				referenceNode = dataRootLeft;
+				*(newNode->val) = *(dataRootRight->val);
+				size = dataRootLeft->size;
+				for(i = 0; i < dataRootRight->size - 1; ++i)
+				{
+					*(dataRootRight->val + i) = *(dataRootRight->val + i + 1);
+					*(dataRootRight->child + i) = *(dataRootRight->child + i + 1);
+				}
+				*(dataRootRight->child + i) = *(dataRootRight->child + i + 1);
+				--(dataRootRight->size);
+			}
+
+			*(referenceNode->child + size) = tempFromChild;
+			if(tempFromChild != NULL)
+			{
+				tempFromChild->parent = referenceNode;
+			}
+			newNode->parent = NULL;
+			*(newNode->child) = dataRootLeft;
+			*(newNode->child + 1) = dataRootRight;
+			dataRootRight->parent = dataRootLeft->parent = newNode;
+
+			return newNode;
+		}
+	}
+	else
+	{
+		if(tempSize == 1)
+		{
+			*(dataRootLeft->val + dataRootLeft->size) = *(tempFromChild->val);
+			*(dataRootLeft->child + dataRootRight->size) = *(tempFromChild->child);
+			*(dataRootLeft->child + dataRootRight->size + 1) = *(tempFromChild->child + 1);
+			(*(tempFromChild->child))->parent = dataRootLeft;
+			(*(tempFromChild->child + 1))->parent = dataRootLeft;
+			++(dataRootLeft->size);
+		}
+		else
+		{
+			if(tempFromChild != NULL)
+			{
+				tempFromChild->parent = dataRootLeft;
+			}
+			*(dataRootLeft->child + dataRootLeft->size) = tempFromChild;
+		}
+
+		*(dataRootLeft->val + dataRootLeft->size) = *(dataRootRight->val);
+
+		for(i = 1; i < dataRootRight->size; ++i)
+		{
+			*(dataRootLeft->val + dataRootLeft->size + i) = *(dataRootRight->val + i);
+			*(dataRootLeft->child + dataRootLeft->size + i) = *(dataRootRight->child + i);
+		}
+		
+		*(dataRootLeft->child + dataRootLeft->size + i) = *(dataRootRight->child + i);
+		dataRootLeft->size += dataRootRight->size;
+		
+		free(dataRootRight);
+		return dataRootLeft;
+	}
+}
+
+struct bTreeDataNode* rotateOrMerge(struct bTreeDataNode *dataRoot,int i,int t)
+{
+	int g,j;
+	struct bTreeDataNode *parent = dataRoot->parent, *sibiling;
+	for(j = 0; j < parent->size; ++j)
+	{
+		if(*(parent->child + j) == dataRoot)
+		{
+			break;
+		}
+	}
+
+	if(j != 0)
+	{
+		sibiling = *(parent->child + j - 1);
+		if(sibiling->size >= t )
+		{
+			for(g = i; g > 0; --g)
+			{
+				*(dataRoot->val + g) = *(dataRoot->val + g - 1);
+				*(dataRoot->child + g) = *(dataRoot->child + g - 1);
+			}
+			*(dataRoot->val) = *(parent->val + j - 1);
+			*(dataRoot->child) = *(sibiling->child + sibiling->size);
+
+			*(parent->val + j - 1) = *(sibiling->val + sibiling->size - 1);
+
+			--(sibiling->size);
+			return NULL;
+		}
+	}
+
+	if(j != parent->size)
+	{
+		sibiling = *(parent->child + j + 1);
+		if(sibiling->size >= t )
+		{
+			*(dataRoot->val + dataRoot->size) = *(parent->val + j);
+			*(dataRoot->child + dataRoot->size + 1) = *(sibiling->child);
+
+			*(parent->val + j) = *(sibiling->val);
+
+			for(g = 0; g < sibiling->size - 1; ++g)
+			{
+				*(sibiling->val + g) = *(sibiling->val + g + 1);
+				*(sibiling->child + g) = *(sibiling->child + g + 1);
+			}
+			*(sibiling->child + g) = *(sibiling->child + g + 1);
+
+			for(g = i; g < dataRoot->size ; ++g)
+			{
+				*(dataRoot->val + g) = *(dataRoot->val + g + 1);
+				*(dataRoot->child + g) = *(dataRoot->child + g + 1);
+			}
+			*(dataRoot->child + g) = *(dataRoot->child + g + 1);
+
+			--(sibiling->size);
+			return NULL;
+		}
+		sibiling = *(parent->child + j - 1);
+	}
+
+	if(j != 0)
+	{
+		sibiling = *(parent->child + j - 1);
+		*(sibiling->val + sibiling->size) = *(parent->val + j - 1);
+		++(sibiling->size);
+
+		for(g = 0; g < dataRoot->size; ++g)
+		{
+			*(sibiling->val + sibiling->size + g) = *(dataRoot->val + g);
+			*(sibiling->child + sibiling->size + g) = *(dataRoot->child + g);
+		}
+		*(sibiling->child + sibiling->size + g) = *(dataRoot->child + g);
+
+		sibiling->size += dataRoot->size;
+
+		free(dataRoot);
+
+		g = j - 1;
+	}
+	else
+	{
+		sibiling = *(parent->child + j + 1);
+		*(dataRoot->val + dataRoot->size) = *(parent->val + j);
+		++(dataRoot->size);
+
+		for(g = 0; g < sibiling->size; ++g)
+		{
+			*(dataRoot->val + dataRoot->size + g) = *(sibiling->val + g);
+			*(dataRoot->child + dataRoot->size + g) = *(sibiling->child + g);
+		}
+		*(dataRoot->child + dataRoot->size + g) = *(sibiling->child + g);
+
+		dataRoot->size += sibiling->size;
+
+		free(sibiling);
+
+		g = j;
+	}
+	
+	for(; g < parent->size - 1; ++g)
+	{
+		*(parent->val + g) = *(parent->val + g + 1);
+		*(parent->child + g + 1) = *(parent->child + g + 2);
+	}
+	--(parent->size);
+
+	if(parent->size == 0)
+	{
+		(*(parent->child))->parent = NULL;
+		return *(parent->child);
+	}
+	return NULL;
+}
+
+struct bTreeDataNode* deleteFromBSTTree(struct bTreeDataNode *dataRoot,int priVal,int nodeSize)
+{
 	int i,j;
+	int t = (nodeSize + 1)/2;
 	if(dataRoot == NULL)
 	{
 		return NULL;
@@ -308,53 +522,101 @@ struct bTreeNode* deleteFromBSTTree(struct bTreeNode *root,int priVal)
 		{
 			if(*(dataRoot->child + i) == NULL && *(dataRoot->child + i + 1) == NULL)
 			{
-				for(j = i; j < dataRoot->size - 1; ++j)
+				if(dataRoot->size >= t || dataRoot->parent == NULL)
 				{
-					*(dataRoot->val + j) = *(dataRoot + val + j + 1);
-				}
-				*(dataRoot->val + j) = NULL;
-				return NULL;
-			}
-			else
-			{
-				//an intermediate node has the value so do the neccessary actions
-				struct bTreeDataNode *preChild = *(dataRoot->child + i), *nextChild = *(dataRoot->child + i + 1);
-				int t = (root->nodeSize + 1)/2;
-				if(preChild->size >= t)
-				{
-					*(dataRoot->val + i) = *(preChild->val + preChild->size - 1);
-					--(preChild->size);
-					//to be done:what happens to the next child last child pointer before the movement. This comes in the following else if and else case also
-				}
-				else if(nextChild->size >= t)
-				{
-					*(dataRoot->val + i) = *(nextChild->val);
-					for(j = 0; j < nextChild->size - 1 ; j++)
+					for(j = i; j < dataRoot->size - 1; ++j)
 					{
-						*(nextChild->val + j) = *(nextChild->val + j + 1);
-						*(nextChild->child + j) = *(nextChild->child + j + 1);
+						*(dataRoot->val + j) = *(dataRoot->val + j + 1);
 					}
-					*(nextChild->child + j) = *(nextChild->child + j + 1);
-					--(nextChild->size);
+					--(dataRoot->size);
+					return NULL;
 				}
 				else
 				{
-					//merging two nodes take care of the childrens properly
+					return rotateOrMerge(dataRoot,i,t);
+				}
+			}
+			else
+			{
+				int sizePre = 0, sizePost = 0;
+				struct bTreeDataNode *temp = *(dataRoot->child + i);
+
+				while(*(temp->child + temp->size) != NULL)
+				{
+					temp = *(temp->child + temp->size);
+				}
+				sizePre = temp->size;
+
+				if(temp->size >= t)
+				{
+					*(dataRoot->val + i) = *(temp->val + temp->size - 1);
+					return deleteFromBSTTree(*(dataRoot->child + i),*(dataRoot->val + i),nodeSize);
+				}
+				else
+				{
+					temp = *(dataRoot->child + i + 1);
+					while(*(temp->child) != NULL)
+					{
+						temp = *(temp->child);
+					}
+					sizePost = temp->size;
+
+					if(temp->size >= t)
+					{
+						*(dataRoot->val + i) = *(temp->val);
+						return deleteFromBSTTree(*(dataRoot->child + i + 1),*(dataRoot->val + i),nodeSize);
+					}
+					else
+					{
+						struct bTreeDataNode *tempRoot = mergeByDeletingvalue(*(dataRoot->child + i),*(dataRoot->child + i + 1),nodeSize);
+						if(tempRoot->size == 1)
+						{
+							*(dataRoot->val + i) = *(tempRoot->val);
+							*(dataRoot->child + i) = *(tempRoot->child);
+							*(dataRoot->child + i + 1) = *(tempRoot->child + 1);
+							(*(tempRoot->child))->parent = (*(tempRoot->child + 1))->parent = dataRoot;
+						}
+						else
+						{
+							int g;
+							*(dataRoot->child + i) = tempRoot;
+							tempRoot->parent = dataRoot;
+
+							for(g = i; g < dataRoot->size - 1; ++g)
+							{
+								*(dataRoot->val + g) = *(dataRoot->val + g + 1);
+								*(dataRoot->child + g + 1) = *(dataRoot->child + g + 2);
+							}
+							--(dataRoot->size);
+						}
+						return dataRoot;
+					}
 				}
 			}
 		}
 		else if(*(dataRoot->val + i) > priVal)
 		{
 			//actually should check for t-1 values in this node and do the neccessary actions if not
-			return deleteFromBSTTree(*(root->child + i),priVal);
+			//solution should make sure all the above the ansestors have t-1(except for root) after the parent got t-1 values
+			if( dataRoot->size < t-1)
+			{
+				// rotateOrMerge(dataRoot,i,t);
+			}
+			return deleteFromBSTTree(*(dataRoot->child + i),priVal,nodeSize);
 		}
 	}
-	return deleteFromBSTTree(*(root->child + i),priVal);
+	return deleteFromBSTTree(*(dataRoot->child + i),priVal,nodeSize);
 }
 
 struct bTreeNode* deleteFromBTreeTree(struct bTreeNode **root,int priVal)
 {
-	deleteFromBSTTree(*root,priVal);
+	struct bTreeDataNode *dataRoot = (*root)->dataRoot;
+	struct bTreeDataNode *temp = deleteFromBSTTree(dataRoot,priVal,(*root)->nodeSize);
+	if(temp != NULL && temp->parent == NULL)
+	{
+		(*root)->dataRoot = temp;
+	}
+	return *root;
 	// rotateTree(root);
 	// rootCorrector(root);
 }
