@@ -2,7 +2,10 @@
 #define boolean int
 #define false 0
 #define true 1
-
+/**
+ * todo: every search within a node should be made into a binary search
+ *
+ **/
 struct bTreeNode
 {
 	struct bTreeDataNode 
@@ -600,7 +603,7 @@ struct bTreeDataNode* deleteFromBSTTree(struct bTreeDataNode *dataRoot,int priVa
 			//solution should make sure all the above the ansestors have t-1(except for root) after the parent got t-1 values
 			if( dataRoot->size < t-1)
 			{
-				// rotateOrMerge(dataRoot,i,t);
+				 rotateOrMerge(dataRoot,i,t);
 			}
 			return deleteFromBSTTree(*(dataRoot->child + i),priVal,nodeSize);
 		}
