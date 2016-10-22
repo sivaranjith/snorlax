@@ -98,26 +98,37 @@ struct bPlusTreeDataNode* searchInBPlusTreeTree(struct bPlusTreeNode *root,int s
 struct bPlusTreeDataNode* splitNode(struct bPlusTreeDataNode *dataRoot,struct bPlusTreeDataNode *temp,int nodeSize,int index)
 {
 	struct bPlusTreeDataNode *rightChild = (struct bPlusTreeDataNode*)malloc(sizeof(struct bPlusTreeDataNode)), *parent = (struct bPlusTreeDataNode*)malloc(sizeof(struct bPlusTreeDataNode));
+	int srcIt = nodeSize,childIt = 0, mid = (nodeSize + 1)/2,diff;
+	boolean isVisited = false, isLeafNode = true;
 
 	rightChild->val = (int*)malloc(sizeof(int)*nodeSize);
 	rightChild->child = (struct bPlusTreeDataNode**)malloc(sizeof(struct bPlusTreeDataNode*)*(nodeSize+1));
 	parent->val = (int*)malloc(sizeof(int)*nodeSize);
 	parent->child = (struct bPlusTreeDataNode**)malloc(sizeof(struct bPlusTreeDataNode*)*(nodeSize+1));
+	diff = nodeSize - mid;
 
-	int srcIt = nodeSize,childIt = 0, mid = (nodeSize + 1)/2;
-	boolean isVisited = false;
-
-	printf("%d %d %d\n",nodeSize,mid,index);
-
-	for(childIt = nodeSize - mid; childIt >= 0; --childIt)
+	if(*(dataRoot->child) == NULL)
 	{
-		printf("1::%d %d %d\n",index,childIt,srcIt);
+		childIt = diff;
+	}
+	else
+	{
+		isLeafNode = false;
+		childIt = diff - 1;
+	}
+
+	for(; childIt >= 0; --childIt)
+	{
 		if(index != srcIt || isVisited)
 		{
 			*(rightChild->val + childIt) = *(dataRoot->val + srcIt - 1);
 			if(index != srcIt + 1)
 			{
 				*(rightChild->child + childIt + 1) = *(dataRoot->child + srcIt);
+				if(*(rightChild->child + childIt + 1) != NULL)
+				{
+					(*(rightChild->child + childIt + 1))->parent = rightChild;
+				}
 			}
 			--srcIt;
 		}
@@ -127,34 +138,75 @@ struct bPlusTreeDataNode* splitNode(struct bPlusTreeDataNode *dataRoot,struct bP
 			*(rightChild->val + childIt) = *(temp->val);
 			*(rightChild->child + childIt) = *(temp->child);
 			*(rightChild->child + childIt + 1) = *(temp->child + 1);
+			if(*(rightChild->child + childIt) != NULL)
+			{
+				(*(rightChild->child + childIt))->parent = rightChild;
+			}
+			if(*(rightChild->child + childIt + 1) != NULL)
+			{
+				(*(rightChild->child + childIt + 1))->parent = rightChild;
+			}
 		}
 	}
-	rightChild->size = nodeSize - mid + 1;
 
-	printf("%d %d\n",srcIt,rightChild->size);
-
-	for(childIt = mid - 1; childIt >= 0 && srcIt >= index; --childIt)
+	if(isLeafNode)
 	{
-		if(index == srcIt)
+		rightChild->size = diff + 1;
+		*(parent->val) = *(rightChild->val);
+	}
+	else
+	{
+		rightChild->size = diff;
+		*(parent->val) = *(dataRoot->val + diff);
+		if(index == diff)
 		{
-			*(dataRoot->val + childIt) = *(temp->val);
-			*(dataRoot->child + childIt) = *(temp->child);
-			*(dataRoot->child + childIt + 1) = *(temp->child + 1);
+			*(rightChild->child) = *(dataRoot->child + diff + 1);
 		}
 		else
+		{
+			*(rightChild->child) = *(dataRoot->child + mid + 1);
+		}
+		(*(rightChild->child))->parent = rightChild;
+		--srcIt;
+	}
+
+	isVisited = false;
+
+	for(childIt = mid - 1; childIt >= 0; --childIt)
+	{
+		if(index != srcIt || isVisited)
 		{
 			*(dataRoot->val + childIt) = *(dataRoot->val + srcIt - 1);
 			if(index != srcIt + 1)
 			{
 				*(dataRoot->child + childIt + 1) = *(dataRoot->child + srcIt);
+				if(*(dataRoot->child + childIt + 1) != NULL)
+				{
+					(*(dataRoot->child + childIt + 1))->parent = dataRoot;
+				}
 			}
 			--srcIt;
+		}
+		else
+		{
+			isVisited = true;
+			*(dataRoot->val + childIt) = *(temp->val);
+			*(dataRoot->child + childIt) = *(temp->child);
+			*(dataRoot->child + childIt + 1) = *(temp->child + 1);
+
+			if(*(dataRoot->child + childIt) != NULL)
+			{	
+				(*(dataRoot->child + childIt))->parent = dataRoot;
+			}
+			if(*(dataRoot->child + childIt + 1) != NULL)
+			{
+				(*(dataRoot->child + childIt + 1))->parent = dataRoot;
+			}
 		}
 	}
 
 	dataRoot->size = mid;
 
-	*(parent->val) = *(rightChild->val);
 	*(parent->child) = dataRoot;
 	*(parent->child + 1) = rightChild;
 	parent->size = 1;
@@ -189,7 +241,6 @@ struct bPlusTreeDataNode* insertIntoTheNode(struct bPlusTreeDataNode *dataRoot,s
 struct bPlusTreeDataNode* bTreeInserterroot(struct bPlusTreeDataNode *dataRoot,int nodeSize,int priVal)
 {
 	int index = binarySearchNode(dataRoot,priVal);
-	printf("%d\n",index);
 	if(index >= 0)
 	{
 		return NULL;
@@ -198,7 +249,6 @@ struct bPlusTreeDataNode* bTreeInserterroot(struct bPlusTreeDataNode *dataRoot,i
 	{
 		struct bPlusTreeDataNode *temp;
 		index = -(index + 1);
-		printf("%d %p\n",index,*(dataRoot->child + index));
 		if(*(dataRoot->child + index) != NULL)
 		{
 			temp = bTreeInserterroot(*(dataRoot->child + index),nodeSize,priVal);
@@ -212,7 +262,6 @@ struct bPlusTreeDataNode* bTreeInserterroot(struct bPlusTreeDataNode *dataRoot,i
 			*(temp->val) = priVal;
 			temp->size = 1;
 		}
-		printf("%p\n",temp);
 		if(temp == NULL)
 		{
 			return NULL;
