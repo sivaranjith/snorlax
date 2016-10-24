@@ -15,7 +15,7 @@ struct bStarTreeNode
 	int nodeSize;
 };
 
-boolean moveToSibiling(struct bStarTreeDataNode *dataRoot,int nodeSize,int index,int type);
+boolean moveToSibiling(struct bStarTreeDataNode *dataRoot,struct bStarTreeDataNode *actualNode,int nodeSize,int index,int type);
 
 //bTreeNodeSize repersents the no of values inside a b-star node
 struct bStarTreeNode* createBStarTreeNode(int bTreeNodeSize)
@@ -37,10 +37,9 @@ struct bStarTreeNode* createBStarTreeNode(int bTreeNodeSize)
 	return temp;
 }
 
-int binarySearchNode(struct bStarTreeDataNode *dataRoot,int secVal)
+int binarySearchNode(struct bStarTreeDataNode *dataRoot,int secVal,boolean findChild)
 {
 	int start,end,mid,val;
-
 	for(start=0, end=dataRoot->size; start != end; )
 	{
 		mid = (start + end)/2;
@@ -64,7 +63,11 @@ int binarySearchNode(struct bStarTreeDataNode *dataRoot,int secVal)
 		}
 	}
 
-	if(*(dataRoot->val + dataRoot->size - 1) < secVal)
+	if(findChild)
+	{
+		return -1;
+	}
+	else if(*(dataRoot->val + dataRoot->size - 1) < secVal)
 	{
 		start = dataRoot->size;
 	}
@@ -81,7 +84,7 @@ struct bStarTreeDataNode* searchData(struct bStarTreeDataNode *dataRoot,int secV
 		return NULL;
 	}
 
-	index = binarySearchNode(dataRoot,secVal);
+	index = binarySearchNode(dataRoot,secVal,false);
 
 	if(index >= 0)
 	{
@@ -234,6 +237,12 @@ struct bStarTreeDataNode* insertIntoTheNode(struct bStarTreeDataNode *dataRoot,s
 	*(dataRoot->child + index) = *(temp->child);
 	*(dataRoot->child + index + 1) = *(temp->child + 1);
 
+	if(*(temp->child) != NULL && (*(temp->child))->parent != NULL)
+	{
+		(*(temp->child))->parent = dataRoot;
+		(*(temp->child + 1))->parent = dataRoot;
+	}
+
 	++(dataRoot->size);
 
 	free(temp);
@@ -241,9 +250,10 @@ struct bStarTreeDataNode* insertIntoTheNode(struct bStarTreeDataNode *dataRoot,s
 	return NULL;
 }
 
-boolean rotateLeft(struct bStarTreeDataNode *dataRoot,int nodeSize,int index,int type)
+boolean rotateLeft(struct bStarTreeDataNode *dataRoot,struct bStarTreeDataNode *actualNode,int nodeSize,int index,int type)
 {
 	int i = 0,j;
+	boolean canInsert;
 	struct bStarTreeDataNode *parent = dataRoot->parent;
 	struct bStarTreeDataNode *sibiling = *(parent->child + index + 1);
 
@@ -251,10 +261,10 @@ boolean rotateLeft(struct bStarTreeDataNode *dataRoot,int nodeSize,int index,int
 	{
 		*(dataRoot->val + dataRoot->size) = *(parent->val + index);
 		++(dataRoot->size);
-		*(parent->val + index) = *(sibiling->val + i);
+		*(parent->val + index) = *(sibiling->val + i + 1);
 		++i;
 		
-	} while (isInsertable(nodeSize,sibiling->size - i) && isInsertable(nodeSize,dataRoot->size));	
+	} while (!isInsertable(nodeSize,sibiling->size - i) && isInsertable(nodeSize,dataRoot->size));	
 
 	for(j=0;j<sibiling->size - i;j++)
 	{
@@ -262,17 +272,35 @@ boolean rotateLeft(struct bStarTreeDataNode *dataRoot,int nodeSize,int index,int
 	}
 	sibiling->size -= i;
 
-	if(!isInsertable(nodeSize,sibiling->size) && ((type == 1 && index != nodeSize) || (type == -1 && index != 0)))
+	if(sibiling == actualNode)
 	{
-		return moveToSibiling(dataRoot,nodeSize,index+type,type);
+		canInsert = sibiling->size < nodeSize;
+	}
+	else
+	{
+		canInsert = isInsertable(nodeSize,sibiling->size);
+	}
+
+	if(!canInsert && ((type == 1 && index != dataRoot->parent->size) || (type == -1 && index != 0)))
+	{
+		if(moveToSibiling(*(parent->child + index + type),actualNode,nodeSize,index+type,type))
+		{
+			return rotateLeft(dataRoot,actualNode,nodeSize,index,type);
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	return true;
 }
 
-boolean rotateRight(struct bStarTreeDataNode *dataRoot,int nodeSize,int index,int type)
+boolean rotateRight(struct bStarTreeDataNode *dataRoot,struct bStarTreeDataNode *actualNode,int nodeSize,int index,int type)
 {
-	/*int i = 0,j,holderSize = 0;
+	int i,tempSize = 0;
+	boolean canInsert;
+	struct bStarTreeDataNode *parent = dataRoot->parent;
 	struct bStarTreeDataNode *sibiling = *(parent->child + index - 1);
 	int* tempHolders = (int*)malloc(sizeof(int)*nodeSize);
 
@@ -280,54 +308,74 @@ boolean rotateRight(struct bStarTreeDataNode *dataRoot,int nodeSize,int index,in
 	{
 		*(tempHolders + tempSize) = *(parent->val + index - 1);
 		++tempSize;
-		*(parent->val + index - 1) = *(sibiling->val + sibiling->size - tempSize);
-		++i;
-		
-	} while (isInsertable(nodeSize,sibiling->size - i) && isInsertable(nodeSize,dataRoot->size));	
+		*(parent->val + index - 1) = *(sibiling->val + sibiling->size - tempSize);		
+	} while(!isInsertable(nodeSize,sibiling->size - i) && isInsertable(nodeSize,dataRoot->size));	
 
-	for(j=0;j<sibiling->size - i;j++)
+	for(i = 0; i < tempSize; ++i)
 	{
-		*(sibiling->val + j) = *(sibiling->val + j + i);
+		*(sibiling->val + i + sibiling->size) = *(sibiling->val + i);
+		*(sibiling->val + i) = *(tempHolders + i);
 	}
 
 	sibiling->size -= i;
+	dataRoot->size += i;
 
-	if(!isInsertable(nodeSize,sibiling->size) && ((type == 1 && index != nodeSize) || (type == -1 && index != 0)))
+	if(sibiling == actualNode)
 	{
-		return moveToSibiling(dataRoot,nodeSize,index+type,type);
-	}*/
+		canInsert = sibiling->size < nodeSize;
+	}
+	else
+	{
+		canInsert = isInsertable(nodeSize,sibiling->size);
+	}
+
+	if(!canInsert && ((type == 1 && index != dataRoot->parent->size) || (type == -1 && index != 0)))
+	{
+		if(moveToSibiling(*(parent->child + index + type),actualNode,nodeSize,index+type,type))
+		{
+			return rotateRight(dataRoot,actualNode,nodeSize,index,type);
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	return true;
 }
 
-boolean moveToSibiling(struct bStarTreeDataNode *dataRoot,int nodeSize,int index,int type)
+boolean moveToSibiling(struct bStarTreeDataNode *dataRoot,struct bStarTreeDataNode *actualNode,int nodeSize,int index,int type)
 {
 	struct bStarTreeDataNode *parent = dataRoot->parent;
 	boolean callRecursively = true;
-	boolean (*rotateDirection)(struct bStarTreeDataNode*,int,int,int);
+	boolean (*rotateDirection)(struct bStarTreeDataNode*,struct bStarTreeDataNode*,int,int,int);
 
 	if(type == 0)
 	{
 		if(index != 0)
 		{
-			if(!moveToSibiling(dataRoot,nodeSize,index-1,-1) && index != nodeSize)
+			if(moveToSibiling(*(parent->child + index - 1),actualNode,nodeSize,index-1,-1))
 			{
-				return moveToSibiling(dataRoot,nodeSize,index+1,1);
+				return true;
+			} 
+			else if(index != dataRoot->parent->size)
+			{
+				return moveToSibiling(*(parent->child + index + 1),actualNode,nodeSize,index+1,1);
 			}
+			return false;
 		}
 		else
 		{
-			return moveToSibiling(dataRoot,nodeSize,index+1,1);
+			return moveToSibiling(*(parent->child + index + 1),actualNode,nodeSize,index+1,1);
 		}
-		return true;
 	}
 	else if(type == 1)
 	{
-		if(index == nodeSize)
+		if(index == dataRoot->parent->size)
 		{
 			callRecursively = false;
 		}
-		rotateDirection = &rotateLeft;
+		rotateDirection = &rotateRight;
 	}
 	else
 	{
@@ -335,22 +383,22 @@ boolean moveToSibiling(struct bStarTreeDataNode *dataRoot,int nodeSize,int index
 		{
 			callRecursively = false;
 		}
-		rotateDirection = &rotateRight;
+		rotateDirection = &rotateLeft;
 	}
 	
 	if(isInsertable(nodeSize,dataRoot->size))
 	{
-		return rotateDirection(dataRoot,nodeSize,index,type);
+		return rotateDirection(dataRoot,actualNode,nodeSize,index,type);
 	}
-	else if(callRecursively && moveToSibiling(dataRoot,nodeSize,index+type,type) && isInsertable(nodeSize,dataRoot->size))
+	else if(callRecursively && moveToSibiling(*(parent->child + index + type),actualNode,nodeSize,index+type,type) && isInsertable(nodeSize,dataRoot->size))
 	{
-		return rotateDirection(dataRoot,nodeSize,index,type);
+		return rotateDirection(dataRoot,actualNode,nodeSize,index,type);
 	}
 	return false;
 }
 struct bStarTreeDataNode* bTreeInserterroot(struct bStarTreeDataNode *dataRoot,int nodeSize,int priVal)
 {
-	int index = binarySearchNode(dataRoot,priVal);
+	int index = binarySearchNode(dataRoot,priVal,false);
 	if(index >= 0)
 	{
 		return NULL;
@@ -380,8 +428,15 @@ struct bStarTreeDataNode* bTreeInserterroot(struct bStarTreeDataNode *dataRoot,i
 		{
 			if( *(dataRoot->child) == NULL && dataRoot->parent != NULL)
 			{
-				int myIndex = binarySearchNode(dataRoot->parent,*(dataRoot->val));
-				moveToSibiling(dataRoot,nodeSize,myIndex,0);
+				int myIndex = binarySearchNode(dataRoot->parent,*(dataRoot->val),true);
+				++myIndex;
+				if(moveToSibiling(dataRoot,dataRoot,nodeSize,myIndex,0))
+				{
+					*(dataRoot->val + dataRoot->size) = priVal;
+					free(temp);
+					++(dataRoot->size);
+					return NULL;
+				}
 			}
 			return splitNode(dataRoot,temp,nodeSize,index);
 		}

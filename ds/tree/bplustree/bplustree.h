@@ -231,6 +231,12 @@ struct bPlusTreeDataNode* insertIntoTheNode(struct bPlusTreeDataNode *dataRoot,s
 	*(dataRoot->child + index) = *(temp->child);
 	*(dataRoot->child + index + 1) = *(temp->child + 1);
 
+	if(*(temp->child) != NULL && (*(temp->child))->parent != NULL)
+	{
+		(*(temp->child))->parent = dataRoot;
+		(*(temp->child + 1))->parent = dataRoot;
+	}
+
 	++(dataRoot->size);
 
 	free(temp);
