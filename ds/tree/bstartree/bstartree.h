@@ -3,7 +3,7 @@
 #define false 0
 #define true 1
 #define isInsertable(actualNodeSize,currentSize) ( ((3*actualNodeSize)/4) > currentSize )
-
+#define isDeleteable(actualNodeSize,currentSize) ( actualNodeSize/2 <= currentSize )
 struct bStarTreeNode
 {
 	struct bStarTreeDataNode 
@@ -96,7 +96,7 @@ struct bStarTreeDataNode* searchData(struct bStarTreeDataNode *dataRoot,int secV
 	return searchData(*(dataRoot->child + index),secVal);
 }
 
-struct bStarTreeDataNode* searchInBStarTreeTree(struct bStarTreeNode *root,int secVal)
+struct bStarTreeDataNode* searchInBStarTree(struct bStarTreeNode *root,int secVal)
 {
 	return searchData(root->dataRoot,secVal);
 }
@@ -447,7 +447,7 @@ struct bStarTreeDataNode* bTreeInserterroot(struct bStarTreeDataNode *dataRoot,i
 	}
 }
 
-struct bStarTreeDataNode* insertToBStarTreeTree(struct bStarTreeNode *root,int priVal)
+struct bStarTreeDataNode* insertToBStarTree(struct bStarTreeNode *root,int priVal)
 {
 	struct bStarTreeDataNode *tempDNode = bTreeInserterroot(root->dataRoot,root->nodeSize,priVal);
 	if(tempDNode != NULL)
@@ -457,7 +457,7 @@ struct bStarTreeDataNode* insertToBStarTreeTree(struct bStarTreeNode *root,int p
 	return tempDNode;
 }
 
-void printBStarTreeTree(struct bStarTreeDataNode *dataRoot)
+void printBStarTree(struct bStarTreeDataNode *dataRoot)
 {
 	int i;
 	if(dataRoot == NULL)
@@ -477,11 +477,58 @@ void printBStarTreeTree(struct bStarTreeDataNode *dataRoot)
 
 	for(i = 0; i <= dataRoot->size; ++i)
 	{
-		printBStarTreeTree( *(dataRoot->child + i) );
+		printBStarTree( *(dataRoot->child + i) );
 	}
 }
 
-struct bStarTreeNode* deleteFromBStarTreeTree(struct bStarTreeNode **root,int priVal)
+struct bStarTreeDataNode* deleteFromBStarTree0(struct bStarTreeDataNode *dataRoot,int nodeSize,int priVal)
 {
-	return NULL;
+	int index = binarySearchNode(dataRoot,priVal,false);
+	if(*(dataRoot->child) == NULL && index < 0)
+	{
+		return NULL;
+	}
+	else
+	{
+		struct bStarTreeDataNode *temp;
+		if(*(dataRoot->child + index) != NULL)
+		{
+			index = -(index + 1);
+			temp = bTreeInserterroot(*(dataRoot->child + index),nodeSize,priVal);
+			if(temp == NULL)
+			{
+				return NULL;
+			}
+		}
+		if(isDeleteable(nodeSize,dataRoot->size))
+		{
+			int i;
+			for(i = index;i < nodeSize - 1; ++i)
+			{
+				*(dataRoot->val + i) = *(dataRoot->val + i + 1);
+				*(dataRoot->child + i) = *(dataRoot->child + i + 1);
+			}
+			*(dataRoot->child + i) = *(dataRoot->child + i + 1);
+		}
+		else
+		{
+			/**
+			 * check if sibiling can lend one recursively on both sides
+			 * if yes move and at last delete this node
+			 * else merge with a sibiling and bring the parent down
+			 * 		and move recursively up and do this same for the parent
+			**/
+
+		}
+	}	
+}
+
+struct bStarTreeNode* deleteFromBStarTree(struct bStarTreeNode **root,int priVal)
+{
+	struct bStarTreeDataNode *temp = deleteFromBStarTree0((*root)->dataRoot,nodeSize,priVal);
+	if(temp != NULL)
+	{
+		(*root)->dataRoot = temp;
+	}
+	return root;
 }

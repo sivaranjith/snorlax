@@ -48,11 +48,11 @@ int main()
 		{
 			case 1: printf("\nEnter the number: ");
 				scanf(" %d",&priVal);
-				insertToBStarTreeTree(obj,priVal);
+				insertToBStarTree(obj,priVal);
 				break;
 			case 2: printf("\nEnter the number: ");
 				scanf(" %d",&priVal);
-				if(searchInBStarTreeTree(obj,priVal) == NULL)
+				if(searchInBStarTree(obj,priVal) == NULL)
 				{
 					printf("\nMiss\n");
 				}
@@ -63,9 +63,9 @@ int main()
 				break;
 			case 3: printf("\nEnter the number: ");
 				scanf(" %d",&priVal);
-				deleteFromBStarTreeTree(&obj,priVal);
+				deleteFromBStarTree(&obj,priVal);
 				break;
-			case 4: printBStarTreeTree(obj->dataRoot);
+			case 4: printBStarTree(obj->dataRoot);
 				break;
 			case 5: printf("Good bye..\n\n");
 				return;
