@@ -37,27 +37,26 @@ void insertVertex(struct graph *graphObj,int key)
 
 void deleteVertex(struct graph *graphObj,int key)
 {
-	struct graphNode **graphList = graphObj->graphList;
-	if( *(graphList + key) != NULL )
+	if( *(graphObj->graphList + key) != NULL )
 	{
 		int itr;
 		struct graphNode *temp,**freePt;
-		while(*(graphList + key) != NULL)
+		while(*(graphObj->graphList + key) != NULL)
 		{
-			temp = *(graphList + key);
-			*(graphList + key) = temp->next;
+			temp = *(graphObj->graphList + key);
+			*(graphObj->graphList + key) = temp->next;
 			free(temp);
 		}
 
 		for(itr = 0; itr < graphObj->vertexCount; ++itr)
 		{
-			temp = *(graphList + itr);
+			temp = *(graphObj->graphList + itr);
 			if(temp == NULL || temp->graphNodeVal == -1)
 			{
 				continue;
 			}
-			freePt = &temp;
-			while((*freePt)->graphNodeVal < key)
+			freePt = (graphObj->graphList + itr);
+			while((*freePt)->graphNodeVal > key)
 			{
 				freePt = &(*freePt)->next;
 			}
@@ -66,6 +65,12 @@ void deleteVertex(struct graph *graphObj,int key)
 				temp = *freePt;
 				*freePt = (*freePt)->next;
 				free(temp);
+				if(*(graphObj->graphList + itr) == NULL)
+				{
+					struct graphNode *newNode = malloc(sizeof(struct graphNode));
+					newNode->graphNodeVal = -1;
+					*(graphObj->graphList + itr) = newNode;
+				}
 			}
 		}
 	}
@@ -73,6 +78,11 @@ void deleteVertex(struct graph *graphObj,int key)
 
 void insertEdge(struct graph *graphObj,int startingVertex,int endingVertex)
 {
+	if(startingVertex >= graphObj->vertexCount || endingVertex >= endingVertex)
+	{
+		return;
+	}
+	
 	struct graphNode *temp = *(graphObj->graphList + startingVertex),*newNode = malloc(sizeof(struct graphNode));
 	newNode->graphNodeVal = endingVertex;
 	if(temp == NULL || *(graphObj->graphList + endingVertex) == NULL)
@@ -93,42 +103,50 @@ void insertEdge(struct graph *graphObj,int startingVertex,int endingVertex)
 	}
 	else
 	{
-		while(temp->next != NULL && temp->next->graphNodeVal < endingVertex)
+		while(temp->next != NULL && temp->next->graphNodeVal > endingVertex)
 		{
 			temp = temp->next;
 		}
-		newNode->next = temp->next;
-		temp->next = newNode;
+
+		if(temp->next == NULL || temp->next->graphNodeVal != endingVertex)
+		{
+			newNode->next = temp->next;
+			temp->next = newNode;
+		}	
 	}
 
 }
 
 void deleteEdge(struct graph *graphObj,int startingVertex,int endingVertex)
 {
+	if(startingVertex >= graphObj->vertexCount || endingVertex >= endingVertex)
+	{
+		return;
+	}
+
 	struct graphNode *temp = *(graphObj->graphList + startingVertex),**freePt;
-	printf("%d %d\n",startingVertex,endingVertex);
 	if(temp == NULL || temp->graphNodeVal == -1)
 	{
 		return;
 	}
-	freePt = &temp;
-	while((*freePt)->graphNodeVal < endingVertex)
+	freePt = (graphObj->graphList + startingVertex);
+	while((*freePt)->graphNodeVal > endingVertex)
 	{
 		freePt = &(*freePt)->next;
 	}
-	printf("%p %d\n",*freePt,(*freePt)->graphNodeVal);
+
 	if(*freePt != NULL && (*freePt)->graphNodeVal == endingVertex)
 	{
 		temp = *freePt;
 		*freePt = (*freePt)->next;
 		free(temp);
 	}
-	printf("%p\n",*(graphObj->graphList + startingVertex));
+
 	if(*(graphObj->graphList + startingVertex) == NULL)
 	{
 		struct graphNode *newNode = malloc(sizeof(struct graphNode));
 		newNode->graphNodeVal = -1;
-		*(graphObj->graphList) = newNode;
+		*(graphObj->graphList + startingVertex) = newNode;
 	}
 }
 
