@@ -11,7 +11,7 @@ int main()
 
 	do
 	{
-		printf("\n1.Enter a new vertex\n2.Delete a vertex\n3.Enter a edge\n4.Delete a edge\n5.Print\n6.Exit:");
+		printf("\n1.Enter a new vertex\n2.Delete a vertex\n3.Enter a edge\n4.Delete a edge\n5.Print\n6.Search\n7.Reverse Graph\n8.DFS\n9.BFS\n10.Exit:");
 		scanf(" %d",&choice);
 
 		switch(choice)
@@ -34,8 +34,25 @@ int main()
 					break;
 			case 5: printGraph(graphObj);
 					break;
-			case 6: printf("\n\nGood Bye!!!\n\n");
+			case 6: printf("\nEnter starting and ending vertex number: ");
+					scanf(" %d %d",&priVal,&secVal);
+					if(searchEdge(graphObj,priVal,secVal))
+					{
+						printf("FOUND\n");
+					}
+					else
+					{
+						printf("NOT-AVAILABLE\n");
+					}
 					break;
+			case 7: graphObj = reverseGraph(graphObj);
+					break;
+			case 8: deapthFirstSearch(graphObj);
+					break;
+			case 9: breathFristSearch(graphObj);
+					break;
+			case 10: printf("\n\nGood Bye!!!\n\n");
+					return;
 			default:printf("\n\nEnter a proper value!\n\n");
 					break;
 		}
