@@ -276,7 +276,6 @@ void graphSearcher(struct graph *graphObj,struct node *head,int* dist,void (*ins
 			struct graphNode *temp = *(graphObj->graphList + itr);
 			if(*(dist + itr) == 0 && temp != NULL && temp->graphNodeVal != -1)
 			{
-				printf("1::%d <=> 1\n",itr );
 				insertionPoint(&head,itr,1);
 				graphSearcher(graphObj,head,dist,insertionPoint);
 				break;
@@ -287,7 +286,6 @@ void graphSearcher(struct graph *graphObj,struct node *head,int* dist,void (*ins
 
 	int i,key = head->key,val = head->val;
 	deleteFirstVal(&head);
-	printf("%d %d %d\n",key,val,*(dist + key));
 	if( *(dist + key) == 0)
 	{
 		struct graphNode *temp = *(graphObj->graphList + key);
@@ -296,7 +294,6 @@ void graphSearcher(struct graph *graphObj,struct node *head,int* dist,void (*ins
 		{
 			while(temp != NULL)
 			{
-				printf("2::%d <=> %d\n",temp->graphNodeVal,val + 1 );
 				insertionPoint(&head,temp->graphNodeVal,val + 1);
 				temp = temp->next;
 			}
@@ -311,7 +308,7 @@ void graphSearch(struct graph *graphObj,void (*insertionPoint)(struct node **,in
 	int itr;
 	struct node *head = NULL;
 
-	//can't believe but when i insert all and do a bfs and then again delete some node and make it multi source no malloc doesn't give 0 in all nodes
+	//can't believe but when i insert all and do a bfs and then again delete some node and make it multi source malloc doesn't give 0 in all nodes
 	for(itr = 0; itr < graphObj->vertexCount; ++itr)
 	{
 		*(dist + itr) = 0;
@@ -320,7 +317,6 @@ void graphSearch(struct graph *graphObj,void (*insertionPoint)(struct node **,in
 	{
 		if( (graphObj->graphList + itr) != NULL && (*(graphObj->graphList + itr))->graphNodeVal != -1)
 		{
-			printf("0::%d <=> 1\n",itr );
 			insertionPoint(&head,itr,1);
 			break;
 		}
@@ -342,4 +338,126 @@ void deapthFirstSearch(struct graph *graphObj)
 void breathFristSearch(struct graph *graphObj)
 {
 	graphSearch(graphObj,insertAtEnd);
+}
+
+struct node* topologicalSort(struct graph *graphObj,struct node *head,boolean* marker,int itr,void (*insertionPoint)(struct node **,int,int))
+{
+	*(marker + itr) = true;
+	if((*(graphObj->graphList + itr))->graphNodeVal != -1)
+	{
+		struct graphNode *temp = *(graphObj->graphList + itr);
+		while(temp != NULL)
+		{
+			int key = temp->graphNodeVal;
+			if( !(*(marker + key)) )
+			{
+				head = topologicalSort(graphObj,head,marker,key,insertionPoint);
+			}
+			temp = temp->next;
+		}
+	}
+
+	insertionPoint(&head,itr,0);
+	return head;
+}
+
+struct node* topologicalSorter(struct graph *graphObj,void (*insertionPoint)(struct node **,int,int))
+{
+	struct node *head = malloc(sizeof(struct node));
+	head->key = -1;
+	boolean* marker = malloc(sizeof(boolean)*(graphObj->vertexCount));
+	int itr;
+
+	while(true)
+	{
+
+		for(itr = graphObj->vertexCount - 1; itr >= 0; --itr)
+		{
+			if( (graphObj->graphList + itr) != NULL && (*(graphObj->graphList + itr))->graphNodeVal != -1 && !(*(marker + itr)))
+			{
+				// printf("0::%d\n",itr);
+				break;
+			}
+		}
+
+		if(itr == -1)
+		{
+			head = head->next;
+			return head;
+		}
+
+		head = topologicalSort(graphObj,head,marker,itr,insertionPoint);
+	}
+}
+
+struct node* reversePostOrder(struct graph *graphObj)
+{
+	topologicalSorter(graphObj,insertAtEnd);
+}
+
+struct node* reverseReversePostOrder(struct graph *graphObj)
+{
+	topologicalSorter(graphObj,insertAtBegining);
+}
+
+void setConnection(struct graph *graphObj,int* connectionDetails,int parentId,int counter)
+{
+	*(connectionDetails + parentId) = counter;
+	struct graphNode *temp = *(graphObj->graphList + parentId);
+	
+	printf("2::%d\n",temp->graphNodeVal);
+	if(temp->graphNodeVal == -1)
+	{
+		return;
+	}
+
+	while(temp != NULL)
+	{
+		int childVal = temp->graphNodeVal;
+		if(*(connectionDetails + childVal) == 0)
+		{
+			setConnection(graphObj,connectionDetails,childVal,counter);
+		}
+		temp = temp->next;
+	}
+}
+
+int* getConnectedComponent(struct graph *graphObj)
+{
+	struct graph* reversedGraph = reverseGraph(graphObj);
+	struct node* reverseOrder = reverseReversePostOrder(reversedGraph),*printer;
+	
+	printf("%p\n",reverseOrder);
+
+	for(printer = reverseOrder; printer != NULL; printer = printer->next)
+	{
+		printf("%d,",printer->key);
+	}
+
+	int* connectionDetails = malloc(sizeof(int)*(graphObj->vertexCount));
+	int counter;
+
+	for(counter = 1; reverseOrder != NULL;deleteFirstVal(&reverseOrder),++counter)
+	{
+		int key = reverseOrder->key;
+		struct graphNode *temp = *(graphObj->graphList + key);
+		printf("0::%d\n",key);
+
+		if(*(connectionDetails + key) != 0)
+		{
+			continue;
+		}
+
+		*(connectionDetails + key) = counter;
+		printf("1::%d %d\n",key,counter);
+		if(temp->graphNodeVal == -1)
+		{
+			continue;
+		}
+		printf("calling set connection\n");
+		setConnection(graphObj,connectionDetails,key,counter);
+	}
+
+	return connectionDetails;
+
 }
