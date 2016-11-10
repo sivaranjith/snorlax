@@ -363,8 +363,7 @@ struct node* topologicalSort(struct graph *graphObj,struct node *head,boolean* m
 
 struct node* topologicalSorter(struct graph *graphObj,void (*insertionPoint)(struct node **,int,int))
 {
-	struct node *head = malloc(sizeof(struct node));
-	head->key = -1;
+	struct node *head = NULL;
 	boolean* marker = malloc(sizeof(boolean)*(graphObj->vertexCount));
 	int itr;
 
@@ -375,14 +374,12 @@ struct node* topologicalSorter(struct graph *graphObj,void (*insertionPoint)(str
 		{
 			if( (graphObj->graphList + itr) != NULL && (*(graphObj->graphList + itr))->graphNodeVal != -1 && !(*(marker + itr)))
 			{
-				// printf("0::%d\n",itr);
 				break;
 			}
 		}
 
 		if(itr == -1)
 		{
-			head = head->next;
 			return head;
 		}
 
@@ -405,7 +402,6 @@ void setConnection(struct graph *graphObj,int* connectionDetails,int parentId,in
 	*(connectionDetails + parentId) = counter;
 	struct graphNode *temp = *(graphObj->graphList + parentId);
 	
-	printf("2::%d\n",temp->graphNodeVal);
 	if(temp->graphNodeVal == -1)
 	{
 		return;
@@ -424,24 +420,16 @@ void setConnection(struct graph *graphObj,int* connectionDetails,int parentId,in
 
 int* getConnectedComponent(struct graph *graphObj)
 {
+	int counter;
 	struct graph* reversedGraph = reverseGraph(graphObj);
 	struct node* reverseOrder = reverseReversePostOrder(reversedGraph),*printer;
-	
-	printf("%p\n",reverseOrder);
-
-	for(printer = reverseOrder; printer != NULL; printer = printer->next)
-	{
-		printf("%d,",printer->key);
-	}
 
 	int* connectionDetails = malloc(sizeof(int)*(graphObj->vertexCount));
-	int counter;
 
 	for(counter = 1; reverseOrder != NULL;deleteFirstVal(&reverseOrder),++counter)
 	{
 		int key = reverseOrder->key;
 		struct graphNode *temp = *(graphObj->graphList + key);
-		printf("0::%d\n",key);
 
 		if(*(connectionDetails + key) != 0)
 		{
@@ -449,15 +437,12 @@ int* getConnectedComponent(struct graph *graphObj)
 		}
 
 		*(connectionDetails + key) = counter;
-		printf("1::%d %d\n",key,counter);
 		if(temp->graphNodeVal == -1)
 		{
 			continue;
 		}
-		printf("calling set connection\n");
 		setConnection(graphObj,connectionDetails,key,counter);
 	}
 
 	return connectionDetails;
-
 }
