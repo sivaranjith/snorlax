@@ -370,6 +370,8 @@ void graphSearch(struct graph *graphObj,void (*insertionPoint)(struct node **,in
 	{
 		printf("%d => %d\n", itr,*(dist + itr) - 1);
 	}
+
+	free(dist);
 }
 
 void deapthFirstSearch(struct graph *graphObj)
@@ -427,6 +429,7 @@ struct node* topologicalSorter(struct graph *graphObj,void (*insertionPoint)(str
 
 		head = topologicalSort(graphObj,head,marker,itr,insertionPoint);
 	}
+	free(marker);
 }
 
 struct node* reversePostOrder(struct graph *graphObj)
@@ -486,6 +489,7 @@ int* getConnectedComponent(struct graph *graphObj)
 		setConnection(graphObj,connectionDetails,key,counter);
 	}
 
+	free(connectionDetails);
 	return connectionDetails;
 }
 
@@ -571,6 +575,7 @@ struct node* kruskalMST(struct graph* graphObj)
 		free(tempNode);
 	}
 
+	free(connectionDetails);
 	return head;
 }
 
@@ -632,5 +637,55 @@ struct node* primsMST(struct graph* graphObj)
 		}
 	}
 
+	free(connectionDetails);
+	return head;
+}
+
+struct node** dijkstraShortestPath(struct graph* graphObj,int startingPoint)
+{
+	struct node **head = malloc(sizeof(struct node*)*(graphObj->vertexCount)),*temp1,*temp2;
+	int *visited = malloc(sizeof(int)*(graphObj->vertexCount)),vertex = 0,val,weight;
+
+	for(val = 0; val < graphObj->vertexCount; ++val)
+	{
+		*(head + val) = malloc(sizeof(struct node));
+	}
+
+	do
+	{
+		struct graphNode *tempNode = *(graphObj->graphList + vertex);
+		if(tempNode != NULL && tempNode->graphNodeVal != -1)
+		{
+			temp1 = *(head + vertex);
+			while(tempNode != NULL)
+			{
+				val = tempNode->graphNodeVal;
+				weight = tempNode->weight;
+				temp2 = *(head + val);
+				if(temp2->key == 0 || temp2->key > temp1->key + weight)
+				{
+					temp2->key = temp1->key + weight;
+					temp2->val = vertex;
+				}
+				tempNode = tempNode->next;
+			}
+		}
+
+		*(visited + vertex) = true;
+		vertex = -1;
+		weight = 0;
+
+		for(val = 0; val < graphObj->vertexCount; ++val)
+		{
+			temp1 = *(head + val);
+			if(*(visited + val) == false && temp1->key != 0 && (temp1->key < weight || vertex == -1))
+			{
+				weight = temp1->key;
+				vertex = val;
+			}
+		}
+	}while(vertex != -1);
+
+	free(visited);
 	return head;
 }
