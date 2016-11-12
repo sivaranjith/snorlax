@@ -9,24 +9,30 @@ struct graph
 	int vertexCount;
 	struct graphNode
 	{
-		int graphNodeVal;
+		int graphNodeVal,weight;
 		struct graphNode *next;
 	}**graphList;
 };
 
 struct node
 {
-	int key,val;
+	int key,val,tempVal;
 	struct node *next;
 };
 
-void insertAtBegining(struct node **head, int priVal,int secVal)
+void insertAtBeginingWithTemp(struct node **head, int priVal,int secVal,int tempVal)
 {
 	struct node *temp = (struct node*)malloc(sizeof(struct node));
 	temp->key = priVal;
 	temp->val = secVal;
+	temp->tempVal = tempVal;
 	temp->next = *head;
 	*head = temp;
+}
+
+void insertAtBegining(struct node **head, int priVal,int secVal)
+{
+	insertAtBeginingWithTemp(head,priVal,secVal,0);
 }
 
 int deleteFirstVal(struct node **head)
@@ -60,6 +66,36 @@ void insertAtEnd(struct node **head, int priVal,int secVal)
 		{
 			itr = itr->next;
 		}
+		itr->next = temp;
+	}
+}
+
+void insertInAssendingOrder(struct node **head,int priVal,int secVal,int tempVal)
+{
+	int i;
+	struct node *temp = (struct node*)malloc(sizeof(struct node));
+	temp->key = priVal;
+	temp->val = secVal;
+	temp->tempVal = tempVal;
+	temp->next = NULL;
+
+	struct node *itrTemp = *head;
+
+	if(*head == NULL || (*head)->key >= priVal)
+	{
+		temp->next = *head;
+		*head = temp;
+	}
+	else
+	{
+		struct node* itr = *head;
+
+		while(itr->next != NULL && itr->next->key < priVal)
+		{
+			itr = itr->next;
+		}
+
+		temp->next = itr->next;
 		itr->next = temp;
 	}
 }
@@ -140,7 +176,7 @@ void deleteVertex(struct graph *graphObj,int key)
 	}
 }
 
-void insertEdge(struct graph *graphObj,int startingVertex,int endingVertex)
+void insertEdgeWithWeight(struct graph *graphObj,int startingVertex,int endingVertex,int weight)
 {
 	if(startingVertex >= graphObj->vertexCount || endingVertex >= graphObj->vertexCount)
 	{
@@ -149,6 +185,7 @@ void insertEdge(struct graph *graphObj,int startingVertex,int endingVertex)
 	
 	struct graphNode *temp = *(graphObj->graphList + startingVertex),*newNode = malloc(sizeof(struct graphNode));
 	newNode->graphNodeVal = endingVertex;
+	newNode->weight = weight;
 	if(temp == NULL || *(graphObj->graphList + endingVertex) == NULL)
 	{
 		return;
@@ -179,6 +216,11 @@ void insertEdge(struct graph *graphObj,int startingVertex,int endingVertex)
 		}	
 	}
 
+}
+
+void insertEdge(struct graph *graphObj,int startingVertex,int endingVertex)
+{
+	insertEdgeWithWeight(graphObj,startingVertex,endingVertex,0);
 }
 
 void deleteEdge(struct graph *graphObj,int startingVertex,int endingVertex)
@@ -228,7 +270,7 @@ void printGraph(struct graph *graphObj)
 		printf("\n %d ",itr);
 		while(temp != NULL)
 		{
-			printf("-> %d ",temp->graphNodeVal);
+			printf("-> %d(%d) ",temp->graphNodeVal,temp->weight);
 			temp = temp->next;
 		}
 		printf("\n");
@@ -445,4 +487,89 @@ int* getConnectedComponent(struct graph *graphObj)
 	}
 
 	return connectionDetails;
+}
+
+struct node* getEdgeList(struct graph *graphObj)
+{
+	int itr;
+	struct node* head = NULL;
+	for(itr = 0;itr < graphObj->vertexCount; ++itr)
+	{
+		struct graphNode *temp = *(graphObj->graphList + itr),*itrTemp;
+		itrTemp = temp;
+		if(temp == NULL || temp->graphNodeVal == -1)
+		{
+			continue;
+		}
+		while(itrTemp != NULL)
+		{
+			itrTemp = itrTemp->next;
+		}
+		while(temp != NULL)
+		{
+			insertInAssendingOrder(&head,temp->weight,itr,temp->graphNodeVal);
+			temp = temp->next;
+		}
+	}
+	return head;
+}
+
+struct graph* makeGraphUndirected(struct graph* graphObj)
+{
+	struct graph* unDirectedGraphObj = createGraph(graphObj->vertexCount);
+	int itr;
+	for(itr = 0; itr < graphObj->vertexCount; ++itr)
+	{
+		if(*(graphObj->graphList + itr) != NULL)
+		{
+			insertVertex(unDirectedGraphObj,itr);
+		}
+	}
+	for(itr = 0; itr < graphObj->vertexCount; ++itr)
+	{
+		struct graphNode *temp = *(graphObj->graphList + itr);
+		if(temp == NULL || temp->graphNodeVal == -1)
+		{
+			continue;
+		}
+		while(temp != NULL)
+		{
+			insertEdgeWithWeight(unDirectedGraphObj,itr,temp->graphNodeVal,temp->weight);
+			insertEdgeWithWeight(unDirectedGraphObj,temp->graphNodeVal,itr,temp->weight);
+			temp = temp->next;
+		}
+	}
+	return unDirectedGraphObj;
+}
+
+struct node* kruskalMST(struct graph* graphObj)
+{
+	struct node *head = NULL,*edgeList = getEdgeList(graphObj),*tempNode;
+	int *connectionDetails = malloc(sizeof(int)*(graphObj->vertexCount)),key,val,itr;
+	for(itr = 0; itr < graphObj->vertexCount; ++itr)
+	{
+		*(connectionDetails + itr) = itr;
+	}
+
+	while(edgeList != NULL)
+	{
+		key = *(connectionDetails + edgeList->val);
+		val = *(connectionDetails + edgeList->tempVal);
+		if(key != val)
+		{
+			for(itr = 0; itr < graphObj->vertexCount; ++itr)
+			{
+				if(*(connectionDetails + itr) == val)
+				{
+					*(connectionDetails + itr) = key;
+				}
+			}
+			insertAtBeginingWithTemp(&head,edgeList->val,edgeList->tempVal,edgeList->key);
+		}
+		tempNode = edgeList;
+		edgeList = edgeList->next;
+		free(tempNode);
+	}
+
+	return head;
 }
