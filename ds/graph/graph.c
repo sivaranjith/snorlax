@@ -76,6 +76,14 @@ int main()
 						head = head->next;
 					}
 					break;
+			case 13:head = primsMST(graphObj);
+					printf("\n");
+					while(head != NULL)
+					{
+						printf("%d %d %d\n",head->key,head->val,head->tempVal);
+						head = head->next;
+					}
+					break;
 			case 14:printf("\nEnter starting and ending vertex number and weight: ");
 					scanf(" %d %d %d",&priVal,&secVal,&weight);
 					insertEdgeWithWeight(graphObj,priVal,secVal,weight);

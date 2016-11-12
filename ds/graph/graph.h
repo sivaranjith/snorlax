@@ -564,11 +564,72 @@ struct node* kruskalMST(struct graph* graphObj)
 					*(connectionDetails + itr) = key;
 				}
 			}
-			insertAtBeginingWithTemp(&head,edgeList->val,edgeList->tempVal,edgeList->key);
+			insertInAssendingOrder(&head,edgeList->key,edgeList->val,edgeList->tempVal);
 		}
 		tempNode = edgeList;
 		edgeList = edgeList->next;
 		free(tempNode);
+	}
+
+	return head;
+}
+
+struct node* primsMST(struct graph* graphObj)
+{
+	struct node *head = NULL,*edgeList = NULL,*tempNode;
+	struct graphNode* temp;
+	int *connectionDetails = malloc(sizeof(int)*(graphObj->vertexCount)),itr,key,val,weight;
+	struct graph *unDirectedGraphObj = makeGraphUndirected(graphObj); 
+
+	for(itr = 0; itr < graphObj->vertexCount; ++itr)
+	{
+		*(connectionDetails + itr) = itr;
+	}
+	
+	for(itr = 0;itr < unDirectedGraphObj->vertexCount; ++itr)
+	{
+		temp = *(unDirectedGraphObj->graphList + itr);
+		if(temp != NULL && temp->graphNodeVal != -1)
+		{
+			while(temp != NULL)
+			{
+				insertInAssendingOrder(&edgeList,temp->weight,itr,temp->graphNodeVal);
+				temp = temp->next;
+			}
+			break;
+		}	
+	}
+
+	while(edgeList != NULL)
+	{
+		tempNode = edgeList;
+		key = edgeList->val,val = edgeList->tempVal,weight = edgeList->key;
+		if(*(connectionDetails + key) != *(connectionDetails + val))
+		{
+			for(itr = 0; itr < graphObj->vertexCount; ++itr)
+			{
+				if(*(connectionDetails + itr) == *(connectionDetails + val))
+				{
+					*(connectionDetails + itr) = *(connectionDetails + key);
+				}
+			}
+
+			temp = *(unDirectedGraphObj->graphList + val);
+			while(temp != NULL)
+			{
+				if(*(connectionDetails + val) != *(connectionDetails + temp->graphNodeVal))
+				{
+					insertInAssendingOrder(&edgeList,temp->weight,val,temp->graphNodeVal);
+				}
+				temp = temp->next;
+			}
+			insertInAssendingOrder(&head,weight,key,val);
+		}
+		if(tempNode == edgeList)
+		{
+			edgeList = edgeList->next;
+			free(tempNode);
+		}
 	}
 
 	return head;
