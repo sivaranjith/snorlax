@@ -13,7 +13,7 @@ int main()
 
 	do
 	{
-		printf("\n1.Enter a new vertex\n2.Delete a vertex\n3.Enter a edge\n4.Delete a edge\n5.Print\n6.Search Edge\n7.Reverse Graph\n8.DFS\n9.BFS\n10.Topological sort\n11.Strongly connected(kosaraju)\n12.kruskal's MST\n13.prim's MST\n14.Insert Edge with weight\n15.Dijkstra Algorithm\n16.Exit:");
+		printf("\n1.Enter a new vertex\n2.Delete a vertex\n3.Enter a edge\n4.Delete a edge\n5.Print\n6.Search Edge\n7.Reverse Graph\n8.DFS\n9.BFS\n10.Topological sort\n11.Strongly connected(kosaraju)\n12.kruskal's MST\n13.prim's MST\n14.Insert Edge with weight\n15.Dijkstra Algorithm\n16.Edge weighted Graph shortest path\n17.Bell-Man ford shortest path\n18.Exit:");
 		scanf(" %d",&choice);
 
 		switch(choice)
@@ -98,7 +98,27 @@ int main()
 						printf("%d %d %d\n",head->key,head->val,secVal);
 					}
 					break;
-			case 16:printf("\n\nGood Bye!!!\n\n");
+			case 16:printf("Starting point: ");
+					scanf(" %d",&priVal);
+					headArray = edgeWeightedShortestPath(graphObj,priVal);
+					printf("\n");
+					for(secVal = 0;secVal < graphObj->vertexCount; ++secVal)
+					{
+						head = *(headArray + secVal);
+						printf("%d %d %d\n",head->key,head->val,secVal);
+					}
+					break;
+			case 17:printf("Starting point: ");
+					scanf(" %d",&priVal);
+					headArray = bellManFordShortestPath(graphObj,priVal);
+					printf("\n");
+					for(secVal = 0;secVal < graphObj->vertexCount; ++secVal)
+					{
+						head = *(headArray + secVal);
+						printf("%d %d %d\n",head->key,head->val,secVal);
+					}
+					break;
+			case 18:printf("\n\nGood Bye!!!\n\n");
 				 	return;
 			default:printf("\n\nEnter a proper value!\n\n");
 					break;

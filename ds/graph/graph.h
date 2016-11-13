@@ -54,6 +54,7 @@ void insertAtEnd(struct node **head, int priVal,int secVal)
 	struct node *temp = (struct node*)malloc(sizeof(struct node));
 	temp->key = priVal;
 	temp->val = secVal;
+	temp->tempVal = 0;
 	temp->next = NULL;
 	if(*head == NULL)
 	{
@@ -405,20 +406,27 @@ struct node* topologicalSort(struct graph *graphObj,struct node *head,boolean* m
 	return head;
 }
 
-struct node* topologicalSorter(struct graph *graphObj,void (*insertionPoint)(struct node **,int,int))
+struct node* topologicalSorter(struct graph *graphObj,void (*insertionPoint)(struct node **,int,int),int startingPoint)
 {
 	struct node *head = NULL;
 	boolean* marker = malloc(sizeof(boolean)*(graphObj->vertexCount));
-	int itr;
+	int val,itr = startingPoint;
+
+	for(val = 0; val < graphObj->vertexCount; ++val)
+	{
+		*(marker + val) = false;
+	}
 
 	while(true)
 	{
-
-		for(itr = graphObj->vertexCount - 1; itr >= 0; --itr)
+		if(startingPoint == -1)
 		{
-			if( (graphObj->graphList + itr) != NULL && (*(graphObj->graphList + itr))->graphNodeVal != -1 && !(*(marker + itr)))
+			for(itr = graphObj->vertexCount - 1; itr >= 0; --itr)
 			{
-				break;
+				if( (graphObj->graphList + itr) != NULL && (*(graphObj->graphList + itr))->graphNodeVal != -1 && !(*(marker + itr)))
+				{
+					break;
+				}
 			}
 		}
 
@@ -428,18 +436,33 @@ struct node* topologicalSorter(struct graph *graphObj,void (*insertionPoint)(str
 		}
 
 		head = topologicalSort(graphObj,head,marker,itr,insertionPoint);
+
+		if(startingPoint != -1)
+		{
+			return head;
+		}
 	}
 	free(marker);
 }
 
+struct node* reversePostOrderWithStartingPoint(struct graph *graphObj,int startingPoint)
+{
+	topologicalSorter(graphObj,insertAtEnd,startingPoint);
+}
+
 struct node* reversePostOrder(struct graph *graphObj)
 {
-	topologicalSorter(graphObj,insertAtEnd);
+	reversePostOrderWithStartingPoint(graphObj,-1);
+}
+
+struct node* reverseReversePostOrderWithStartingPoint(struct graph *graphObj,int startingPoint)
+{
+	topologicalSorter(graphObj,insertAtBegining,startingPoint);
 }
 
 struct node* reverseReversePostOrder(struct graph *graphObj)
 {
-	topologicalSorter(graphObj,insertAtBegining);
+	reverseReversePostOrderWithStartingPoint(graphObj,-1);
 }
 
 void setConnection(struct graph *graphObj,int* connectionDetails,int parentId,int counter)
@@ -470,6 +493,10 @@ int* getConnectedComponent(struct graph *graphObj)
 	struct node* reverseOrder = reverseReversePostOrder(reversedGraph),*printer;
 
 	int* connectionDetails = malloc(sizeof(int)*(graphObj->vertexCount));
+	for(counter = 0; counter < graphObj->vertexCount; ++counter)
+	{
+		*(connectionDetails + counter) = false;
+	}
 
 	for(counter = 1; reverseOrder != NULL;deleteFirstVal(&reverseOrder),++counter)
 	{
@@ -649,6 +676,8 @@ struct node** dijkstraShortestPath(struct graph* graphObj,int startingPoint)
 	for(val = 0; val < graphObj->vertexCount; ++val)
 	{
 		*(head + val) = malloc(sizeof(struct node));
+		(*(head + val))->key = (*(head + val))->val = (*(head + val))->tempVal = 0;
+		*(visited + val) = false;
 	}
 
 	do
@@ -687,5 +716,84 @@ struct node** dijkstraShortestPath(struct graph* graphObj,int startingPoint)
 	}while(vertex != -1);
 
 	free(visited);
+	return head;
+}
+
+struct node** edgeWeightedShortestPath(struct graph *graphObj,int startingPoint)
+{
+	struct node** head = malloc(sizeof(struct node*)*(graphObj->vertexCount)),*temp1,*temp2;
+	struct node *topologicalOrder = reverseReversePostOrderWithStartingPoint(graphObj,startingPoint),*temp;
+	int key,val,weight;
+
+	for(val = 0; val < graphObj->vertexCount; ++val)
+	{
+		*(head + val) = malloc(sizeof(struct node));
+		(*(head + val))->key = (*(head + val))->val = (*(head + val))->tempVal = 0;
+	}
+
+	while(topologicalOrder != NULL)
+	{
+		temp = topologicalOrder;
+		struct graphNode *tempNode = *(graphObj->graphList + temp->key);
+
+		if(tempNode != NULL && tempNode->graphNodeVal != -1)
+		{
+			while(tempNode != NULL)
+			{
+				key = tempNode->graphNodeVal;
+				temp1 = *(head + key);
+				temp2 = *(head + temp->key);
+				if(temp1->key == 0 || temp1->key > temp2->key + tempNode->weight)
+				{
+					temp1->key = temp2->key + tempNode->weight;
+					temp1->val = temp->key;
+				}
+				tempNode = tempNode->next;
+			}
+		}
+
+		deleteFirstVal(&topologicalOrder);
+	}
+	return head;
+}
+
+struct node** bellManFordShortestPath(struct graph *graphObj,int startingPoint)
+{
+	struct node **head = malloc(sizeof(struct node*)*(graphObj->vertexCount)),*temp1,*temp2;
+	int itr1,itr2,isChanged = true,key,val,weight;
+
+	for(val = 0; val < graphObj->vertexCount; ++val)
+	{
+		*(head + val) = malloc(sizeof(struct node));
+		(*(head + val))->key = (*(head + val))->val = (*(head + val))->tempVal = 0;
+	}
+
+	for(itr1 = 0;isChanged && itr1 < graphObj->vertexCount; ++itr1)
+	{
+		isChanged = false;
+		for(itr2 = 0; itr2 < graphObj->vertexCount; ++itr2)
+		{
+			struct graphNode *temp = *(graphObj->graphList + itr2);
+			temp1 = *(head + itr2);
+			if(temp == NULL || temp->graphNodeVal == -1)
+			{
+				continue;
+			}
+			while(temp != NULL)
+			{
+				key = temp->graphNodeVal;
+				weight = temp->weight;
+				temp2 = *(head + key);
+				if(temp2->key == 0 || temp2->key > temp1->key + weight)
+				{
+					temp2->key = temp1->key + weight;
+					temp2->val = itr2;
+					isChanged = true;
+				}
+				temp = temp->next;
+			}
+		}
+	}
+
 	return head;
 }
