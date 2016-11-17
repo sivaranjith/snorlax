@@ -189,6 +189,7 @@ void insertEdgeWithWeight(struct graph *graphObj,int startingVertex,int endingVe
 	newNode->weight = weight;
 	if(temp == NULL || *(graphObj->graphList + endingVertex) == NULL)
 	{
+		free(newNode);
 		return;
 	}
 	//this else if and else should be combined! this is really bad coding!!
@@ -216,7 +217,6 @@ void insertEdgeWithWeight(struct graph *graphObj,int startingVertex,int endingVe
 			temp->next = newNode;
 		}	
 	}
-
 }
 
 void insertEdge(struct graph *graphObj,int startingVertex,int endingVertex)
