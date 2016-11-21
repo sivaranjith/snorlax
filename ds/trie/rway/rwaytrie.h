@@ -166,14 +166,17 @@ boolean rWayTrieRemover(struct trieNode* trieObj,char *key,int index)
 			trieObj->next[c] = NULL;
 			free(temp);
 
-			for(itr = 0; itr < radix; ++itr)
+			if(trieObj->value == 0)
 			{
-				if(trieObj->next[itr] != NULL)
+				for(itr = 0; itr < radix; ++itr)
 				{
-					return true;
+					if(trieObj->next[itr] != NULL)
+					{
+						return true;
+					}
 				}
+				trieObj->value = -1;
 			}
-			trieObj->value = -1;
 		}
 		returnVal = true;
 	}
