@@ -21,12 +21,10 @@ struct ternaryTrieNode* createTernaryTrie()
 	return ternaryTrieObj;
 }
 
-
-
 struct ternaryTrieNode* ternaryTrieInsertor(struct ternaryTrieNode *ternaryTrieObj,char *key,int value,int index)
 {
-	struct ternaryTrieNode **trieObjRef,*newObj;
-	int inc = 0,itr = 0;
+	struct ternaryTrieNode **trieObjRef;
+	int inc = 0;
 	if(ternaryTrieObj == NULL)
 	{
 		ternaryTrieObj = createTernaryTrie();
@@ -36,12 +34,8 @@ struct ternaryTrieNode* ternaryTrieInsertor(struct ternaryTrieNode *ternaryTrieO
 		if(*(key + index) != '\0')
 		{
 			inc = 1;
-			for(itr = 0; *(key + index) != '\0' ; ++itr,++index)
-			{
-				ternaryTrieObj->key[itr] = *(key + index);
-			}
-			ternaryTrieObj->length += itr;
-			ternaryTrieObj->key[ternaryTrieObj->length] = '\0';
+			ternaryTrieObj->key[0] = *(key + index);
+			++(ternaryTrieObj->length);
 		}
 		else
 		{
@@ -49,8 +43,7 @@ struct ternaryTrieNode* ternaryTrieInsertor(struct ternaryTrieNode *ternaryTrieO
 			return NULL;
 		}
 	}
-	
-	if(*(key + index) == '\0')
+	if(*(key + index + 1) == '\0')
 	{
 		ternaryTrieObj->value = value;
 		return ternaryTrieObj;
@@ -60,43 +53,14 @@ struct ternaryTrieNode* ternaryTrieInsertor(struct ternaryTrieNode *ternaryTrieO
 	{
 		trieObjRef = &(ternaryTrieObj->next[0]);
 	}
-	else if(*(key + index) > ternaryTrieObj->key[0])
+	else if(*(key + index) == ternaryTrieObj->key[0])
 	{
-		trieObjRef = &(ternaryTrieObj->next[2]);
+		inc = 1;
+		trieObjRef = &(ternaryTrieObj->next[1]);
 	}
 	else
 	{
-		for(itr = 0; *(key + index) != '\0' && itr != ternaryTrieObj->length && *(key + index) == ternaryTrieObj->key[itr]; ++itr,++index);
-
-		--index;
-
-		if(itr != ternaryTrieObj->length)
-		{
-			int itr2;
-			newObj = createTernaryTrie();
-			for(itr2 = 0; itr < ternaryTrieObj->length; ++itr,++itr2)
-			{
-				newObj->key[itr2] = ternaryTrieObj->key[itr];
-			}
-			newObj->length = itr2;
-			ternaryTrieObj->length -= itr2;
-			ternaryTrieObj->key[ternaryTrieObj->length] = '\0';
-			newObj->next[1] = ternaryTrieObj->next[1];
-			ternaryTrieObj->next[1] = newObj;
-			newObj->value = ternaryTrieObj->value;
-			if(*(key + itr) != '\0')
-			{
-				ternaryTrieObj->value = 0;
-			}
-			else
-			{
-				ternaryTrieObj->value = value;
-				return ternaryTrieObj;
-			}
-		}
-
-		inc = 1;
-		trieObjRef = &(ternaryTrieObj->next[1]);
+		trieObjRef = &(ternaryTrieObj->next[2]);
 	}
 
 	*trieObjRef = ternaryTrieInsertor(*trieObjRef,key,value,index + inc);
@@ -119,26 +83,17 @@ struct ternaryTrieNode* insertTernaryTrie(struct ternaryTrieNode *ternaryTrieObj
 
 void ternaryTriePrinter(struct ternaryTrieNode* ternaryTrieObj,char *container,int index)
 {
-	int itr = 0;
 	if(ternaryTrieObj == NULL)
 	{
 		return;
 	}
-
-	for(itr = 0; itr < ternaryTrieObj->length; ++itr,++index)
-	{
-		*(container + index) = ternaryTrieObj->key[itr];
-	}
+	*(container + index++) = ternaryTrieObj->key[0];
 
 	printf("%s %d\n",container,ternaryTrieObj->value);
 
 	ternaryTriePrinter(ternaryTrieObj->next[1],container,index);
 
-	while(itr > 0)
-	{
-		*(container + --index) = '\0';
-		--itr;
-	}
+	*(container + --index) = '\0';
 
 	ternaryTriePrinter(ternaryTrieObj->next[0],container,index);
 	ternaryTriePrinter(ternaryTrieObj->next[2],container,index);
@@ -168,23 +123,13 @@ int ternaryTrieSearcher(struct ternaryTrieNode *ternaryTrieObj,char *key,int ind
 	{
 		return ternaryTrieSearcher(ternaryTrieObj->next[2],key,index);
 	}
+	else if(*(key + index + 1) == '\0')
+	{
+		return ternaryTrieObj->value;
+	}
 	else
 	{
-		int itr;
-		for(itr = 0; *(key + index) != '\0' && itr < ternaryTrieObj->length && ternaryTrieObj->key[itr] == *(key + index) ; ++index,++itr);
-
-		if(*(key + index) == '\0')
-		{
-			if(itr == ternaryTrieObj->length)
-			{
-				return ternaryTrieObj->value;
-			}
-			else
-			{
-				return 0;
-			}
-		}
-		return ternaryTrieSearcher(ternaryTrieObj->next[1],key,index);
+		return ternaryTrieSearcher(ternaryTrieObj->next[1],key,index+1);
 	}
 }
 
@@ -216,32 +161,25 @@ boolean ternaryTrieRemover(struct ternaryTrieNode *ternaryTrieObj,char *key,int 
 	{
 		temp = &(ternaryTrieObj->next[2]);
 	}
+	else if(*(key + index + 1) == '\0' && ternaryTrieObj->value != 0)
+	{
+		if(ternaryTrieObj->next[1] != NULL)
+		{
+			ternaryTrieObj->value = 0;
+		}
+		else
+		{
+			ternaryTrieObj->value = -1;
+		}
+		return true;
+	}
 	else
 	{
-		int itr;
-		for(itr = 0; *(key + index) != '\0' && itr != ternaryTrieObj->length && *(key + index) == ternaryTrieObj->key[itr]; ++itr,++index);
-
-		if(*(key + index) == '\0')
-		{
-			if(itr == ternaryTrieObj->length && ternaryTrieObj->value != 0)
-			{
-				if(ternaryTrieObj->next[0] != NULL || ternaryTrieObj->next[1] != NULL || ternaryTrieObj->next[2] != NULL)
-				{
-					ternaryTrieObj->value = 0;
-				}
-				else
-				{
-					ternaryTrieObj->value = -1;
-				}
-				return true;
-			}
-			return false;
-		}
 		inc = 1;
 		temp = &(ternaryTrieObj->next[1]);
 	}
 	
-	if(ternaryTrieRemover(*temp,key,index))
+	if(ternaryTrieRemover(*temp,key,index + inc))
 	{
 		if((*temp)->value == -1)
 		{
