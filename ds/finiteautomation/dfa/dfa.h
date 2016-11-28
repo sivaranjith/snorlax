@@ -8,7 +8,6 @@
 int** getDFAObj(char *source,int length)
 {
 	int** dfaObj = calloc(sizeof(int*),26),itr1,itr2,itr3,c;
-	boolean isFirst = true;
 
 	for(itr1 = 0; itr1 < 26; ++itr1)
 	{
@@ -18,19 +17,12 @@ int** getDFAObj(char *source,int length)
 	for(itr2 = 0, itr1 = 0; itr2 < length; ++itr2)
 	{
 		c = *(source + itr2) - 'a';
-		*(*(dfaObj + c) + itr2) = itr2 + 1;
-		if(!isFirst)
+		for(itr3 = 0; itr3 < 26; ++itr3)
 		{
-			for(itr3 = 0; itr3 < 26; ++itr3)
-			{
-				if(itr3 != c)
-				{
-					*( *(dfaObj + itr3) + itr2) = *( *(dfaObj + itr3) + itr1);
-				}
-			}
-			itr1 = *(*(dfaObj + c) + itr1);
+				*( *(dfaObj + itr3) + itr2) = *( *(dfaObj + itr3) + itr1);
 		}
-		isFirst = false;
+		itr1 = *(*(dfaObj + c) + itr1);
+		*(*(dfaObj + c) + itr2) = itr2 + 1;
 	}
 
 	return dfaObj;
