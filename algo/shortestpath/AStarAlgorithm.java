@@ -85,22 +85,7 @@ public class AStarAlgorithm
 	
 	private static Point getNextPoint()
 	{
-		Point minPoint = null;
-		
-		for(Point p : openList)
-		{
-			if(minPoint == null)
-			{
-				minPoint = p;
-				continue;
-			}
-			
-			if(p.fCost < minPoint.fCost || (p.fCost == minPoint.fCost && p.hCost < minPoint.hCost))
-			{
-				minPoint = p;
-			}
-		}
-		
+		Point minPoint = openList.stream().min((p1, p2)->(p1.fCost < p2.fCost || (p1.fCost == p2.fCost && p1.hCost < p2.hCost)) ? -1 : 1).orElse(null);		
 		openList.remove(minPoint);
 		return minPoint;
 	}
@@ -109,7 +94,6 @@ public class AStarAlgorithm
 	{
 		findPosition((x, y)->{initX = x; initY = y;}, startChar);
 		findPosition((x, y)->{finalX = x; finalY = y;}, finalChar);
-		
 	}
 	
 	private static void findPosition(BiConsumer<Integer, Integer> fnPt, char c)
@@ -170,14 +154,7 @@ public class AStarAlgorithm
 	
 	private static Point getPoint(Set<Point> pointSet, int x, int y)
 	{
-		for(Point p : pointSet)
-		{
-			if(p.x == x && p.y == y)
-			{
-				return p;
-			}
-		}
-		return null;
+		return pointSet.stream().filter((Point p)->p.x == x && p.y == y).findFirst().orElse(null);
 	}
 	
 	private static class Point
