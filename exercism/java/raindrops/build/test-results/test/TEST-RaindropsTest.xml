@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RaindropsTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2017-02-24T09:56:39" hostname="siva-2239" time="0.053">
+  <properties/>
+  <testcase name="test[0: expected input number 1 to be converted to &quot;1&quot;]" classname="RaindropsTest" time="0.046"/>
+  <testcase name="test[1: expected input number 52 to be converted to &quot;52&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[2: expected input number 12,121 to be converted to &quot;12121&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[3: expected input number 3 to be converted to &quot;Pling&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[4: expected input number 6 to be converted to &quot;Pling&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[5: expected input number 9 to be converted to &quot;Pling&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[6: expected input number 5 to be converted to &quot;Plang&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[7: expected input number 10 to be converted to &quot;Plang&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[8: expected input number 25 to be converted to &quot;Plang&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[9: expected input number 7 to be converted to &quot;Plong&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[10: expected input number 14 to be converted to &quot;Plong&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[11: expected input number 49 to be converted to &quot;Plong&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[12: expected input number 15 to be converted to &quot;PlingPlang&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[13: expected input number 21 to be converted to &quot;PlingPlong&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[14: expected input number 35 to be converted to &quot;PlangPlong&quot;]" classname="RaindropsTest" time="0.0"/>
+  <testcase name="test[15: expected input number 105 to be converted to &quot;PlingPlangPlong&quot;]" classname="RaindropsTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

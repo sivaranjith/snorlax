@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TwelveDaysTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2017-02-27T10:09:08" hostname="siva-2239" time="0.066">
+  <properties/>
+  <testcase name="testVerseEight" classname="TwelveDaysTest" time="0.056"/>
+  <testcase name="testVerseSeven" classname="TwelveDaysTest" time="0.0"/>
+  <testcase name="testVerseThree" classname="TwelveDaysTest" time="0.0"/>
+  <testcase name="testVerseOne" classname="TwelveDaysTest" time="0.0"/>
+  <testcase name="testVerseSix" classname="TwelveDaysTest" time="0.001"/>
+  <testcase name="testVerseTen" classname="TwelveDaysTest" time="0.0"/>
+  <testcase name="testVerseTwo" classname="TwelveDaysTest" time="0.0"/>
+  <testcase name="testVerseFive" classname="TwelveDaysTest" time="0.0"/>
+  <testcase name="testVerseFour" classname="TwelveDaysTest" time="0.001"/>
+  <testcase name="testVerseNine" classname="TwelveDaysTest" time="0.0"/>
+  <testcase name="testVerseEleven" classname="TwelveDaysTest" time="0.0"/>
+  <testcase name="testMultipleVerses" classname="TwelveDaysTest" time="0.003"/>
+  <testcase name="testVerseTwelve" classname="TwelveDaysTest" time="0.0"/>
+  <testcase name="testSingWholeSong" classname="TwelveDaysTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

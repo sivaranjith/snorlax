@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ScrabbleScoreTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2017-02-24T06:59:49" hostname="siva-2239" time="0.059">
+  <properties/>
+  <testcase name="test[0: expected scrabble score for &quot;&quot; to be 0]" classname="ScrabbleScoreTest" time="0.056"/>
+  <testcase name="test[1: expected scrabble score for &quot; &#9;&#10;&quot; to be 0]" classname="ScrabbleScoreTest" time="0.0"/>
+  <testcase name="test[2: expected scrabble score for &quot;null&quot; to be 0]" classname="ScrabbleScoreTest" time="0.0"/>
+  <testcase name="test[3: expected scrabble score for &quot;a&quot; to be 1]" classname="ScrabbleScoreTest" time="0.0"/>
+  <testcase name="test[4: expected scrabble score for &quot;f&quot; to be 4]" classname="ScrabbleScoreTest" time="0.0"/>
+  <testcase name="test[5: expected scrabble score for &quot;street&quot; to be 6]" classname="ScrabbleScoreTest" time="0.0"/>
+  <testcase name="test[6: expected scrabble score for &quot;quirky&quot; to be 22]" classname="ScrabbleScoreTest" time="0.0"/>
+  <testcase name="test[7: expected scrabble score for &quot;OXYPHENBUTAZONE&quot; to be 41]" classname="ScrabbleScoreTest" time="0.0"/>
+  <testcase name="test[8: expected scrabble score for &quot;alacrity&quot; to be 13]" classname="ScrabbleScoreTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AllergiesTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2017-03-03T10:38:42" hostname="siva-2239" time="0.057">
+  <properties/>
+  <testcase name="allergicToPeanuts" classname="AllergiesTest" time="0.047"/>
+  <testcase name="isAllergicToEggsAndShellfish" classname="AllergiesTest" time="0.001"/>
+  <testcase name="isAllergicToLotsOfStuff" classname="AllergiesTest" time="0.0"/>
+  <testcase name="allergicToTomatoes" classname="AllergiesTest" time="0.0"/>
+  <testcase name="isAllergicToJustEggs" classname="AllergiesTest" time="0.0"/>
+  <testcase name="allergicToChocolate" classname="AllergiesTest" time="0.0"/>
+  <testcase name="ignoreNonAllergenScoreParts" classname="AllergiesTest" time="0.0"/>
+  <testcase name="noAllergiesMeansNotAllergicToAnything" classname="AllergiesTest" time="0.0"/>
+  <testcase name="allergicToStrawberries" classname="AllergiesTest" time="0.0"/>
+  <testcase name="isAllergicToJustPeanuts" classname="AllergiesTest" time="0.0"/>
+  <testcase name="isAllergicToEggsAndPeanuts" classname="AllergiesTest" time="0.0"/>
+  <testcase name="allergicToPollen" classname="AllergiesTest" time="0.0"/>
+  <testcase name="allergicToShellfish" classname="AllergiesTest" time="0.0"/>
+  <testcase name="allergicToCats" classname="AllergiesTest" time="0.0"/>
+  <testcase name="allergicToEggs" classname="AllergiesTest" time="0.0"/>
+  <testcase name="isAllergicToEverything" classname="AllergiesTest" time="0.001"/>
+  <testcase name="isAllergicToJustStrawberries" classname="AllergiesTest" time="0.001"/>
+  <testcase name="noAllergies" classname="AllergiesTest" time="0.0"/>
+  <testcase name="isAllergicToEggsInAdditionToOtherStuff" classname="AllergiesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

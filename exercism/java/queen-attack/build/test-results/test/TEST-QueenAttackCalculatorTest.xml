@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="QueenAttackCalculatorTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2017-03-06T05:31:46" hostname="siva-2239" time="0.015">
+  <properties/>
+  <testcase name="testCoordinateWithFileGreaterThan7NotAllowed" classname="QueenAttackCalculatorTest" time="0.007"/>
+  <testcase name="testQueensThatDoNotShareRankFileOrDiagonalCannotAttack" classname="QueenAttackCalculatorTest" time="0.0"/>
+  <testcase name="testNullCoordinateNotAllowed" classname="QueenAttackCalculatorTest" time="0.0"/>
+  <testcase name="testCoordinateWithNegativeFileNotAllowed" classname="QueenAttackCalculatorTest" time="0.0"/>
+  <testcase name="testQueensCanAttackOnTheSameFile" classname="QueenAttackCalculatorTest" time="0.001"/>
+  <testcase name="testQueensCanAttackOnTheSameRank" classname="QueenAttackCalculatorTest" time="0.0"/>
+  <testcase name="testQueensCanAttackOnThirdDiagonal" classname="QueenAttackCalculatorTest" time="0.001"/>
+  <testcase name="testQueensCanAttackOnSecondDiagonal" classname="QueenAttackCalculatorTest" time="0.0"/>
+  <testcase name="testQueensCanAttackOnFourthDiagonal" classname="QueenAttackCalculatorTest" time="0.0"/>
+  <testcase name="testCoordinateWithRankGreaterThan7NotAllowed" classname="QueenAttackCalculatorTest" time="0.0"/>
+  <testcase name="testQueensMustNotOccupyTheSameSquare" classname="QueenAttackCalculatorTest" time="0.0"/>
+  <testcase name="testQueensCanAttackOnFirstDiagonal" classname="QueenAttackCalculatorTest" time="0.0"/>
+  <testcase name="testCoordinateWithNegativeRankNotAllowed" classname="QueenAttackCalculatorTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

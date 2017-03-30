@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SimpleCipherStepOneTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2017-03-29T13:45:31" hostname="siva-2239" time="0.003">
+  <properties/>
+  <testcase name="cipherCanDecode" classname="SimpleCipherStepOneTest" time="0.001"/>
+  <testcase name="cipherCanEncode" classname="SimpleCipherStepOneTest" time="0.001"/>
+  <testcase name="cipherIsReversible" classname="SimpleCipherStepOneTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

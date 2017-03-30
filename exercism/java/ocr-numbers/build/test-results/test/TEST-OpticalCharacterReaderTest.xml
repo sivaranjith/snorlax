@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="OpticalCharacterReaderTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2017-03-28T19:30:53" hostname="siva-2239" time="0.066">
+  <properties/>
+  <testcase name="testReaderRecognizesAndCorrectlyFormatsMultiRowInput" classname="OpticalCharacterReaderTest" time="0.052"/>
+  <testcase name="testReaderReturnsQuestionMarkForUnreadableButCorrectlySizedInput" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <testcase name="testReaderThrowsExceptionWhenNumberOfInputColumnsIsNotAMultipleOf3" classname="OpticalCharacterReaderTest" time="0.005"/>
+  <testcase name="testReaderRecognizesBinarySequence110101100" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <testcase name="testReaderRecognizesSingle0" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <testcase name="testReaderRecognizesSingle1" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <testcase name="testReaderRecognizesSingle2" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <testcase name="testReaderRecognizesSingle3" classname="OpticalCharacterReaderTest" time="0.001"/>
+  <testcase name="testReaderRecognizesSingle4" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <testcase name="testReaderRecognizesSingle5" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <testcase name="testReaderRecognizesSingle6" classname="OpticalCharacterReaderTest" time="0.001"/>
+  <testcase name="testReaderRecognizesSingle7" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <testcase name="testReaderRecognizesSingle8" classname="OpticalCharacterReaderTest" time="0.001"/>
+  <testcase name="testReaderRecognizesSingle9" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <testcase name="testReaderReplacesUnreadableDigitsWithQuestionMarksWithinSequence" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <testcase name="testReaderRecognizesSequence1234567890" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <testcase name="testReaderThrowsExceptionWhenNumberOfInputLinesIsNotAMultipleOf4" classname="OpticalCharacterReaderTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

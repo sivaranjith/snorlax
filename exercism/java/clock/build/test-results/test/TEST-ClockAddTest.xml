@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ClockAddTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2017-03-28T07:29:02" hostname="siva-2239" time="0.009">
+  <properties/>
+  <testcase name="subtractMoreThanAnHour" classname="ClockAddTest" time="0.001"/>
+  <testcase name="subtractMoreThanTwoHoursWithBorrow" classname="ClockAddTest" time="0.0"/>
+  <testcase name="addMoreThanTwoHoursWithCarry" classname="ClockAddTest" time="0.001"/>
+  <testcase name="subtractAcrossMidnight" classname="ClockAddTest" time="0.0"/>
+  <testcase name="subtractMoreThanOneDay" classname="ClockAddTest" time="0.0"/>
+  <testcase name="addMinutes" classname="ClockAddTest" time="0.0"/>
+  <testcase name="subtractMoreThanTwoHours" classname="ClockAddTest" time="0.0"/>
+  <testcase name="subtractMinutes" classname="ClockAddTest" time="0.0"/>
+  <testcase name="addMoreThanOneHour" classname="ClockAddTest" time="0.0"/>
+  <testcase name="addAcrossMidnight" classname="ClockAddTest" time="0.0"/>
+  <testcase name="addToNextHour" classname="ClockAddTest" time="0.0"/>
+  <testcase name="addMoreThanOneDay" classname="ClockAddTest" time="0.0"/>
+  <testcase name="addNoMinutes" classname="ClockAddTest" time="0.001"/>
+  <testcase name="subtractMoreThanTwoDays" classname="ClockAddTest" time="0.0"/>
+  <testcase name="addMoreThanTwoDays" classname="ClockAddTest" time="0.0"/>
+  <testcase name="subtractToPreviousHour" classname="ClockAddTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

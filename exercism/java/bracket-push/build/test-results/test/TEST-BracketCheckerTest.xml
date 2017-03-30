@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="BracketCheckerTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2017-03-04T17:48:00" hostname="siva-2239" time="0.057">
+  <properties/>
+  <testcase name="testUnopenedClosingBracket" classname="BracketCheckerTest" time="0.054"/>
+  <testcase name="testPairedAndIncorrectlyNestedBrackets" classname="BracketCheckerTest" time="0.0"/>
+  <testcase name="testSimpleNestedBrackets" classname="BracketCheckerTest" time="0.001"/>
+  <testcase name="testValidMathExpression" classname="BracketCheckerTest" time="0.0"/>
+  <testcase name="testIncorrectlyOrderedBrackets" classname="BracketCheckerTest" time="0.0"/>
+  <testcase name="testValidComplexLaTeXExpression" classname="BracketCheckerTest" time="0.0"/>
+  <testcase name="testEmptyString" classname="BracketCheckerTest" time="0.0"/>
+  <testcase name="testUnpairedAndNestedBracket" classname="BracketCheckerTest" time="0.0"/>
+  <testcase name="testPairedBracketsWithWhitespace" classname="BracketCheckerTest" time="0.0"/>
+  <testcase name="testPairedSquareBrackets" classname="BracketCheckerTest" time="0.0"/>
+  <testcase name="testPairedAndNestedBrackets" classname="BracketCheckerTest" time="0.0"/>
+  <testcase name="testUnpairedBrackets" classname="BracketCheckerTest" time="0.0"/>
+  <testcase name="testSeveralPairedBrackets" classname="BracketCheckerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

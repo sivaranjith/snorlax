@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="EtlTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2017-02-15T17:32:25" hostname="siva-2239" time="0.054">
+  <properties/>
+  <testcase name="testTransformOneValue" classname="EtlTest" time="0.052"/>
+  <testcase name="testTransformMoreValues" classname="EtlTest" time="0.001"/>
+  <testcase name="testFullDataset" classname="EtlTest" time="0.0"/>
+  <testcase name="testMoreKeys" classname="EtlTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

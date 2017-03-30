@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CustomSetTest" tests="37" skipped="0" failures="0" errors="0" timestamp="2017-03-27T20:31:07" hostname="siva-2239" time="0.083">
+  <properties/>
+  <testcase name="setsWithElementsAreNotEmpty" classname="CustomSetTest" time="0.068"/>
+  <testcase name="intersectionOfTwoEmptySetsIsAnEmptySet" classname="CustomSetTest" time="0.002"/>
+  <testcase name="intersectionOfTwoSetsWithNoSharedElementsIsAnEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="differenceOfAnEmptySetAndNonEmptySetIsAnEmptySet" classname="CustomSetTest" time="0.001"/>
+  <testcase name="setIsASubsetOfLargerSetWithSameElements" classname="CustomSetTest" time="0.0"/>
+  <testcase name="emptySetIsASubsetOfNonEemptySet" classname="CustomSetTest" time="0.001"/>
+  <testcase name="addToNonEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="emptySetIsASubsetOfAnotherEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="whenTheElementIsNotInTheSet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="emptySetIsNotEqualToNonEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="theEmptySetIsDisjointWithItself" classname="CustomSetTest" time="0.002"/>
+  <testcase name="setsAreDisjointIfTheyShareNoElements" classname="CustomSetTest" time="0.0"/>
+  <testcase name="unionOfTwoNonEmptySetsContainsAllUniqueElements" classname="CustomSetTest" time="0.001"/>
+  <testcase name="emptySetIsDisjointWithNonEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="setsWithTheSameElementsAreEqual" classname="CustomSetTest" time="0.0"/>
+  <testcase name="nonEmptySetIsNotEqualToEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="intersectionOfANonEmptySetAndAnEmptySetIsAnEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="unionOfTwoEmptySetsIsAnEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="differenceOfTwoNonEmptySetsIsASetOfElementsThatAreOnlyInTheFirstSet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="setsAreNotDisjointIfTheyShareAnElement" classname="CustomSetTest" time="0.0"/>
+  <testcase name="unionOfAnEmptySetAndNonEmptySetIsTheNonEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="differenceOfTwoEmptySetsIsAnEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="differenceOfANonEmptySetAndAnEmptySetIsTheNonEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="setsWithNoElementsAreEmpty" classname="CustomSetTest" time="0.0"/>
+  <testcase name="intersectionOfAnEmptySetAndNonEmptySetIsAnEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="addToEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="nonEmptySetIsDisjointWithEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="setIsASubsetOfSetWithExactSameElements" classname="CustomSetTest" time="0.0"/>
+  <testcase name="addingAnExistingElementDoesNotChangeTheSet" classname="CustomSetTest" time="0.001"/>
+  <testcase name="intersectionOfTwoSetsWithSharedElementsIsASetOfTheSharedElements" classname="CustomSetTest" time="0.0"/>
+  <testcase name="unionOfANonEmptySetAndAnEmptySetIsTheNonEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="nonEmptySetIsNotASubsetOfEmptySet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="emptySetsAreEqual" classname="CustomSetTest" time="0.0"/>
+  <testcase name="setIsNotASubsetOfSetThatDoesNotContainItsElements" classname="CustomSetTest" time="0.0"/>
+  <testcase name="whenTheElementIsInTheSet" classname="CustomSetTest" time="0.0"/>
+  <testcase name="setsWithDifferentElementsAreNotEqual" classname="CustomSetTest" time="0.0"/>
+  <testcase name="nothingIsContainedInAnEmptySet" classname="CustomSetTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

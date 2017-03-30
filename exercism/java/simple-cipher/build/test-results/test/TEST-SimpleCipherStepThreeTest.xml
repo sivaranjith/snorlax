@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SimpleCipherStepThreeTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2017-03-29T13:45:31" hostname="siva-2239" time="0.075">
+  <properties/>
+  <testcase name="cipherThrowsWithAnyNumericKey" classname="SimpleCipherStepThreeTest" time="0.005"/>
+  <testcase name="cipherKeyIsMadeOfLetters" classname="SimpleCipherStepThreeTest" time="0.059"/>
+  <testcase name="cipherThrowsWithAllCapsKey" classname="SimpleCipherStepThreeTest" time="0.001"/>
+  <testcase name="cipherThrowsWithNumericKey" classname="SimpleCipherStepThreeTest" time="0.0"/>
+  <testcase name="cipherThrowsWithAnyCapsKey" classname="SimpleCipherStepThreeTest" time="0.0"/>
+  <testcase name="defaultCipherKeyIs100Characters" classname="SimpleCipherStepThreeTest" time="0.002"/>
+  <testcase name="cipherKeysAreRandomlyGenerated" classname="SimpleCipherStepThreeTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

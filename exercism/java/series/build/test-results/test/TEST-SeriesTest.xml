@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SeriesTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2017-03-04T18:19:22" hostname="siva-2239" time="0.059">
+  <properties/>
+  <testcase name="throwsAnErrorIfNotEnoughDigitsToSlice" classname="SeriesTest" time="0.005"/>
+  <testcase name="canSliceByOne" classname="SeriesTest" time="0.049"/>
+  <testcase name="canSliceByTwo" classname="SeriesTest" time="0.0"/>
+  <testcase name="canSliceByFive" classname="SeriesTest" time="0.001"/>
+  <testcase name="canSliceByFour" classname="SeriesTest" time="0.0"/>
+  <testcase name="hasDigitsLong" classname="SeriesTest" time="0.0"/>
+  <testcase name="keepsTheDigitOrderIfReversed" classname="SeriesTest" time="0.0"/>
+  <testcase name="keepsArbitraryDigitOrder" classname="SeriesTest" time="0.0"/>
+  <testcase name="canSliceByThree" classname="SeriesTest" time="0.0"/>
+  <testcase name="canSliceByThreeWithDuplicateDigits" classname="SeriesTest" time="0.0"/>
+  <testcase name="hasDigitsShort" classname="SeriesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

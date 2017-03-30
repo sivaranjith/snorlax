@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="StrainTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2017-03-04T22:20:27" hostname="siva-2239" time="0.071">
+  <properties/>
+  <testcase name="KeepArrays" classname="StrainTest" time="0.059"/>
+  <testcase name="emptyKeep" classname="StrainTest" time="0.0"/>
+  <testcase name="discardNeitherFirstNorLast" classname="StrainTest" time="0.002"/>
+  <testcase name="KeepStrings" classname="StrainTest" time="0.001"/>
+  <testcase name="keepFirstAndLast" classname="StrainTest" time="0.0"/>
+  <testcase name="discardFirstAndLast" classname="StrainTest" time="0.0"/>
+  <testcase name="discardNothing" classname="StrainTest" time="0.0"/>
+  <testcase name="discardStrings" classname="StrainTest" time="0.0"/>
+  <testcase name="keepEverything" classname="StrainTest" time="0.001"/>
+  <testcase name="discardArrays" classname="StrainTest" time="0.001"/>
+  <testcase name="keepNeitherFirstNorLast" classname="StrainTest" time="0.001"/>
+  <testcase name="emptyDiscard" classname="StrainTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

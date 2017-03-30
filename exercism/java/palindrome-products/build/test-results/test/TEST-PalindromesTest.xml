@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PalindromesTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2017-03-13T11:08:50" hostname="siva-2239" time="0.652">
+  <properties/>
+  <testcase name="largestPalindromeFromSingleDigitFactors" classname="PalindromesTest" time="0.064"/>
+  <testcase name="smallestPalindromeFromTripleDigitFactors" classname="PalindromesTest" time="0.364"/>
+  <testcase name="largestPalindromeFromTripleDigitFactors" classname="PalindromesTest" time="0.218"/>
+  <testcase name="smallestPalindromeFromDoubleDigitFactors" classname="PalindromesTest" time="0.002"/>
+  <testcase name="largestPalindromeFromDoubleDigitFactors" classname="PalindromesTest" time="0.003"/>
+  <system-out><![CDATA[9::::4
+1::::9
+{1=[[1, 1]], 9=[[1, 9], [3, 3]]}
+906609::::999
+10201::::999
+{10201=[[101, 101]], 906609=[[913, 993]]}
+906609::::999
+10201::::999
+{10201=[[101, 101]], 906609=[[913, 993]]}
+9009::::99
+121::::60
+{121=[[11, 11]], 9009=[[91, 99]]}
+9009::::99
+121::::60
+{121=[[11, 11]], 9009=[[91, 99]]}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

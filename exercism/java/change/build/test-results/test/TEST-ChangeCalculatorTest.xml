@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ChangeCalculatorTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2017-03-28T15:54:38" hostname="siva-2239" time="0.068">
+  <properties/>
+  <testcase name="testLowerElbonianCurrencyForWhichGreedyAlgorithmFails" classname="ChangeCalculatorTest" time="0.053"/>
+  <testcase name="testNegativeChangeIsRejected" classname="ChangeCalculatorTest" time="0.007"/>
+  <testcase name="testLilliputianCurrencyForWhichGreedyAlgorithmFails" classname="ChangeCalculatorTest" time="0.001"/>
+  <testcase name="testLargeAmountOfChange" classname="ChangeCalculatorTest" time="0.002"/>
+  <testcase name="testChangeThatCanBeGivenInASingleCoin" classname="ChangeCalculatorTest" time="0.0"/>
+  <testcase name="testChangeThatMustBeGivenInMultipleCoins" classname="ChangeCalculatorTest" time="0.0"/>
+  <testcase name="testChangeLargerThanAllCoinsInCurrencyThatCannotBeRepresented" classname="ChangeCalculatorTest" time="0.0"/>
+  <testcase name="testZeroChange" classname="ChangeCalculatorTest" time="0.0"/>
+  <testcase name="testChangeLessThanSmallestCoinInCurrencyCannotBeRepresented" classname="ChangeCalculatorTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

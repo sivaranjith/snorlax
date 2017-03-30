@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PythagoreanTripletTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2017-03-27T13:32:45" hostname="siva-2239" time="0.132">
+  <properties/>
+  <testcase name="shouldCalculateSum" classname="PythagoreanTripletTest" time="0.001"/>
+  <testcase name="testIsPythagoreanFail" classname="PythagoreanTripletTest" time="0.0"/>
+  <testcase name="testIsPythagoreanOK" classname="PythagoreanTripletTest" time="0.0"/>
+  <testcase name="shouldMakeTripletsUpToTen" classname="PythagoreanTripletTest" time="0.105"/>
+  <testcase name="shouldMakeTripletsElevenToTwenty" classname="PythagoreanTripletTest" time="0.013"/>
+  <testcase name="shouldMakeTripletsAndFilterOnSum" classname="PythagoreanTripletTest" time="0.009"/>
+  <testcase name="shouldCalculateProduct" classname="PythagoreanTripletTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

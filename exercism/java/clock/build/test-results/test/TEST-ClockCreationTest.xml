@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ClockCreationTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2017-03-28T07:29:02" hostname="siva-2239" time="0.009">
+  <properties/>
+  <testcase name="sixtyMinutesIsNextHour" classname="ClockCreationTest" time="0.001"/>
+  <testcase name="hourRollsOver" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="hourAndMinutesRollOverContinuously" classname="ClockCreationTest" time="0.001"/>
+  <testcase name="midnightPrintsAsZero" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="negativeMinutesRollOver" classname="ClockCreationTest" time="0.001"/>
+  <testcase name="negativeHourRollsOverContinuously" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="minutesRollOverContinuously" classname="ClockCreationTest" time="0.001"/>
+  <testcase name="canPrintTimeWithMinutes" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="negativeHour" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="negativeMinutesRollOverContinuously" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="negativeMinutes" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="negativeHourAndMinutesBothRollOver" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="minutesRollOver" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="negativeHourAndMinutesBothRollOverContinuously" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="hourAndMinutesRollOver" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="hourAndMinutesRollOverToExactlyMidnight" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="hourRollsOverContinuously" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="negativeHourRollsOver" classname="ClockCreationTest" time="0.0"/>
+  <testcase name="canPrintTimeOnTheHour" classname="ClockCreationTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

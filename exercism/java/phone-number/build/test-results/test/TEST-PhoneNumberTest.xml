@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PhoneNumberTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2017-03-02T17:37:25" hostname="siva-2239" time="0.05">
+  <properties/>
+  <testcase name="invalidWithPunctuation" classname="PhoneNumberTest" time="0.045"/>
+  <testcase name="invalidWithRightNumberOfDigitsButLettersMixedIn" classname="PhoneNumberTest" time="0.0"/>
+  <testcase name="invalidWhen9Digits" classname="PhoneNumberTest" time="0.001"/>
+  <testcase name="invalidWhen11Digits" classname="PhoneNumberTest" time="0.0"/>
+  <testcase name="cleansNumberWithMultipleSpaces" classname="PhoneNumberTest" time="0.001"/>
+  <testcase name="invalidWithLetters" classname="PhoneNumberTest" time="0.0"/>
+  <testcase name="cleansNumberWithDots" classname="PhoneNumberTest" time="0.001"/>
+  <testcase name="invalidWhen12Digits" classname="PhoneNumberTest" time="0.0"/>
+  <testcase name="cleansNumber" classname="PhoneNumberTest" time="0.0"/>
+  <testcase name="validWhen11DigitsAndFirstIs1" classname="PhoneNumberTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

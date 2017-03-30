@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RomanNumeralsTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2017-03-05T09:43:47" hostname="siva-2239" time="0.063">
+  <properties/>
+  <testcase name="convertArabicNumberalToRomanNumeral[0: expected arabic numeral 0 to be converted to roman numeral &quot;&quot;.]" classname="RomanNumeralsTest" time="0.001"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[1: expected arabic numeral 1 to be converted to roman numeral &quot;I&quot;.]" classname="RomanNumeralsTest" time="0.056"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[2: expected arabic numeral 2 to be converted to roman numeral &quot;II&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[3: expected arabic numeral 3 to be converted to roman numeral &quot;III&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[4: expected arabic numeral 4 to be converted to roman numeral &quot;IV&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[5: expected arabic numeral 5 to be converted to roman numeral &quot;V&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[6: expected arabic numeral 6 to be converted to roman numeral &quot;VI&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[7: expected arabic numeral 9 to be converted to roman numeral &quot;IX&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[8: expected arabic numeral 27 to be converted to roman numeral &quot;XXVII&quot;.]" classname="RomanNumeralsTest" time="0.001"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[9: expected arabic numeral 48 to be converted to roman numeral &quot;XLVIII&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[10: expected arabic numeral 59 to be converted to roman numeral &quot;LIX&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[11: expected arabic numeral 93 to be converted to roman numeral &quot;XCIII&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[12: expected arabic numeral 141 to be converted to roman numeral &quot;CXLI&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[13: expected arabic numeral 163 to be converted to roman numeral &quot;CLXIII&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[14: expected arabic numeral 402 to be converted to roman numeral &quot;CDII&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[15: expected arabic numeral 575 to be converted to roman numeral &quot;DLXXV&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[16: expected arabic numeral 911 to be converted to roman numeral &quot;CMXI&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[17: expected arabic numeral 1,024 to be converted to roman numeral &quot;MXXIV&quot;.]" classname="RomanNumeralsTest" time="0.001"/>
+  <testcase name="convertArabicNumberalToRomanNumeral[18: expected arabic numeral 3,000 to be converted to roman numeral &quot;MMM&quot;.]" classname="RomanNumeralsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

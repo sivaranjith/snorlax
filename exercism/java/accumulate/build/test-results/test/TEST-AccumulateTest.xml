@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AccumulateTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2017-03-02T19:28:02" hostname="siva-2239" time="0.056">
+  <properties/>
+  <testcase name="accumulateReversedStrings" classname="AccumulateTest" time="0.05"/>
+  <testcase name="emptyAccumulateProducesEmptyAccumulation" classname="AccumulateTest" time="0.001"/>
+  <testcase name="accumulateWithinAccumulate" classname="AccumulateTest" time="0.002"/>
+  <testcase name="accumulateUpperCases" classname="AccumulateTest" time="0.001"/>
+  <testcase name="accumulateSquares" classname="AccumulateTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

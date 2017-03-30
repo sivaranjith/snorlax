@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RelationshipComputerTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2017-03-07T19:24:26" hostname="siva-2239" time="0.054">
+  <properties/>
+  <testcase name="testEmptyListIsSublistOfNonEmptyList" classname="RelationshipComputerTest" time="0.001"/>
+  <testcase name="testThatListsWithSameDigitsButDifferentNumbersAreUnequal" classname="RelationshipComputerTest" time="0.043"/>
+  <testcase name="testSublistCheckDoesNotAbortAfterFalseStart" classname="RelationshipComputerTest" time="0.002"/>
+  <testcase name="testInMiddleOfSuperlist" classname="RelationshipComputerTest" time="0.0"/>
+  <testcase name="testListIsEqualToItself" classname="RelationshipComputerTest" time="0.0"/>
+  <testcase name="testDifferentListsOfTheSameLengthAreUnequal" classname="RelationshipComputerTest" time="0.001"/>
+  <testcase name="testSublistAtEnd" classname="RelationshipComputerTest" time="0.0"/>
+  <testcase name="testAtEndOfSuperlist" classname="RelationshipComputerTest" time="0.0"/>
+  <testcase name="testSublistInMiddle" classname="RelationshipComputerTest" time="0.0"/>
+  <testcase name="testSublistAtStart" classname="RelationshipComputerTest" time="0.0"/>
+  <testcase name="testFirstListMissingElementFromSecondList" classname="RelationshipComputerTest" time="0.0"/>
+  <testcase name="testSecondListMissingElementFromFirstList" classname="RelationshipComputerTest" time="0.0"/>
+  <testcase name="testThatListOrderingIsAccountedFor" classname="RelationshipComputerTest" time="0.0"/>
+  <testcase name="testSublistCheckHandlesExtraneousRepeatsOfFirstEntry" classname="RelationshipComputerTest" time="0.0"/>
+  <testcase name="testNonEmptyListIsSuperlistOfEmptyList" classname="RelationshipComputerTest" time="0.0"/>
+  <testcase name="testThatTwoEmptyListsAreConsideredEqual" classname="RelationshipComputerTest" time="0.001"/>
+  <testcase name="testAtStartOfSuperlist" classname="RelationshipComputerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

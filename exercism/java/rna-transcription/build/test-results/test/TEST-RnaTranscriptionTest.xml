@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RnaTranscriptionTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2017-02-23T06:43:48" hostname="siva-2239" time="0.059">
+  <properties/>
+  <testcase name="testRnaTranscriptionOfThymineIsAdenine" classname="RnaTranscriptionTest" time="0.057"/>
+  <testcase name="testRnaTranscription" classname="RnaTranscriptionTest" time="0.0"/>
+  <testcase name="testRnaTranscriptionOfCytosineIsGuanine" classname="RnaTranscriptionTest" time="0.0"/>
+  <testcase name="testRnaTranscriptionOfGuanineIsCytosine" classname="RnaTranscriptionTest" time="0.0"/>
+  <testcase name="testRnaTranscriptionOfEmptyDnaIsEmptyRna" classname="RnaTranscriptionTest" time="0.0"/>
+  <testcase name="testRnaTranscriptionOfAdenineIsUracil" classname="RnaTranscriptionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

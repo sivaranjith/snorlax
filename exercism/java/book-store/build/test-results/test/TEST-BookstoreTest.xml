@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="BookstoreTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2017-03-29T09:28:18" hostname="siva-2239" time="0.069">
+  <properties/>
+  <testcase name="fourDifferentBooks" classname="BookstoreTest" time="0.058"/>
+  <testcase name="threeDifferentBooks" classname="BookstoreTest" time="0.004"/>
+  <testcase name="groupOfFourPlusGroupOfTwoIsCheaperThanTwoGroupsOfThree" classname="BookstoreTest" time="0.001"/>
+  <testcase name="onlyASingleBook" classname="BookstoreTest" time="0.0"/>
+  <testcase name="threeCopiesOfFirstBookAnd2EachOfRemaining" classname="BookstoreTest" time="0.001"/>
+  <testcase name="fiveDifferentBooks" classname="BookstoreTest" time="0.0"/>
+  <testcase name="twoOfSameBook" classname="BookstoreTest" time="0.0"/>
+  <testcase name="emptyBasket" classname="BookstoreTest" time="0.0"/>
+  <testcase name="twoEachOfFirst4BooksAnd1CopyEachOfRest" classname="BookstoreTest" time="0.0"/>
+  <testcase name="twoCopiesOfEachBook" classname="BookstoreTest" time="0.0"/>
+  <testcase name="twoGroupsOfFourIsCheaperThanGroupOfFivePlusGroupOfThree" classname="BookstoreTest" time="0.0"/>
+  <testcase name="twoDifferentBooks" classname="BookstoreTest" time="0.001"/>
+  <testcase name="threeEachOFirst2BooksAnd2EachOfRemainingBooks" classname="BookstoreTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

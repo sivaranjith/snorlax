@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MinesweeperBoardTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2017-03-06T11:03:24" hostname="siva-2239" time="0.084">
+  <properties/>
+  <testcase name="testInputBoardWithNoRowsAndNoColumns" classname="MinesweeperBoardTest" time="0.063"/>
+  <testcase name="testInputBoardWithSingleColumnAndTwoMinesAtEdges" classname="MinesweeperBoardTest" time="0.005"/>
+  <testcase name="testInputBoardWithSingleColumnAndTwoMines" classname="MinesweeperBoardTest" time="0.0"/>
+  <testcase name="testInputBoardWithOnlyMines" classname="MinesweeperBoardTest" time="0.001"/>
+  <testcase name="testInputBoardWithInconsistentRowLengthsIsRejected" classname="MinesweeperBoardTest" time="0.005"/>
+  <testcase name="testNullInputBoardIsRejected" classname="MinesweeperBoardTest" time="0.001"/>
+  <testcase name="testInputBoardWithMinesInCross" classname="MinesweeperBoardTest" time="0.001"/>
+  <testcase name="testInputBoardWithMinesAroundPerimeter" classname="MinesweeperBoardTest" time="0.0"/>
+  <testcase name="testInputBoardWithSingleMineAtCenter" classname="MinesweeperBoardTest" time="0.0"/>
+  <testcase name="testInputBoardWithNoMines" classname="MinesweeperBoardTest" time="0.001"/>
+  <testcase name="testInputBoardWithInvalidSymbolsIsRejected" classname="MinesweeperBoardTest" time="0.001"/>
+  <testcase name="testInputBoardWithOneRowAndNoColumns" classname="MinesweeperBoardTest" time="0.001"/>
+  <testcase name="testLargeInputBoard" classname="MinesweeperBoardTest" time="0.001"/>
+  <testcase name="testInputBoardWithSingleRowAndTwoMinesAtEdges" classname="MinesweeperBoardTest" time="0.0"/>
+  <testcase name="testInputBoardWithSingleRowAndTwoMines" classname="MinesweeperBoardTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

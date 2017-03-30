@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RobotTest" tests="20" skipped="0" failures="0" errors="0" timestamp="2017-03-06T07:43:04" hostname="siva-2239" time="0.058">
+  <properties/>
+  <testcase name="testInstructionsToMoveWestAndNorth" classname="RobotTest" time="0.051"/>
+  <testcase name="testInstructionsToMoveWestAndSouth" classname="RobotTest" time="0.0"/>
+  <testcase name="testAdvancingWhenFacingWestDecreasesXCoordinateByOne" classname="RobotTest" time="0.0"/>
+  <testcase name="testTurningLeftDoesNotChangePosition" classname="RobotTest" time="0.0"/>
+  <testcase name="testAdvancingDoesNotChangeOrientation" classname="RobotTest" time="0.0"/>
+  <testcase name="testInstructionsToMoveEastAndNorth" classname="RobotTest" time="0.0"/>
+  <testcase name="testTurningLeftCorrectlyChangesOrientationFromSouthToEast" classname="RobotTest" time="0.0"/>
+  <testcase name="testRobotIsCreatedWithCorrectInitialOrientation" classname="RobotTest" time="0.0"/>
+  <testcase name="testTurningRightCorrectlyChangesOrientationFromSouthToWest" classname="RobotTest" time="0.0"/>
+  <testcase name="testTurningRightDoesNotChangePosition" classname="RobotTest" time="0.0"/>
+  <testcase name="testAdvancingWhenFacingNorthIncreasesYCoordinateByOne" classname="RobotTest" time="0.0"/>
+  <testcase name="testTurningLeftCorrectlyChangesOrientationFromNorthToWest" classname="RobotTest" time="0.001"/>
+  <testcase name="testTurningLeftCorrectlyChangesOrientationFromEastToNorth" classname="RobotTest" time="0.0"/>
+  <testcase name="testTurningRightCorrectlyChangesOrientationFromNorthToEast" classname="RobotTest" time="0.0"/>
+  <testcase name="testTurningRightCorrectlyChangesOrientationFromEastToSouth" classname="RobotTest" time="0.0"/>
+  <testcase name="testRobotIsCreatedWithCorrectInitialPosition" classname="RobotTest" time="0.0"/>
+  <testcase name="testAdvancingWhenFacingSouthDecreasesYCoordinateByOne" classname="RobotTest" time="0.0"/>
+  <testcase name="testAdvancingWhenFacingEastIncreasesXCoordinateByOne" classname="RobotTest" time="0.0"/>
+  <testcase name="testTurningLeftCorrectlyChangesOrientationFromWestToSouth" classname="RobotTest" time="0.0"/>
+  <testcase name="testTurningRightCorrectlyChangesOrientationFromWestToNorth" classname="RobotTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

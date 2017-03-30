@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SchoolTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2017-03-05T19:57:42" hostname="siva-2239" time="0.054">
+  <properties/>
+  <testcase name="addsStudents" classname="SchoolTest" time="0.004"/>
+  <testcase name="addsMoreStudentsInSameGrade" classname="SchoolTest" time="0.001"/>
+  <testcase name="modifyingSortedStudentsShouldNotModifyInternalDatabase" classname="SchoolTest" time="0.042"/>
+  <testcase name="startsWithNoStudents" classname="SchoolTest" time="0.003"/>
+  <testcase name="modifyingFetchedGradeShouldNotModifyInternalDatabase" classname="SchoolTest" time="0.0"/>
+  <testcase name="sortsSchool" classname="SchoolTest" time="0.002"/>
+  <testcase name="addsStudentsInMultipleGrades" classname="SchoolTest" time="0.0"/>
+  <testcase name="getsStudentsInEmptyGrade" classname="SchoolTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

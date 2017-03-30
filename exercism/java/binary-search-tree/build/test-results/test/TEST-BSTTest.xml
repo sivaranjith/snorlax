@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="BSTTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2017-03-09T18:51:28" hostname="siva-2239" time="0.07">
+  <properties/>
+  <testcase name="iteratesOverComplexTree" classname="BSTTest" time="0.062"/>
+  <testcase name="dataIsRetained" classname="BSTTest" time="0.0"/>
+  <testcase name="insertsLess" classname="BSTTest" time="0.0"/>
+  <testcase name="insertsSame" classname="BSTTest" time="0.002"/>
+  <testcase name="sortsSingleElement" classname="BSTTest" time="0.001"/>
+  <testcase name="sortsCollectionOfTwoIfSecondInsertedIsSmallerThanFirst" classname="BSTTest" time="0.0"/>
+  <testcase name="createsComplexTree" classname="BSTTest" time="0.0"/>
+  <testcase name="insertsRight" classname="BSTTest" time="0.0"/>
+  <testcase name="sortsCollectionOfTwoIfSecondInsertedIsBiggerThanFirst" classname="BSTTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

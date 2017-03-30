@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CryptoSquareTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2017-03-12T16:14:00" hostname="siva-2239" time="0.072">
+  <properties/>
+  <testcase name="normalizedCipherIsSplitIntoSegmentsOfCorrectSize" classname="CryptoSquareTest" time="0.063"/>
+  <testcase name="sizeOfTextWhoseLengthIsNoPerfectSquareIsNextBiggestSquareRoot" classname="CryptoSquareTest" time="0.0"/>
+  <testcase name="cipherTextSkipsCellsWithNoText" classname="CryptoSquareTest" time="0.001"/>
+  <testcase name="segmentsAreSplitBySquareSizeUntilTextRunsOut" classname="CryptoSquareTest" time="0.002"/>
+  <testcase name="sizeIsDeterminedByNormalizedText" classname="CryptoSquareTest" time="0.0"/>
+  <testcase name="normalizedCipherTextIsSplitIntoSegmentsOfCorrectSizeWithPunctuation" classname="CryptoSquareTest" time="0.0"/>
+  <testcase name="sizeOfTextWhoseLengthIsPerfectSquareIsItsSquareRoot" classname="CryptoSquareTest" time="0.0"/>
+  <testcase name="strangeCharactersAreStrippedDuringNormalization" classname="CryptoSquareTest" time="0.001"/>
+  <testcase name="numbersAreKeptDuringNormalization" classname="CryptoSquareTest" time="0.0"/>
+  <testcase name="smallestSquareSizeIs2" classname="CryptoSquareTest" time="0.0"/>
+  <testcase name="cipherTextCombinesTextByColumn" classname="CryptoSquareTest" time="0.0"/>
+  <testcase name="normalizedCipherNotExactlyDivisibleBy5SpillsIntoSmallerSegment" classname="CryptoSquareTest" time="0.001"/>
+  <testcase name="lettersAreLowerCasedDuringNormalization" classname="CryptoSquareTest" time="0.0"/>
+  <testcase name="normalizedCipherTextIsSplitByHeightOfSquare" classname="CryptoSquareTest" time="0.0"/>
+  <testcase name="segmentsAreSplitBySquareSize" classname="CryptoSquareTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PigLatinTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2017-03-02T06:11:13" hostname="siva-2239" time="0.079">
+  <properties/>
+  <testcase name="test[0: expected &quot;apple&quot; to translate to the pig latin phrase &quot;appleay&quot;]" classname="PigLatinTest" time="0.054"/>
+  <testcase name="test[1: expected &quot;ear&quot; to translate to the pig latin phrase &quot;earay&quot;]" classname="PigLatinTest" time="0.0"/>
+  <testcase name="test[2: expected &quot;igloo&quot; to translate to the pig latin phrase &quot;iglooay&quot;]" classname="PigLatinTest" time="0.0"/>
+  <testcase name="test[3: expected &quot;object&quot; to translate to the pig latin phrase &quot;objectay&quot;]" classname="PigLatinTest" time="0.001"/>
+  <testcase name="test[4: expected &quot;under&quot; to translate to the pig latin phrase &quot;underay&quot;]" classname="PigLatinTest" time="0.0"/>
+  <testcase name="test[5: expected &quot;pig&quot; to translate to the pig latin phrase &quot;igpay&quot;]" classname="PigLatinTest" time="0.005"/>
+  <testcase name="test[6: expected &quot;koala&quot; to translate to the pig latin phrase &quot;oalakay&quot;]" classname="PigLatinTest" time="0.001"/>
+  <testcase name="test[7: expected &quot;yellow&quot; to translate to the pig latin phrase &quot;ellowyay&quot;]" classname="PigLatinTest" time="0.001"/>
+  <testcase name="test[8: expected &quot;xenon&quot; to translate to the pig latin phrase &quot;enonxay&quot;]" classname="PigLatinTest" time="0.0"/>
+  <testcase name="test[9: expected &quot;chair&quot; to translate to the pig latin phrase &quot;airchay&quot;]" classname="PigLatinTest" time="0.001"/>
+  <testcase name="test[10: expected &quot;queen&quot; to translate to the pig latin phrase &quot;eenquay&quot;]" classname="PigLatinTest" time="0.001"/>
+  <testcase name="test[11: expected &quot;square&quot; to translate to the pig latin phrase &quot;aresquay&quot;]" classname="PigLatinTest" time="0.001"/>
+  <testcase name="test[12: expected &quot;therapy&quot; to translate to the pig latin phrase &quot;erapythay&quot;]" classname="PigLatinTest" time="0.0"/>
+  <testcase name="test[13: expected &quot;thrush&quot; to translate to the pig latin phrase &quot;ushthray&quot;]" classname="PigLatinTest" time="0.001"/>
+  <testcase name="test[14: expected &quot;school&quot; to translate to the pig latin phrase &quot;oolschay&quot;]" classname="PigLatinTest" time="0.0"/>
+  <testcase name="test[15: expected &quot;yttria&quot; to translate to the pig latin phrase &quot;yttriaay&quot;]" classname="PigLatinTest" time="0.001"/>
+  <testcase name="test[16: expected &quot;xray&quot; to translate to the pig latin phrase &quot;xrayay&quot;]" classname="PigLatinTest" time="0.003"/>
+  <testcase name="test[17: expected &quot;quick fast run&quot; to translate to the pig latin phrase &quot;ickquay astfay unray&quot;]" classname="PigLatinTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

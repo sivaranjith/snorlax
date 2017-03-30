@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="DifferenceTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2017-02-24T10:16:10" hostname="siva-2239" time="0.004">
+  <properties/>
+  <testcase name="testSumOfSquares10" classname="DifferenceTest" time="0.001"/>
+  <testcase name="testDifferenceOfSquares0" classname="DifferenceTest" time="0.0"/>
+  <testcase name="testDifferenceOfSquares5" classname="DifferenceTest" time="0.0"/>
+  <testcase name="testSquareOfSum10" classname="DifferenceTest" time="0.0"/>
+  <testcase name="testSumOfSquares100" classname="DifferenceTest" time="0.0"/>
+  <testcase name="testSumOfSquares5" classname="DifferenceTest" time="0.0"/>
+  <testcase name="testSquareOfSum5" classname="DifferenceTest" time="0.0"/>
+  <testcase name="testDifferenceOfSquares100" classname="DifferenceTest" time="0.0"/>
+  <testcase name="testDifferenceOfSquares10" classname="DifferenceTest" time="0.0"/>
+  <testcase name="testSquareOfSum100" classname="DifferenceTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

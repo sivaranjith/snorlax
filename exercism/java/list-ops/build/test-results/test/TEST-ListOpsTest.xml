@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ListOpsTest" tests="20" skipped="0" failures="0" errors="0" timestamp="2017-03-28T17:26:15" hostname="siva-2239" time="0.024">
+  <properties/>
+  <testcase name="shouldFilterNonEmptyList" classname="ListOpsTest" time="0.009"/>
+  <testcase name="shouldReduceAnEmptyListAndANonEmptyListAndReturnConcatenation" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldReduceTwoNonEmptyListsAndReturnConcatenation" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldConcatenateOneNonEmptyAndOneEmptyLists" classname="ListOpsTest" time="0.001"/>
+  <testcase name="shouldReverseANonEmptyList" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldConcatenateSeveralLists" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldConcatenateZeroLists" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldReturnTheCorrectLengthOfAnNonEmptyList" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldMapNonEmptyList" classname="ListOpsTest" time="0.002"/>
+  <testcase name="shouldConcatenateTwoListsWithSameElements" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldConcatenateOneNonEmptyList" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldConcatenateOneEmptyAndOneNonEmptyLists" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldFilterAnEmptyListanddReturnAnEmptyList" classname="ListOpsTest" time="0.001"/>
+  <testcase name="shouldConcatenateTwoEmptyLists" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldCalculateTheSumOfANonEmptyIntegerList" classname="ListOpsTest" time="0.002"/>
+  <testcase name="shouldMapAnEmptyListAndReturnAnEmptyList" classname="ListOpsTest" time="0.001"/>
+  <testcase name="shouldConcatenateOneEmptyList" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldReverseAnEmptyList" classname="ListOpsTest" time="0.0"/>
+  <testcase name="shouldReturnIdentityWhenAnEmptyListIsReduced" classname="ListOpsTest" time="0.001"/>
+  <testcase name="lengthOfAnEmptyListShouldBeZero" classname="ListOpsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
