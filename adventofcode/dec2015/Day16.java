@@ -19,9 +19,7 @@ public class Day16
 	public static void main(String... args)
 	{
 		Utils.fileReader("../dec2015/day16input1.txt", Day16::parseContents, ()->{});
-		Utils.fileReader("../dec2015/day16input.txt", Day16::parseInput, ()->{});
-		findSue(Day16::partI);
-		findSue(Day16::partII);
+		Utils.fileReader("../dec2015/day16input.txt", Day16::parseInput, ()->{findSue(Day16::partI);findSue(Day16::partII);});
 	}
 
 	private static void parseContents(final String contentLine)
