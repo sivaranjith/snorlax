@@ -2,12 +2,13 @@ package blockchain;
 
 import java.security.MessageDigest;
 
-public class BlockData
+public class BlockData<T>
 {
-	private final String data, hash, preHash;
-	private int nonce;
+	private final T data;
+	private final String hash, preHash;
+	private long nonce;
 	
-	public BlockData(final String data, final String preHash)
+	public BlockData(final T data, final String preHash)
 	{
 		this.data = data;
 		this.preHash = preHash;
@@ -19,7 +20,7 @@ public class BlockData
 		String tempHash;
 		this.nonce = 0;
 		
-		while( !isSigned( tempHash = sha256(nonce++ + this.data + this.preHash) ) );
+		while( !isSigned( tempHash = sha256(nonce++ + this.data.toString() + this.preHash) ) );
 		
 		return tempHash;
 	}
@@ -28,13 +29,13 @@ public class BlockData
 	{
 	    try
 	    {
-	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-	        byte[] hash = digest.digest(base.getBytes("UTF-8"));
-	        StringBuffer hexString = new StringBuffer();
-
+	    	final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	    	final byte[] hash = digest.digest(base.getBytes("UTF-8"));
+	    	final StringBuffer hexString = new StringBuffer();
+	    	
 	        for (int i = 0; i < hash.length; i++)
 	        {
-	            String hex = Integer.toHexString(0xff & hash[i]);
+	        	final String hex = Integer.toHexString(0xff & hash[i]);
 	            if(hex.length() == 1) hexString.append('0');
 	            hexString.append(hex);
 	        }
@@ -60,6 +61,6 @@ public class BlockData
 	@Override
 	public String toString()
 	{
-		return this.data;
+		return this.data.toString();
 	}
 }
