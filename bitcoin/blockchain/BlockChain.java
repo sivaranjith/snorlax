@@ -27,12 +27,12 @@ public final class BlockChain<T>
 	{
 		private final BlockData<T> node;
 		
-		private final Block<T> previousBlock;
+		private final Block<T> previousNode;
 		
 		Block(final BlockData<T> node, final Block<T> previousBlock)
 		{
 			this.node = node;
-			this.previousBlock = previousBlock;
+			this.previousNode = previousNode;
 		}
 		
 		BlockData<T> getBlockData()
@@ -42,7 +42,7 @@ public final class BlockChain<T>
 		
 		Block<T> getPreviousBlock()
 		{
-			return this.previousBlock;
+			return this.previousNode;
 		}
 	}
 }
