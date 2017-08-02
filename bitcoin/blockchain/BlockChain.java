@@ -1,52 +1,41 @@
 package blockchain;
 
-import java.util.Scanner;
-
-public class BlockChain
+public final class BlockChain<T>
 {
-	public static void main(String... args)
+	private Block<T> headPointer;
+	private String previousHash = "000000000000000000000";
+	
+	public void addData(T data)
 	{
-		Block<BlockData<String>> blockChain = null;
-		final Scanner reader = new Scanner(System.in);
-		String  preHash = "000000000000000000000";
-		
-		for(String inputLine = reader.nextLine(); !inputLine.equals("exit"); inputLine = reader.nextLine())
-		{
-			blockChain = new Block<>(new BlockData<>(inputLine, preHash), blockChain);
-			preHash = blockChain.getBlock().getHash();
-			System.out.println("block added to the chain");
-		}
-		
-		printLedger(blockChain, preHash);
-		
-		reader.close();
+		this.headPointer = new Block<>(new BlockData<>(data, this.previousHash), headPointer);
+		this.previousHash = this.headPointer.getBlockData().getHash();
 	}
 	
-	private static <T> void printLedger(Block<T> blockChain, final String currentHeadHash)
+	public void printLedger()
 	{
 		System.out.println();
 		
-		for(; blockChain != null; blockChain = blockChain.getPreviousBlock())
+		for(Block<T> blockItr = this.headPointer; blockItr != null; blockItr = blockItr.getPreviousBlock())
 		{
-			System.out.println(blockChain.getBlock());
+			System.out.println(blockItr.getBlockData());
 		}
-		
-		System.out.println("\ncurrent head hash::" + currentHeadHash);
+
+		System.out.println("\ncurrent head hash::" + this.previousHash);
 	}
 	
 	private static final class Block<T>
 	{
-		private final T node;
+		private final BlockData<T> node;
 		
 		private final Block<T> previousBlock;
 		
-		Block(final T node, final Block<T> previousBlock)
+		Block(final BlockData<T> node, final Block<T> previousBlock)
 		{
 			this.node = node;
 			this.previousBlock = previousBlock;
 		}
 		
-		T getBlock()
+		BlockData<T> getBlockData()
 		{
 			return this.node;
 		}

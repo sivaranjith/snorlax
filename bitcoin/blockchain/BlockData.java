@@ -2,7 +2,7 @@ package blockchain;
 
 import java.security.MessageDigest;
 
-public class BlockData<T>
+final class BlockData<T>
 {
 	private final T data;
 	private final String hash, preHash;
