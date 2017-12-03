@@ -29,7 +29,7 @@ public final class BlockChain<T>
 		
 		private final Block<T> previousNode;
 		
-		Block(final BlockData<T> node, final Block<T> previousBlock)
+		Block(final BlockData<T> node, final Block<T> previousNode)
 		{
 			this.node = node;
 			this.previousNode = previousNode;
