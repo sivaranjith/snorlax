@@ -1,4 +1,6 @@
-class Solution041:
+from controller_abc import ControllerABC
+
+class Solution041(ControllerABC):
 
 	def __init__(self):
 		self.correct_passpharse_count = 0

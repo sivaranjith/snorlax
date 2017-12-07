@@ -1,4 +1,6 @@
-class Solution051:
+from controller_abc import ControllerABC
+
+class Solution051(ControllerABC):
 
 	def __init__(self):
 		self.jump_offset_list = []

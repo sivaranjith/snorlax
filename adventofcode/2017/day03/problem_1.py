@@ -1,6 +1,7 @@
 import math
+from controller_abc import ControllerABC
 
-class Solution031:
+class Solution031(ControllerABC):
 	def line_reader(self, line):
 		self.data = int(line)
 

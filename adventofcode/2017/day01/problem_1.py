@@ -1,4 +1,6 @@
-class Solution011:
+from controller_abc import ControllerABC
+
+class Solution011(ControllerABC):
 
   def line_reader(self, line):
     self.line = line

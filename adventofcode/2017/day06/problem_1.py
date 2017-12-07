@@ -1,4 +1,6 @@
-class Solution061:
+from controller_abc import ControllerABC
+
+class Solution061(ControllerABC):
 
 	def line_reader(self, line):
 		self.block_list = [int(val) for val in line.split()]

@@ -1,4 +1,6 @@
-class Solution021:
+from controller_abc import ControllerABC
+
+class Solution021(ControllerABC):
 
 	def __init__(self):
 		self.check_sum = 0
