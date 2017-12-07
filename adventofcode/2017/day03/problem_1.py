@@ -34,4 +34,4 @@ class Solution031:
 			#since the value range from min_step to 2*min_step. finding the exact value
 			steps = min_step + abs(mid - self.data)
 
-		print(steps)
+		return steps

@@ -5,4 +5,4 @@ def read_file(file_name, input_parsing_function, processing_fn):
     for line in fp:
       input_parsing_function(line)
 
-  processing_fn()
+  print(processing_fn())

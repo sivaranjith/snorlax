@@ -11,4 +11,4 @@ class Solution021:
 		return max(ele_list) - min(ele_list)
 
 	def process_data(self):
-		print(self.check_sum)
+		return self.check_sum

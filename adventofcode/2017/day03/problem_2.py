@@ -6,10 +6,9 @@ class Solution032(Solution031):
 		#value must be an odd number
 		for matrix_size in range(1, 101, 2):
 			if self.finding_matrix(matrix_size):
-				print(self.starting_coordinate_x, self.starting_coordinate_y, self.matrix[self.starting_coordinate_x][self.starting_coordinate_y])
 				break
 
-		print("program completed in matrix_size::" + str(matrix_size))
+		return self.matrix[self.starting_coordinate_x][self.starting_coordinate_y]
 
 	def finding_matrix(self, matrix_size):
 		self.starting_coordinate_x = matrix_size//2

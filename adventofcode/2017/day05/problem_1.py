@@ -20,7 +20,7 @@ class Solution051:
 			if index < 0 or index >= offset_list_len:
 				break
 
-		print(step_count)
+		return step_count
 
 	def offset_modifier(self, index):
 		self.jump_offset_list[index] += 1

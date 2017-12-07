@@ -7,7 +7,7 @@ class Solution011:
     self.total = 0
     for index in reversed(range(len(self.line))):
       self.total += self.condition_checker(index)
-    print(self.total)
+    return self.total
 
   def condition_checker(self, index):
     return 0 if self.line[index] != self.line[index-1] else int(self.line[index])

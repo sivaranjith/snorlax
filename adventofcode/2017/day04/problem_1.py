@@ -14,7 +14,7 @@ class Solution041:
 		self.correct_passpharse_count += 1
 
 	def process_data(self):
-		print(self.correct_passpharse_count)
+		return self.correct_passpharse_count
 
 	def is_valid_phassparse(self, set_container, token):
 		return not token in set_container
