@@ -12,7 +12,7 @@ if __name__ == '__main__':
     sys.path.append(day_path)
 
     #importing the required module from the particular day and then creating object for the required class
-    day_module = importlib.import_module('day' + day + '.problem_' + problem_no)
+    day_module = importlib.import_module('day' + day + '.problem_' + day + '_' + problem_no)
     solution_object = getattr(day_module, 'Solution' + day + problem_no)()
 
     file_utils.read_file(day_path + 'data.txt', solution_object.line_reader, solution_object.process_data)

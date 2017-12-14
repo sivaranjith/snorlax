@@ -1,4 +1,4 @@
-from problem_1 import Solution041
+from problem_04_1 import Solution041
 
 class Solution042(Solution041):
 
