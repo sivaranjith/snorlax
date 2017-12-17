@@ -16,7 +16,10 @@ class Solution151(ControllerABC):
 		self.generator_value[line_split[1]] = int(line_split[4])
 
 	def process_data(self):
-		for i in range(0,Solution151.NO_OF_PAIRS):
+		return self.generate_pairs(Solution151.NO_OF_PAIRS)
+
+	def generate_pairs(self, no_of_pairs):
+		for i in range(0, no_of_pairs):
 			if self.compute_next('A') & Solution151.BASE_VAL == self.compute_next('B') & Solution151.BASE_VAL:
 				self.valid_pair_count += 1
 		return self.valid_pair_count
