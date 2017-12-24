@@ -42,7 +42,7 @@ class Solution211(ControllerABC):
 		self.current_matrix = new_matrix
 
 	def find_in_hash(self, current_matrix, start_x, start_y, mod_val):
-		flips = [Solution211.identity, np.fliplr, np.flipud, np.flipud]
+		flips = [Solution211.identity, np.fliplr]
 		for flip in flips:
 			cur = Solution211.matrix_to_str(flip(current_matrix), start_x, start_y, mod_val)
 			if cur in self.hashmap:
