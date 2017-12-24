@@ -6,9 +6,10 @@ class Solution203(Solution201):
 	def process_data(self):
 		black_list = {}
 		for first_particle in range(0, len(self.particle_list)):
-			if not first_particle in black_list:
+			# if not first_particle in black_list:
 				for second_particle in range(first_particle + 1, len(self.particle_list)):
-					if not second_particle in black_list and self.can_particle_collide(first_particle, second_particle):
+					# not second_particle in black_list and 
+					if self.can_particle_collide(first_particle, second_particle):
 						# if self.position(self.time, first_particle) == self.position(self.time, second_particle):
 							# print(first_particle, second_particle)
 						if not self.time in black_list:
