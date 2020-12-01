@@ -3,3 +3,4 @@ todo
 input*
 learnt
 *.pyc
+exercism/**
