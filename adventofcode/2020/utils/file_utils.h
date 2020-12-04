@@ -5,7 +5,7 @@
 namespace FileUtils
 {
     template <typename R>
-    std::vector<R> fileReader(const std::string filePath, R parserFunction(std::string))
+    std::vector<R> fileReader(const std::string filePath, R parserFunction(std::string&))
     {
         std::ifstream inFileStream(filePath);
         std::string line;

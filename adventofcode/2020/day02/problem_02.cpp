@@ -14,7 +14,7 @@ namespace Problem021
             std::string password;
     };
 
-    Password parserFunction(std::string line)
+    Password parserFunction(std::string &line)
     {
         Password passwd;
 

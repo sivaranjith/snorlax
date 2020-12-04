@@ -7,7 +7,7 @@ namespace Problem011
     const int FINAL_VAL = 2020;
     const std::string fileName = "input.txt";
 
-    int inputParser(std::string line)
+    int inputParser(std::string &line)
     {
         return std::stoi(line);
     }
