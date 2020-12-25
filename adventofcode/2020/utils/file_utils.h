@@ -1,11 +1,15 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <functional>
 
 namespace FileUtils
 {
-    template <typename R>
-    std::vector<R> fileReader(const std::string filePath, R parserFunction(std::string&))
+    /*
+     * T must be of type std::function<R(std::string&)>
+     */
+    template <typename R, typename T>
+    std::vector<R> fileReader(const std::string filePath, T parserFunction)
     {
         std::ifstream inFileStream(filePath);
         std::string line;
@@ -16,6 +20,6 @@ namespace FileUtils
             inputList.push_back(parserFunction(line));
         }
 
-        return std::move(inputList);
+        return inputList;
     }
 } // namespace FileUtils

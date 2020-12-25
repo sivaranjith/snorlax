@@ -1,5 +1,6 @@
 #include "../utils/file_utils.h"
 #include<iostream>
+#include <string>
 
 namespace Problem031
 {
@@ -26,7 +27,7 @@ namespace Problem031
 
     void solve()
     {
-        std::vector<std::string> inputLines = FileUtils::fileReader(fileName, parserFunction);
+        std::vector<std::string> inputLines = FileUtils::fileReader<std::string>(fileName, parserFunction);
         int count = countTree(inputLines, 1, 3);
         std::cout << "count:: " << count << std::endl;
     }
@@ -47,7 +48,7 @@ namespace Problem032
 
     void solve()
     {
-        std::vector<std::string> inputLines = FileUtils::fileReader(Problem031::fileName, Problem031::parserFunction);
+        std::vector<std::string> inputLines = FileUtils::fileReader<std::string>(Problem031::fileName, Problem031::parserFunction);
         long product = compute(inputLines);
         std::cout << "product:: " << product << std::endl;
     }

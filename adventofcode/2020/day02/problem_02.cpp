@@ -63,7 +63,7 @@ namespace Problem021
 
     void solve()
     {
-        std::vector<Password> inputLines = FileUtils::fileReader(fileName, parserFunction);
+        std::vector<Password> inputLines = FileUtils::fileReader<Password>(fileName, parserFunction);
         validatePassword(inputLines);
     }
 }
@@ -87,7 +87,7 @@ namespace Problem022
 
     void solve()
     {
-        std::vector<Problem021::Password> inputLines = FileUtils::fileReader(Problem021::fileName, Problem021::parserFunction);
+        std::vector<Problem021::Password> inputLines = FileUtils::fileReader<Problem021::Password>(Problem021::fileName, Problem021::parserFunction);
         testPassword(inputLines);
     }
 }

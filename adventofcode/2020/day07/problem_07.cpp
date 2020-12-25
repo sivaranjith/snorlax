@@ -105,7 +105,7 @@ namespace Problem071
 
     void solve()
     {
-        std::vector<std::string> lines = FileUtils::fileReader(fileName, dumyParse);
+        std::vector<std::string> lines = FileUtils::fileReader<std::string>(fileName, dumyParse);
 
         std::map<std::string, std::set<std::string>> adjacent_list;
         for(std::string line : lines)
@@ -200,7 +200,7 @@ namespace Problem072
 
     void solve()
     {
-        std::vector<std::string> lines = FileUtils::fileReader(Problem071::fileName, Problem071::dumyParse);
+        std::vector<std::string> lines = FileUtils::fileReader<std::string>(Problem071::fileName, Problem071::dumyParse);
 
         std::map<std::string, std::map<std::string, int>> adjacent_list;
         for(std::string line : lines)

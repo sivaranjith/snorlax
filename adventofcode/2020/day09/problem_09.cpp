@@ -42,7 +42,7 @@ namespace Problem091
 
     void solve()
     {
-        std::vector<long> inputList = FileUtils::fileReader(fileName, parseInput);
+        std::vector<long> inputList = FileUtils::fileReader<long>(fileName, parseInput);
         std::set<long> inputBucket(inputList.begin(), inputList.begin() + preambleLength);
         std::cout << findFirstNonMatchingNumber(inputList, inputBucket).second << std::endl;
     }
@@ -96,7 +96,7 @@ namespace Problem092
 
     void solve()
     {
-        std::vector<long> inputList = FileUtils::fileReader(Problem091::fileName, Problem091::parseInput);
+        std::vector<long> inputList = FileUtils::fileReader<long>(Problem091::fileName, Problem091::parseInput);
         std::set<long> inputBucket(inputList.begin(), inputList.begin() + Problem091::preambleLength);
         std::pair<int, long> result = Problem091::findFirstNonMatchingNumber(inputList, inputBucket);
 

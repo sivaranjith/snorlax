@@ -46,7 +46,7 @@ namespace Problem081
 
     void solve()
     {
-        std::vector<Instruction> instructionList = FileUtils::fileReader(fileName, parseInput);
+        std::vector<Instruction> instructionList = FileUtils::fileReader<Instruction>(fileName, parseInput);
         std::cout << getAccValAtLoopStart(instructionList) << std::endl;
     }
 }
@@ -116,7 +116,7 @@ namespace Problem082
 
     void solve()
     {
-        std::vector<Problem081::Instruction> instructionList = FileUtils::fileReader(Problem081::fileName, Problem081::parseInput);
+        std::vector<Problem081::Instruction> instructionList = FileUtils::fileReader<Problem081::Instruction>(Problem081::fileName, Problem081::parseInput);
         std::pair<int, int> changeableIndexies = getChangeableIndexies(instructionList);
         std::cout << changeableIndexies.second << std::endl;
     }

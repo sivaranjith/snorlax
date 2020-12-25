@@ -17,7 +17,7 @@ namespace Problem011
 
     void solve()
     {
-        std::vector<int> inputList = FileUtils::fileReader(fileName, inputParser);
+        std::vector<int> inputList = FileUtils::fileReader<int>(fileName, inputParser);
 
         // sorting the inputList
         std::sort(inputList.begin(), inputList.end());
@@ -67,7 +67,7 @@ namespace Problem012
 
     void solve()
     {
-        std::vector<int> inputList = FileUtils::fileReader(Problem011::fileName, Problem011::inputParser);
+        std::vector<int> inputList = FileUtils::fileReader<int>(Problem011::fileName, Problem011::inputParser);
 
         // sorting the inputList
         std::sort(inputList.begin(), inputList.end());

@@ -45,7 +45,7 @@ namespace Problem051
 
     void solve()
     {
-        std::vector<Seat> inputList = FileUtils::fileReader(fileName, parserFunction);
+        std::vector<Seat> inputList = FileUtils::fileReader<Problem051::Seat>(fileName, parserFunction);
         auto largestPtr = std::max_element(inputList.begin(), inputList.end());
         std::cout << largestPtr->getSeatId() << std::endl;
     }
@@ -56,7 +56,7 @@ namespace Problem052
 
     void solve()
     {
-        std::vector<Problem051::Seat> inputList = FileUtils::fileReader(Problem051::fileName, Problem051::parserFunction);
+        std::vector<Problem051::Seat> inputList = FileUtils::fileReader<Problem051::Seat>(Problem051::fileName, Problem051::parserFunction);
         std::sort(inputList.begin(), inputList.end());
         for(int index = 0; index < inputList.size() - 1; ++index)
         {

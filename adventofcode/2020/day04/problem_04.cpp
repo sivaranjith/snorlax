@@ -41,7 +41,7 @@ namespace Problem041
 
     void solve()
     {
-        std::vector<std::string> inputLines = FileUtils::fileReader(fileName, parserFunction);
+        std::vector<std::string> inputLines = FileUtils::fileReader<std::string>(fileName, parserFunction);
         int count = countValidPassPort(inputLines);
         std::cout << count << std::endl;
     }
@@ -128,7 +128,7 @@ namespace Problem042
 
     void solve()
     {
-        std::vector<std::string> inputLines = FileUtils::fileReader(Problem041::fileName, Problem041::parserFunction);
+        std::vector<std::string> inputLines = FileUtils::fileReader<std::string>(Problem041::fileName, Problem041::parserFunction);
         int count = Problem041::countValidPassPort(inputLines, isValidPassPort);
         std::cout << count << std::endl;
     }

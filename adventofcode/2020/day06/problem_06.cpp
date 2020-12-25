@@ -57,7 +57,7 @@ namespace Problem061
 
     void solve()
     {
-        std::vector<std::string> inputLines = FileUtils::fileReader(fileName, parserFunction);
+        std::vector<std::string> inputLines = FileUtils::fileReader<std::string>(fileName, parserFunction);
         std::vector<Form> parsedInputLines = parseInput(inputLines);
         int totalCount = std::accumulate(parsedInputLines.begin(), parsedInputLines.end(), 0, summer);
         std::cout << totalCount << std::endl;
@@ -112,7 +112,7 @@ namespace Problem062
 
     void solve()
     {
-        std::vector<std::string> inputLines = FileUtils::fileReader(Problem061::fileName, Problem061::parserFunction);
+        std::vector<std::string> inputLines = FileUtils::fileReader<std::string>(Problem061::fileName, Problem061::parserFunction);
         std::vector<Problem061::Form> parsedInputLines = parseInput(inputLines);
         int totalCount = std::accumulate(parsedInputLines.begin(), parsedInputLines.end(), 0, Problem061::summer);
         std::cout << totalCount << std::endl;

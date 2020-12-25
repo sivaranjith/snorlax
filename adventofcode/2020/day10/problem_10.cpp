@@ -30,7 +30,7 @@ namespace Problem101
 
     std::vector<int> getInputVals()
     {
-        std::vector<int> inputList = FileUtils::fileReader(fileName, parseInput);
+        std::vector<int> inputList = FileUtils::fileReader<int>(fileName, parseInput);
         inputList.push_back(0);
         std::sort(inputList.begin(), inputList.end());
         inputList.push_back(inputList[inputList.size() - 1] + 3);
